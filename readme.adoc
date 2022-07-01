@@ -1,6 +1,9 @@
 = Primitive Deque Types
 :srcDir: src/main/kotlin/io/foxcapades/lib/pdk
 
+image:https://img.shields.io/github/license/Foxcapades/pdk[]
+image:https://img.shields.io/badge/jdk-1.8-blue[]
+
 Simple library that provides Deque implementations for all Kotlin's primitive
 types that deal in unboxed values.
 
