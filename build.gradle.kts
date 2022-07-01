@@ -53,8 +53,8 @@ publishing {
       name = "Sonatype"
       url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
       credentials {
-        username = project.findProperty("nexus.user") as String
-        password = project.findProperty("nexus.pass") as String
+        username = project.findProperty("nexus.user") as String? ?: System.getenv("NEXUS_USER")
+        password = project.findProperty("nexus.pass") as String? ?: System.getenv("NEXUS_PASS")
       }
     }
   }
