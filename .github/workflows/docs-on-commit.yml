@@ -21,7 +21,7 @@ jobs:
         java-version: '8'
 
     - name: Generate Docs
-      run: ./gradlew docs
+      run: ./gradlew dokkaHtml
       env:
         GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
