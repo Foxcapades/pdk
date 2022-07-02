@@ -730,6 +730,18 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
     return false
   }
 
+  /**
+   * Combines the content of this deque with the given other deque to create a
+   * new deque instance with the concatenated content of both original deques.
+   *
+   * Does not modify the state of either input deque.
+   *
+   * @param rhs Deque whose contents will be concatenated with the contents of
+   * this deque to create a new deque instance.
+   *
+   * @return A new deque instance containing the concatenated contents of this
+   * deque and the given input deque.
+   */
   operator fun plus(rhs: IntDeque): IntDeque {
     val buf = IntArray(size + rhs.size)
 
