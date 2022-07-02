@@ -3,6 +3,7 @@
 
 image:https://img.shields.io/github/license/Foxcapades/pdk[]
 image:https://img.shields.io/badge/jdk-1.8-blue[]
+image:https://img.shields.io/badge/docs-dokka-darkgreen[link="https://foxcapades.github.io/pdk/dokka/"]
 
 Simple library that provides Deque implementations for all Kotlin's primitive
 types that deal in unboxed values.
