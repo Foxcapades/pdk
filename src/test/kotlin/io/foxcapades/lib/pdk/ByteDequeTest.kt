@@ -231,10 +231,11 @@ internal class ByteDequeTest {
     @Test
     fun t1() {
       val t1 = ByteDeque("hello".toByteArray())
-      val t2 = ByteDeque("world".toByteArray())
-      val t3 = t1 + t2
+      val t2 = ByteDeque(" ".toByteArray())
+      val t3 = ByteDeque("world".toByteArray())
+      val t4 = t1 + t2 + t3
 
-      assertEquals("helloworld", String(t3.toArray()))
+      assertEquals("hello world", String(t4.toArray()))
     }
   }
 }

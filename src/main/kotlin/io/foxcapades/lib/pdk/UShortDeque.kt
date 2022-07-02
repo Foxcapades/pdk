@@ -135,7 +135,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
       internalIndex(rem - 1)
 
     // If the desired data is in a straight line (unbroken)
-    if (realHead < realTail) {
+    if (realHead <= realTail) {
       // then we can straight copy and be done
       data.copyInto(array, offset, realHead, realTail+1)
       return
