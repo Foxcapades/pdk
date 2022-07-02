@@ -9,6 +9,16 @@ image:https://img.shields.io/maven-central/v/io.foxcapades.lib/pdk[Maven Central
 Simple library that provides Deque implementations for all Kotlin's primitive
 types that deal in unboxed values.
 
+== Usage
+
+.`*build.gradle.kts*`
+[source, kotlin]
+----
+dependencies {
+  implementation("io.foxcapades.lib:pdk:1.0.0")
+}
+----
+
 == Provided Types
 
 * link:{srcDir}/BooleanDeque.kt[`BooleanDeque`]
