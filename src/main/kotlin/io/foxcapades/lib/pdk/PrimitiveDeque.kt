@@ -63,6 +63,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
 
   /**
    * Index of the last element in this deque
+   *
+   * If this deque is empty, this value will be -1.
    */
   inline val lastIndex: Int
     get() = size - 1
@@ -129,8 +131,11 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * [size] values will be copied into the given array.
    *
    * @param array Array into which values should be copied from this deque.
+   *
+   * @param offset Offset in the input array at which values should start to be
+   * copied.
    */
-  abstract fun copyInto(array: A)
+  abstract fun copyInto(array: A, offset: Int = 0)
 
   // region Internals
 

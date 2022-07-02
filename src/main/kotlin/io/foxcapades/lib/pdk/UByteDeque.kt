@@ -9,18 +9,30 @@ package io.foxcapades.lib.pdk
  * @since v1.0.0
  */
 @Suppress("NOTHING_TO_INLINE")
+@OptIn(ExperimentalUnsignedTypes::class)
 class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   private var data: UByteArray
 
   // region Constructors
 
+  /**
+   * Constructs a new, empty [UByteDeque] instance.
+   *
+   * @param capacity Initial capacity to create this deque with.
+   */
   constructor(capacity: Int = 0) {
     this.data = UByteArray(capacity)
   }
 
+  /**
+   * Constructs a new [UByteDeque] instance copying the given values.
+   *
+   * @param data Array of values to copy into the new deque.
+   */
   constructor(data: UByteArray) {
     this.data = data.copyOf()
+    this.size = data.size
   }
 
   // endregion Constructors
@@ -43,7 +55,6 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
   override fun copy(): UByteDeque {
     val nb = UByteDeque(data)
     nb.realHead = realHead
-    nb.size = size
     return nb
   }
 
@@ -94,27 +105,39 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     return toArray().asList()
   }
 
-  override fun copyInto(array: UByteArray) {
-    if (array.isEmpty() || this.isEmpty)
+  override fun copyInto(array: UByteArray, offset: Int) {
+    // If the input array is empty, return because we can't put anything into
+    // an empty array.
+    //
+    // If this deque is empty, return because we have nothing to put into the
+    // given array.
+    //
+    // If the offset is greater than or equal to the given array size, then
+    // there is no room into which we can copy anything.
+    if (array.isEmpty() || this.isEmpty || offset >= array.size)
       return
+
+    // How much room we actually have to work with in the input array.
+    val rem = array.size - offset
 
     // Figure out the actual position of the last desired element.
     //
-    // If the array we are filling is larger than the number of values we
-    // actually have, then the last value will be [lastIndex] (size - 1).
+    // If the amount of room we have to fill in the given array is larger than
+    // the number of values we actually have, then the last value will be
+    // tail of this deque.
     //
-    // If the array we are filling is smaller than the number of values we
-    // actually have, then the last value will be [other.lastIndex]
-    // (other.size - 1).
-    val realTail = if (array.size > size)
+    // If the amount of room we have to fill in the given array is smaller than
+    // the number of values we actually have, then the last value will be the
+    // value at position `rem - 1`.
+    val realTail = if (rem > size)
       internalIndex(lastIndex)
     else
-      internalIndex(array.lastIndex)
+      internalIndex(rem - 1)
 
     // If the desired data is in a straight line (unbroken)
     if (realHead < realTail) {
       // then we can straight copy and be done
-      System.arraycopy(data, realHead, array, 0, if (array.size > size) size else array.size)
+      data.copyInto(array, offset, realHead, realTail+1)
       return
     }
 
@@ -126,18 +149,14 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     // on the front end of the data array.
     val trailers = realTail + 1
 
-    // Number of values that we have remaining which we need to copy after we
-    // have copied the leader values
-    val remainder = array.size - leaders
-
     // Copy the front of the deque from the back of our array to the front of
     // theirs.
-    System.arraycopy(data, realHead, array, 0, leaders)
+    data.copyInto(array, offset, realHead, realHead + leaders)
 
     // Copy at most [trailers] values into their array.  If their array is not
     // long enough to hold [trailers] values, then [remainder] values will be
     // copied in instead.
-    System.arraycopy(data, 0, array, leaders, if (remainder > trailers) trailers else remainder)
+    data.copyInto(array, offset + leaders, 0, trailers)
   }
 
   // endregion Abstract Implementation
@@ -683,6 +702,30 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
    */
   operator fun get(index: Int) = data[internalIndex(validExtInd(index))]
 
+  /**
+   * Pushes the given value onto the back of this deque.
+   *
+   * If the capacity of this deque was equal to its size at the time of this
+   * method call, the internal container will be resized to accommodate the new
+   * value.
+   *
+   * Alias of [pushTail]
+   *
+   * @param value Value that will be pushed onto the back of this deque.
+   */
+  inline operator fun plusAssign(value: UByte) = pushTail(value)
+
+  /**
+   * Tests whether this deque contains the given value.
+   */
+  operator fun contains(value: UByte): Boolean {
+    for (v in data)
+      if (v == value)
+        return true
+
+    return false
+  }
+
   // endregion Positionless
 
   // endregion Public API
@@ -693,5 +736,10 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     data.copyInto(new, data.size - realHead, 0, realHead)
     realHead = 0
     data = new
+  }
+
+  companion object {
+    @JvmStatic
+    fun of(vararg values: UByte) = UByteDeque(values)
   }
 }
