@@ -159,6 +159,10 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "DoubleDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is DoubleDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: DoubleDeque): DoubleDeque {
+    val buf = DoubleArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return DoubleDeque(buf)
   }
 
   // endregion Positionless

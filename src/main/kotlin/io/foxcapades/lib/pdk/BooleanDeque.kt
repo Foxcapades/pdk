@@ -159,6 +159,10 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "BooleanDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is BooleanDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: BooleanDeque): BooleanDeque {
+    val buf = BooleanArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return BooleanDeque(buf)
   }
 
   // endregion Positionless

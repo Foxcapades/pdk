@@ -159,6 +159,10 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "UShortDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is UShortDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: UShortDeque): UShortDeque {
+    val buf = UShortArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return UShortDeque(buf)
   }
 
   // endregion Positionless

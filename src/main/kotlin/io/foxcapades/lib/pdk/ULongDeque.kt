@@ -159,6 +159,10 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "ULongDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is ULongDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: ULongDeque): ULongDeque {
+    val buf = ULongArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return ULongDeque(buf)
   }
 
   // endregion Positionless

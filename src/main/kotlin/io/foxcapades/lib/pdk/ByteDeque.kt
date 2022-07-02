@@ -159,6 +159,10 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "ByteDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is ByteDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: ByteDeque): ByteDeque {
+    val buf = ByteArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return ByteDeque(buf)
   }
 
   // endregion Positionless

@@ -223,4 +223,18 @@ internal class ByteDequeTest {
   @Nested
   @DisplayName("pushFront")
   inner class PushFront
+
+  @Nested
+  @DisplayName("plus")
+  inner class Plus {
+
+    @Test
+    fun t1() {
+      val t1 = ByteDeque("hello".toByteArray())
+      val t2 = ByteDeque("world".toByteArray())
+      val t3 = t1 + t2
+
+      assertEquals("helloworld", String(t3.toArray()))
+    }
+  }
 }

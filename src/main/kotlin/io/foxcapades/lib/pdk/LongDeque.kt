@@ -159,6 +159,10 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "LongDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is LongDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: LongDeque): LongDeque {
+    val buf = LongArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return LongDeque(buf)
   }
 
   // endregion Positionless

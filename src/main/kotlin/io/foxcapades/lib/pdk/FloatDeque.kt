@@ -159,6 +159,10 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "FloatDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is FloatDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: FloatDeque): FloatDeque {
+    val buf = FloatArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return FloatDeque(buf)
   }
 
   // endregion Positionless

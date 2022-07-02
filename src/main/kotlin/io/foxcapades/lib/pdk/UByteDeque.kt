@@ -159,6 +159,10 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "UByteDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is UByteDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: UByteDeque): UByteDeque {
+    val buf = UByteArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return UByteDeque(buf)
   }
 
   // endregion Positionless

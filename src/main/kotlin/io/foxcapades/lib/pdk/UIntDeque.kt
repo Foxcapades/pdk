@@ -159,6 +159,10 @@ class UIntDeque : PrimitiveDeque<UInt, UIntArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "UIntDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is UIntDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class UIntDeque : PrimitiveDeque<UInt, UIntArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: UIntDeque): UIntDeque {
+    val buf = UIntArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return UIntDeque(buf)
   }
 
   // endregion Positionless

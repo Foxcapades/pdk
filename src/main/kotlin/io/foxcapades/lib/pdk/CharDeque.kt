@@ -159,6 +159,10 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "CharDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is CharDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: CharDeque): CharDeque {
+    val buf = CharArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return CharDeque(buf)
   }
 
   // endregion Positionless

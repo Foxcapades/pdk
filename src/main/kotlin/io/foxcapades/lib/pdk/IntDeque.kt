@@ -159,6 +159,10 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun toString() = "IntDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is IntDeque) data.contentEquals(other.data) else false
+
   // endregion Abstract Implementation
 
   // region Front
@@ -724,6 +728,15 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
         return true
 
     return false
+  }
+
+  operator fun plus(rhs: IntDeque): IntDeque {
+    val buf = IntArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return IntDeque(buf)
   }
 
   // endregion Positionless
