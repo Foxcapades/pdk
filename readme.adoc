@@ -43,26 +43,18 @@ The following functions are provided as mixins that may be used along with the
 
 ==== `ByteDeque`
 
-`popShort( littleEndian = false )`::
-Pops the first 2 bytes from the head of the deque as a `Short` value.  The
-value is parsed as Big Endian unless the argument `littleEndian` is set to
-`true`.
-+
-The deque will be reduced in size by 2 bytes by this function.
+[cols="1m"]
+|===
+| Function
 
-`popInt( littleEndian = false )`::
-Pops the first 4 bytes from the head of the deque as an `Int` value.  The
-value is parsed as Big Endian unless the argument `littleEndian` is set to
-`true`.
-+
-The deque will be reduced in size by 4 bytes by this function.
-
-`popLong( littleEndian = false )`::
-Pops the first 8 bytes from the head of the deque as a `Long` value.  The
-value is parsed as Big Endian unless the argument `littleEndian` is set to
-`true`.
-+
-The deque will be reduced in size by 8 bytes by this function.
+| popShort( littleEndian = false ): Short
+| popInt( littleEndian = false ): Int
+| popLong( littleEndian = false ): Long
+| popUByte(): UByte
+| popUShort( littleEndian = false ): UShort
+| popUInt( littleEndian = false ): UInt
+| popULong( littleEndian = false ): ULong
+|===
 
 == Provided Types
 
