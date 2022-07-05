@@ -42,24 +42,16 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     this.size = data.size
   }
 
-
   // endregion Constructors
 
-
-  // region Public API
-
-
-  // region Abstract Implementation
-
-
-  // endregion Abstract Implementation
-
-
   // region Front
-
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods specifically relating to or operating on the head end of the
+  //  deque.
+  //
 
   // region Get Head
-
 
   /**
    * The first element in this deque.
@@ -116,9 +108,7 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // endregion Get Head
 
-
   // region Pop
-
 
   /**
    * Removes the first element from this deque and returns it.
@@ -175,9 +165,7 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // endregion Pop
 
-
   // region Remove
-
 
   /**
    * Removes the first element of this deque.
@@ -275,9 +263,7 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // endregion Remove
 
-
   // region Push
-
 
   /**
    * Pushes the given value onto the front of this deque.
@@ -334,18 +320,20 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
    */
   inline fun pushFront(value: UByte) = push(value)
 
-
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Push
 
-
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Front
 
-
   // region Back
-
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods specifically relating to or operating on the tail end of the
+  //  deque.
+  //
 
   // region Get Tail
-
 
   /**
    * The last element in this deque.
@@ -444,9 +432,7 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // endregion Pop
 
-
   // region Remove
-
 
   /**
    * Removes the last element of this deque.
@@ -544,13 +530,11 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
   //////////////////////////////////////////////////////////////////////////////
   // endregion Remove
 
-
   // region Push
   //////////////////////////////////////////////////////////////////////////////
   //
   //  Methods for pushing elements onto the tail end of the deque
   //
-
 
   // region Push Single Value
   //////////////////////////////////////////////////////////////////////////////
@@ -615,7 +599,6 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // endregion Push Single Value
 
-
   // region Push Multiple Values
   //////////////////////////////////////////////////////////////////////////////
   //
@@ -663,13 +646,11 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
   //////////////////////////////////////////////////////////////////////////////
   // endregion Back
 
-
   // region Positionless
   //////////////////////////////////////////////////////////////////////////////
   //
   //  Methods that are not particularly related to either end of the deque.
   //
-
 
   /**
    * Sets the value at the given index in this deque.
@@ -848,10 +829,6 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
   override fun equals(other: Any?) = if (other is UByteDeque) data.contentEquals(other.data) else false
 
   // endregion Positionless
-
-
-  // endregion Public API
-
 
   /**
    * Copies the data currently in the backing buffer into a new buffer of size
