@@ -16,7 +16,7 @@ clone-deques:
 
 gen-tag-docs:
 	@# Require that we are on the tag revision
-	@git describe --tags --exact-match
+	@git describe --tags --exact-match || (echo "\n\nMust be on a tag to run this make target.\n\n"; exit 1)
 
 	@# Generate the docs
 	@gradle dokkaHtml
