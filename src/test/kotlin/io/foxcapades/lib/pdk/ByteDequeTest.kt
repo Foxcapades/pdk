@@ -238,4 +238,47 @@ internal class ByteDequeTest {
       assertEquals("hello world", String(t4.toArray()))
     }
   }
+
+  @Nested
+  @DisplayName("pushTail(ByteArray)")
+  inner class PushTail2 {
+
+    @Test
+    @DisplayName("when the deque already has the required capacity")
+    fun t1() {
+      // make a deque, presized to fit everything
+      // push stuff onto the front of it to make it out of order
+      // push the byte array
+      val t1 = ByteDeque(100)
+      t1.pushHead('o'.code.toByte())
+      t1.pushHead('l'.code.toByte())
+      t1.pushHead('l'.code.toByte())
+      t1.pushHead('e'.code.toByte())
+      t1.pushHead('h'.code.toByte())
+      t1.pushTail(' '.code.toByte())
+
+      t1.pushTail("world".toByteArray())
+
+      assertEquals("hello world", String(t1.toArray()))
+    }
+
+    @Test
+    @DisplayName("when the deque needst to resize to the required capacity")
+    fun t2() {
+      // make a deque
+      // push stuff onto the front of it to make it out of order
+      // push the byte array
+      val t1 = ByteDeque(6)
+      t1.pushHead('o'.code.toByte())
+      t1.pushHead('l'.code.toByte())
+      t1.pushHead('l'.code.toByte())
+      t1.pushHead('e'.code.toByte())
+      t1.pushHead('h'.code.toByte())
+      t1.pushTail(' '.code.toByte())
+
+      t1.pushTail("world".toByteArray())
+
+      assertEquals("hello world", String(t1.toArray()))
+    }
+  }
 }

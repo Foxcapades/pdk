@@ -60,9 +60,13 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
+      // If they gave us a invalid capacity
       minCapacity < 0          -> throw IllegalArgumentException()
+      // If we already have the desired capacity
       minCapacity <= data.size -> {}
+      // If we previously had a capacity of 0
       data.isEmpty()           -> data = CharArray(minCapacity)
+      // If we need to resize
       else                     -> copyElements(newCap(data.size, minCapacity))
     }
   }
@@ -676,6 +680,70 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
    */
   inline fun pushBack(value: Char) = pushTail(value)
 
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  fun pushTail(values: CharArray) {
+    ensureCapacity(size + values.size)
+
+    val oldTail = internalIndex(size)
+    val newTail = internalIndex(size + values.size)
+
+    // If the new tail is still after the old tail, then we can copy the data in
+    // a single array copy
+    if (oldTail < newTail) {
+      values.copyInto(data, oldTail)
+    }
+
+    // So the new tail is before the old tail in the buffer array, we need to
+    // do 2 array copies: one from the current tail till the end of the buffer
+    // array, the next from the start of the buffer array until the newtail
+    // position
+    else {
+      // Copy from the old tail until the end of the data buffer
+      values.copyInto(data, oldTail, 0, data.size - oldTail)
+      // Copy from the start of the data buffer
+      values.copyInto(data, 0, data.size - oldTail)
+    }
+
+    size += values.size
+  }
+
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  inline fun pushLast(values: CharArray) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  inline fun pushBack(values: CharArray) = pushTail(values)
+
   // endregion Push
 
   // endregion Back
@@ -719,6 +787,8 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
    */
   inline operator fun plusAssign(value: Char) = pushTail(value)
 
+  inline operator fun plusAssign(values: CharArray) = pushTail(values)
+
   /**
    * Tests whether this deque contains the given value.
    */
@@ -755,6 +825,25 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
 
   // endregion Public API
 
+  /**
+   * Copies the data currently in the backing buffer into a new buffer of size
+   * [newCap].
+   *
+   * The new buffer will be inlined, meaning any 'head' data presently at the
+   * tail end of the buffer will be relocated to the beginning of the buffer and
+   * any 'tail' data will be put inline after the head data.
+   *
+   * Example
+   * ```
+   * newCap   = 8
+   * previous = [4, 5, 6, 1, 2, 3]
+   * new      = [1, 2, 3, 4, 5, 6, 0, 0]
+   * ```
+   *
+   * This method does not check to see if the resize is necessary ahead of time
+   * as it is only called when the necessity of a resize has already been
+   * confirmed.
+   */
   private fun copyElements(newCap: Int) {
     val new = CharArray(newCap)
     data.copyInto(new, 0, realHead, data.size)
