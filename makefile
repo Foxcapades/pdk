@@ -24,7 +24,18 @@ gen-tag-docs:
 	@# Switch to the docs branch
 	@git checkout docs
 
-	@ls
+	@# Remove any old versions for this tag?
+	@rm -rf dokka/$(GIT_REV)
+
+	@# Move the generated docs into position
+	@mv build/docs/dokka dokka/$(GIT_REV)
+
+	@# Stop here, we need to manually update the readme and generate a new index
+	@# html file before we can commit and push.
+	@echo "Now perform the following manual tasks:"
+	@echo "  - Update the readme.adoc file with a link the generated docs"
+	@echo "  - run 'make index.html' to regenerate the index file"
+	@echo "  - commit the changes and push up to github"
 
 gen-latest-docs:
 	@gradle dokkaHtml
