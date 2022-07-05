@@ -36,6 +36,20 @@ first element in the deque, has the alias properties `first` and `front`,
 similarly the method `pushHead`, which pushes an element onto the head of the
 deque, has the alias methods `pushFirst` and `pushFront`.
 
+=== Footprint
+
+`pdk` aims to be as lightweight as possible both in terms of memory and compute
+footprint.  All of the `PrimitiveDeque` implementations wrap 3 properties, a
+primitive array of a specified capacity, an `int` value recording the current
+size of the deque, and one more `int` value tracking the internal 'head'
+position in the deque's backing array.
+
+Additionally, in all situations where it is possible, copy operations are
+performed by the JDK's `System.arrayCopy` method.
+
+Presently the only situation where `System.arrayCopy` is not used on copy is
+when copying the contents of a JDK `Collection` into a deque.
+
 == Provided Types
 
 * link:{srcDir}/BooleanDeque.kt[`BooleanDeque`]
