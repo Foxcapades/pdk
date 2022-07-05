@@ -1,6 +1,9 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:io.foxcapades.lib.pdk////PointingToDeclaration/pdk/io.foxcapades.lib.pdk/index.html
+$dokka.location:io.foxcapades.lib.pdk//popInt/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-int.html
+$dokka.location:io.foxcapades.lib.pdk//popLong/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-long.html
+$dokka.location:io.foxcapades.lib.pdk//popShort/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-short.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque.Companion///PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/-companion/index.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque.Companion/of/#kotlin.BooleanArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/-companion/of.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque///PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/index.html
