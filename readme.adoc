@@ -88,10 +88,10 @@ size of the deque, and one more `int` value tracking the internal 'head'
 position in the deque's backing array.
 
 Additionally, in all situations where it is possible, copy operations are
-performed by the JDK's `System.arrayCopy` method.
+performed by the native `arrayCopy` method.
 
-Presently the only situation where `System.arrayCopy` is not used on copy is
-when copying the contents of a JDK `Collection` into a deque.
+Presently the only situation where `arrayCopy` is not used on copy is when
+copying the contents of a `Collection` instance into a deque.
 
 === Dependencies
 
@@ -118,6 +118,6 @@ This contains a singular, abstract base class,
 link:{srcDir}/PrimitiveDeque.kt[`PrimitiveDeque`], that defines what shared
 functionality can be defined without dealing in generics, and thus, primitive
 boxing.  This type _does_ take generic parameters, however those are used
-exclusively to define the JDK interop functions that, sadly, must deal in boxed
-values.  An example of one such method is `iterator()` defined by the generic
-type `Iterable<V>`.
+exclusively to define the stdlib interop functions that, sadly, must deal in
+boxed values.  An example of one such method is `iterator()` defined by the
+generic type `Iterable<V>`.
