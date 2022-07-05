@@ -3,7 +3,7 @@ package io.foxcapades.lib.pdk
 /**
  * # Int Deque
  *
- * A deque type that deals in unboxed values.
+ * A deque type that deals in unboxed Int values.
  *
  * @author Elizabeth Paige Harper - https://github.com/foxcapades
  * @since v1.0.0

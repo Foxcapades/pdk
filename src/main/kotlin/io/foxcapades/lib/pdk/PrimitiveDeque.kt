@@ -49,7 +49,10 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   abstract val size: Int
 
   /**
-   * Allocated max capacity.
+   * Currently allocated capacity.
+   *
+   * Values may be added to this deque until [size] == [cap] before the deque
+   * will reallocate a larger backing buffer.
    *
    * This value will always be greater than or equal to [size].
    */
