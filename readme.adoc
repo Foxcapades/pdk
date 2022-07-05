@@ -93,6 +93,12 @@ performed by the JDK's `System.arrayCopy` method.
 Presently the only situation where `System.arrayCopy` is not used on copy is
 when copying the contents of a JDK `Collection` into a deque.
 
+=== Dependencies
+
+`pdk` only depends on the Kotlin standard library and, apart from unit testing,
+does not contain a single import statement.
+
+
 == Development
 
 As all the types in this library are identical apart for the primitive type they
