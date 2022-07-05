@@ -100,3 +100,45 @@ fun ByteDeque.popLong(littleEndian: Boolean = false): Long =
     ((pop().toLong() and 0xFFL) shl 16) or
     ((pop().toLong() and 0xFFL) shl 8)  or
     (pop().toLong()  and 0xFFL)
+
+fun ByteDeque.popUByte(): UByte = pop().toUByte()
+
+fun ByteDeque.popUShort(littleEndian: Boolean = false): UShort =
+  if (littleEndian)
+    ((pop().toInt() and 0xFF) or
+    ((pop().toInt() and 0xFF) shl 8)).toUShort()
+  else
+    (((pop().toInt() and 0xFF) shl 8) or
+    (pop().toInt() and 0xFF)).toUShort()
+
+fun ByteDeque.popUInt(littleEndian: Boolean = false): UInt =
+  if (littleEndian)
+    (pop().toUInt()  and 0xFFu)         or
+    ((pop().toUInt() and 0xFFu) shl 8)  or
+    ((pop().toUInt() and 0xFFu) shl 16) or
+    ((pop().toUInt() and 0xFFu) shl 24)
+  else
+    ((pop().toUInt() and 0xFFu) shl 24) or
+    ((pop().toUInt() and 0xFFu) shl 16) or
+    ((pop().toUInt() and 0xFFu) shl 8 ) or
+    (pop().toUInt()  and 0xFFu)
+
+fun ByteDeque.popULong(littleEndian: Boolean = false): ULong =
+  if (littleEndian)
+    (pop().toULong()  and 0xFFu)         or
+    ((pop().toULong() and 0xFFu) shl 8)  or
+    ((pop().toULong() and 0xFFu) shl 16) or
+    ((pop().toULong() and 0xFFu) shl 24) or
+    ((pop().toULong() and 0xFFu) shl 32) or
+    ((pop().toULong() and 0xFFu) shl 40) or
+    ((pop().toULong() and 0xFFu) shl 48) or
+    ((pop().toULong() and 0xFFu) shl 56)
+  else
+    ((pop().toULong() and 0xFFu) shl 56) or
+    ((pop().toULong() and 0xFFu) shl 48) or
+    ((pop().toULong() and 0xFFu) shl 40) or
+    ((pop().toULong() and 0xFFu) shl 32) or
+    ((pop().toULong() and 0xFFu) shl 24) or
+    ((pop().toULong() and 0xFFu) shl 16) or
+    ((pop().toULong() and 0xFFu) shl 8)  or
+    (pop().toULong()  and 0xFFu)
