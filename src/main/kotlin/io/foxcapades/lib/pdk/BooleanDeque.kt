@@ -606,6 +606,17 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   //
 
   override fun pushTail(values: BooleanArray) {
+    // If the input array is empty, then we have nothing to do.
+    if (values.isEmpty())
+      return
+
+    // If this deque is empty, we can just copy the input array as our new
+    // backing buffer.
+    if (isEmpty) {
+      data = values.copyOf()
+      return
+    }
+
     ensureCapacity(size + values.size)
 
     val oldTail = internalIndex(size)
@@ -613,20 +624,20 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
     // If the new tail is still after the old tail, then we can copy the data in
     // a single array copy
-    if (oldTail < newTail) {
+    if (oldTail <= newTail) {
       values.copyInto(data, oldTail)
+      return
     }
 
-    // So the new tail is before the old tail in the buffer array, we need to
-    // do 2 array copies: one from the current tail till the end of the buffer
-    // array, the next from the start of the buffer array until the newtail
+    // So the new tail is before the old tail in the buffer array, we need to do
+    // 2 array copies: one from the current tail till the end of the buffer
+    // array, the next from the start of the buffer array until the new tail
     // position
-    else {
-      // Copy from the old tail until the end of the data buffer
-      values.copyInto(data, oldTail, 0, data.size - oldTail)
-      // Copy from the start of the data buffer
-      values.copyInto(data, 0, data.size - oldTail)
-    }
+
+    // Copy from the old tail until the end of the data buffer
+    values.copyInto(data, oldTail, 0, data.size - oldTail)
+    // Copy from the start of the data buffer
+    values.copyInto(data, 0, data.size - oldTail)
 
     size += values.size
   }
