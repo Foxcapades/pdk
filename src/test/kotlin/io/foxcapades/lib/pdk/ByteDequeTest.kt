@@ -243,6 +243,47 @@ internal class ByteDequeTest {
   @DisplayName("pushTail(ByteArray)")
   inner class PushTail2 {
 
+    @Nested
+    @DisplayName("when the deque is empty")
+    inner class Empty {
+
+      @Nested
+      @DisplayName("and the input array is empty")
+      inner class Empty {
+
+        @Test
+        @DisplayName("does nothing")
+        fun t1() {
+          val t = ByteDeque()
+          t.pushTail(ByteArray(0))
+          assertTrue(t.isEmpty)
+        }
+      }
+
+      @Nested
+      @DisplayName("and the input array is not empty")
+      inner class NonEmpty {
+
+        @Test
+        @DisplayName("copies the contents of the input array")
+        fun t1() {
+          val t = ByteDeque()
+          t.pushTail("h".toByteArray())
+          assertArrayEquals("h".toByteArray(), t.toArray())
+        }
+
+      }
+
+    }
+
+    @Nested
+    @DisplayName("when the deque already has the new required capacity")
+    inner class HasCap
+
+    @Nested
+    @DisplayName("when the deque has less than the new required capacity")
+    inner class NeedsCap
+
     @Test
     @DisplayName("when the deque already has the required capacity")
     fun t1() {
@@ -263,7 +304,7 @@ internal class ByteDequeTest {
     }
 
     @Test
-    @DisplayName("when the deque needst to resize to the required capacity")
+    @DisplayName("when the deque needs to resize to the required capacity")
     fun t2() {
       // make a deque
       // push stuff onto the front of it to make it out of order

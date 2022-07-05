@@ -614,30 +614,34 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     // backing buffer.
     if (isEmpty) {
       data = values.copyOf()
+      size = values.size
       return
     }
 
+    // Make sure we have enough room for the contents of the input array.
     ensureCapacity(size + values.size)
 
+    // One past the current last index
     val oldTail = internalIndex(size)
+    // New last index
     val newTail = internalIndex(size + values.size)
 
     // If the new tail is still after the old tail, then we can copy the data in
     // a single array copy
     if (oldTail <= newTail) {
       values.copyInto(data, oldTail)
-      return
+    } else {
+
+      // So the new tail is before the old tail in the buffer array, we need to do
+      // 2 array copies: one from the current tail till the end of the buffer
+      // array, the next from the start of the buffer array until the new tail
+      // position
+
+      // Copy from the old tail until the end of the data buffer
+      values.copyInto(data, oldTail, 0, data.size - oldTail)
+      // Copy from the start of the data buffer
+      values.copyInto(data, 0, data.size - oldTail)
     }
-
-    // So the new tail is before the old tail in the buffer array, we need to do
-    // 2 array copies: one from the current tail till the end of the buffer
-    // array, the next from the start of the buffer array until the new tail
-    // position
-
-    // Copy from the old tail until the end of the data buffer
-    values.copyInto(data, oldTail, 0, data.size - oldTail)
-    // Copy from the start of the data buffer
-    values.copyInto(data, 0, data.size - oldTail)
 
     size += values.size
   }
@@ -762,7 +766,7 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
 
     // If the contents of the deque are in a straight line, we can just copy
     // them out
-    if (realHead < realTail) {
+    if (realHead <= realTail) {
       return data.copyOfRange(realHead, realTail + 1)
     }
 
