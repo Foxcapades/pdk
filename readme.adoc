@@ -20,6 +20,22 @@ dependencies {
 }
 ----
 
+=== Method & Property Aliases
+
+Similar to the JDK's `Queue` type and various implementations, the `*Deque`
+types have multiple aliases for most properties and methods that align with
+different use cases or implementations from different languages.  Each alias is
+an inline method or property allowing library users to choose the specific
+syntax they prefer without any call-stack overhead.  This is particularly useful
+when porting libraries or code from other languages such as C++ into Kotlin.
+
+The head and tail of the deque are named just that, "head", and "tail", however
+they are also accessible via "front", "first", "back", and "last" for most
+properties and methods, for example, the property `head`, which is handle on the
+first element in the deque, has the alias properties `first` and `front`,
+similarly the method `pushHead`, which pushes an element onto the head of the
+deque, has the alias methods `pushFirst` and `pushFront`.
+
 == Provided Types
 
 * link:{srcDir}/BooleanDeque.kt[`BooleanDeque`]

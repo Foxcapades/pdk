@@ -140,7 +140,160 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   abstract fun copyInto(array: A, offset: Int = 0)
 
+  // region Tail End
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods specifically relating to or operating on the tail end of the
+  //  deque.
+  //
+
+  // region Push Array
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods relating to pushing an array of values into the deque.
+  //
+
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  abstract fun pushTail(values: A)
+
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  inline fun pushLast(values: A) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  inline fun pushBack(values: A) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given array onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input array, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Array of values that will be pushed onto the back of this
+   * deque.
+   */
+  inline operator fun plusAssign(values: A) = pushTail(values)
+
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Push Array
+
+  // region Push Collection
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods relating to pushing a JDK collection of values into the deque.
+  //
+
+  /**
+   * Pushes the contents of the given [Collection] onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input `Collection`, the internal container will be resized
+   * to accommodate the new values.
+   *
+   * This method iterates through the input collection to copy the values into
+   * this deque.
+   *
+   * @param values `Collection` of values that will be pushed onto the back of
+   * this deque.
+   */
+  abstract fun pushTail(values: Collection<V>)
+
+  /**
+   * Pushes the contents of the given [Collection] onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input `Collection`, the internal container will be resized
+   * to accommodate the new values.
+   *
+   * This method iterates through the input collection to copy the values into
+   * this deque.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values `Collection` of values that will be pushed onto the back of
+   * this deque.
+   */
+  inline fun pushLast(values: Collection<V>) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given [Collection] onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input `Collection`, the internal container will be resized
+   * to accommodate the new values.
+   *
+   * This method iterates through the input collection to copy the values into
+   * this deque.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values `Collection` of values that will be pushed onto the back of
+   * this deque.
+   */
+  inline fun pushBack(values: Collection<V>) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given [Collection] onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input `Collection`, the internal container will be resized
+   * to accommodate the new values.
+   *
+   * This method iterates through the input collection to copy the values into
+   * this deque.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values `Collection` of values that will be pushed onto the back of
+   * this deque.
+   */
+  inline operator fun plusAssign(values: Collection<V>) = pushTail(values)
+
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Push Collection
+
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Tail End
+
   // region Internals
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods for internal use by implementers fo the PrimitiveDeque abstract
+  // type.
+  //
 
   /**
    * Ensures that the given external index is valid.
@@ -170,5 +323,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Internals
 }

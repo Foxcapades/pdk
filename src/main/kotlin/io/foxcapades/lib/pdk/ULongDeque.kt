@@ -14,7 +14,14 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
 
   private var data: ULongArray
 
+  override var size = 0
+    private set
+
+  override val cap
+    get() = data.size
+
   // region Constructors
+
 
   /**
    * Constructs a new, empty [ULongDeque] instance.
@@ -35,143 +42,24 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     this.size = data.size
   }
 
+
   // endregion Constructors
+
 
   // region Public API
 
+
   // region Abstract Implementation
 
-  override var size = 0
-    private set
-
-  override val cap
-    get() = data.size
-
-  override fun clear() {
-    realHead = 0
-    size = 0
-  }
-
-  override fun copy(): ULongDeque {
-    val nb = ULongDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
-
-  override fun ensureCapacity(minCapacity: Int) {
-    when {
-      // If they gave us a invalid capacity
-      minCapacity < 0          -> throw IllegalArgumentException()
-      // If we already have the desired capacity
-      minCapacity <= data.size -> {}
-      // If we previously had a capacity of 0
-      data.isEmpty()           -> data = ULongArray(minCapacity)
-      // If we need to resize
-      else                     -> copyElements(newCap(data.size, minCapacity))
-    }
-  }
-
-  override fun iterator(): Iterator<ULong> {
-    return object : Iterator<ULong> {
-      var pos = 0
-
-      override fun hasNext(): Boolean {
-        return pos < lastIndex
-      }
-
-      override fun next(): ULong {
-        return get(pos++)
-      }
-    }
-  }
-
-  override fun toArray(): ULongArray {
-    val realTail = internalIndex(lastIndex)
-
-    // If the contents of the deque are in a straight line, we can just copy
-    // them out
-    if (realHead < realTail) {
-      return data.copyOfRange(realHead, realTail + 1)
-    }
-
-    val out = ULongArray(size)
-
-    // Copy the front of the output array out of the back portion of our data
-    data.copyInto(out, 0, realHead, data.size)
-
-    // Copy the back of the output array out of the front portion of our data
-    data.copyInto(out, data.size - realHead, 0, realTail + 1)
-
-    return out
-  }
-
-  override fun toList(): List<ULong> {
-    return toArray().asList()
-  }
-
-  override fun copyInto(array: ULongArray, offset: Int) {
-    // If the input array is empty, return because we can't put anything into
-    // an empty array.
-    //
-    // If this deque is empty, return because we have nothing to put into the
-    // given array.
-    //
-    // If the offset is greater than or equal to the given array size, then
-    // there is no room into which we can copy anything.
-    if (array.isEmpty() || this.isEmpty || offset >= array.size)
-      return
-
-    // How much room we actually have to work with in the input array.
-    val rem = array.size - offset
-
-    // Figure out the actual position of the last desired element.
-    //
-    // If the amount of room we have to fill in the given array is larger than
-    // the number of values we actually have, then the last value will be
-    // tail of this deque.
-    //
-    // If the amount of room we have to fill in the given array is smaller than
-    // the number of values we actually have, then the last value will be the
-    // value at position `rem - 1`.
-    val realTail = if (rem > size)
-      internalIndex(lastIndex)
-    else
-      internalIndex(rem - 1)
-
-    // If the desired data is in a straight line (unbroken)
-    if (realHead <= realTail) {
-      // then we can straight copy and be done
-      data.copyInto(array, offset, realHead, realTail+1)
-      return
-    }
-
-    // Number of values we have starting from the head of the deque that are on
-    // the back end of the data array.
-    val leaders  = data.size - realHead
-
-    // Number of values we have starting from the 'middle' of the deque that are
-    // on the front end of the data array.
-    val trailers = realTail + 1
-
-    // Copy the front of the deque from the back of our array to the front of
-    // theirs.
-    data.copyInto(array, offset, realHead, realHead + leaders)
-
-    // Copy at most [trailers] values into their array.  If their array is not
-    // long enough to hold [trailers] values, then [remainder] values will be
-    // copied in instead.
-    data.copyInto(array, offset + leaders, 0, trailers)
-  }
-
-  override fun toString() = "ULongDeque($size:$cap)"
-
-  override fun equals(other: Any?) = if (other is ULongDeque) data.contentEquals(other.data) else false
 
   // endregion Abstract Implementation
 
+
   // region Front
 
+
   // region Get Head
+
 
   /**
    * The first element in this deque.
@@ -225,9 +113,12 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    */
   inline fun front() = head
 
+
   // endregion Get Head
 
+
   // region Pop
+
 
   /**
    * Removes the first element from this deque and returns it.
@@ -281,9 +172,12 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    */
   inline fun popFront() = pop()
 
+
   // endregion Pop
 
+
   // region Remove
+
 
   /**
    * Removes the first element of this deque.
@@ -378,9 +272,12 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    */
   inline fun deleteFront() = removeHead()
 
+
   // endregion Remove
 
+
   // region Push
+
 
   /**
    * Pushes the given value onto the front of this deque.
@@ -437,13 +334,18 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    */
   inline fun pushFront(value: ULong) = push(value)
 
+
   // endregion Push
+
 
   // endregion Front
 
+
   // region Back
 
+
   // region Get Tail
+
 
   /**
    * The last element in this deque.
@@ -539,9 +441,12 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    */
   inline fun popBack(): ULong = popTail()
 
+
   // endregion Pop
 
+
   // region Remove
+
 
   /**
    * Removes the last element of this deque.
@@ -635,9 +540,24 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    */
   inline fun deleteBack() = removeTail()
 
+
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Remove
 
+
   // region Push
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods for pushing elements onto the tail end of the deque
+  //
+
+
+  // region Push Single Value
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods for pushing elements onto the tail end of the deque one element at
+  //  a time.
+  //
 
   /**
    * Pushes the given value onto the back of this deque.
@@ -681,16 +601,28 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
   inline fun pushBack(value: ULong) = pushTail(value)
 
   /**
-   * Pushes the contents of the given array onto the back of this deque.
+   * Pushes the given value onto the back of this deque.
    *
-   * If the capacity of this deque was less than the current deque size plus
-   * the size of the input array, the internal container will be resized to
-   * accommodate the new values.
+   * If the capacity of this deque was equal to its size at the time of this
+   * method call, the internal container will be resized to accommodate the new
+   * value.
    *
-   * @param values Array of values that will be pushed onto the back of this
-   * deque.
+   * Alias of [pushTail]
+   *
+   * @param value Value that will be pushed onto the back of this deque.
    */
-  fun pushTail(values: ULongArray) {
+  inline operator fun plusAssign(value: ULong) = pushTail(value)
+
+  // endregion Push Single Value
+
+
+  // region Push Multiple Values
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods for pushing elements onto the tail end of the deque en masse
+  //
+
+  override fun pushTail(values: ULongArray) {
     ensureCapacity(size + values.size)
 
     val oldTail = internalIndex(size)
@@ -716,39 +648,28 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     size += values.size
   }
 
-  /**
-   * Pushes the contents of the given array onto the back of this deque.
-   *
-   * If the capacity of this deque was less than the current deque size plus
-   * the size of the input array, the internal container will be resized to
-   * accommodate the new values.
-   *
-   * Alias of [pushTail]
-   *
-   * @param values Array of values that will be pushed onto the back of this
-   * deque.
-   */
-  inline fun pushLast(values: ULongArray) = pushTail(values)
+  override fun pushTail(values: Collection<ULong>) {
+    ensureCapacity(size + values.size)
+    for (v in values)
+      pushTail(v)
+  }
 
-  /**
-   * Pushes the contents of the given array onto the back of this deque.
-   *
-   * If the capacity of this deque was less than the current deque size plus
-   * the size of the input array, the internal container will be resized to
-   * accommodate the new values.
-   *
-   * Alias of [pushTail]
-   *
-   * @param values Array of values that will be pushed onto the back of this
-   * deque.
-   */
-  inline fun pushBack(values: ULongArray) = pushTail(values)
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Push Multiple Values
 
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Push
 
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Back
 
+
   // region Positionless
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods that are not particularly related to either end of the deque.
+  //
+
 
   /**
    * Sets the value at the given index in this deque.
@@ -773,21 +694,6 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    * is greater than [lastIndex].
    */
   operator fun get(index: Int) = data[internalIndex(validExtInd(index))]
-
-  /**
-   * Pushes the given value onto the back of this deque.
-   *
-   * If the capacity of this deque was equal to its size at the time of this
-   * method call, the internal container will be resized to accommodate the new
-   * value.
-   *
-   * Alias of [pushTail]
-   *
-   * @param value Value that will be pushed onto the back of this deque.
-   */
-  inline operator fun plusAssign(value: ULong) = pushTail(value)
-
-  inline operator fun plusAssign(values: ULongArray) = pushTail(values)
 
   /**
    * Tests whether this deque contains the given value.
@@ -821,9 +727,131 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     return ULongDeque(buf)
   }
 
+  override fun clear() {
+    realHead = 0
+    size = 0
+  }
+
+  override fun copy(): ULongDeque {
+    val nb = ULongDeque(data)
+    nb.realHead = realHead
+    return nb
+  }
+
+  override fun ensureCapacity(minCapacity: Int) {
+    when {
+      // If they gave us a invalid capacity
+      minCapacity < 0          -> throw IllegalArgumentException()
+      // If we already have the desired capacity
+      minCapacity <= data.size -> {}
+      // If we previously had a capacity of 0
+      data.isEmpty()           -> data = ULongArray(minCapacity)
+      // If we need to resize
+      else                     -> copyElements(newCap(data.size, minCapacity))
+    }
+  }
+
+  override fun iterator(): Iterator<ULong> {
+    return object : Iterator<ULong> {
+      var pos = 0
+
+      override fun hasNext(): Boolean {
+        return pos < lastIndex
+      }
+
+      override fun next(): ULong {
+        return get(pos++)
+      }
+    }
+  }
+
+  override fun toArray(): ULongArray {
+    val realTail = internalIndex(lastIndex)
+
+    // If the contents of the deque are in a straight line, we can just copy
+    // them out
+    if (realHead < realTail) {
+      return data.copyOfRange(realHead, realTail + 1)
+    }
+
+    val out = ULongArray(size)
+
+    // Copy the front of the output array out of the back portion of our data
+    data.copyInto(out, 0, realHead, data.size)
+
+    // Copy the back of the output array out of the front portion of our data
+    data.copyInto(out, data.size - realHead, 0, realTail + 1)
+
+    return out
+  }
+
+  override fun toList(): List<ULong> {
+    return toArray().asList()
+  }
+
+  override fun copyInto(array: ULongArray, offset: Int) {
+    // If the input array is empty, return because we can't put anything into
+    // an empty array.
+    //
+    // If this deque is empty, return because we have nothing to put into the
+    // given array.
+    //
+    // If the offset is greater than or equal to the given array size, then
+    // there is no room into which we can copy anything.
+    if (array.isEmpty() || this.isEmpty || offset >= array.size)
+      return
+
+    // How much room we actually have to work with in the input array.
+    val rem = array.size - offset
+
+    // Figure out the actual position of the last desired element.
+    //
+    // If the amount of room we have to fill in the given array is larger than
+    // the number of values we actually have, then the last value will be
+    // tail of this deque.
+    //
+    // If the amount of room we have to fill in the given array is smaller than
+    // the number of values we actually have, then the last value will be the
+    // value at position `rem - 1`.
+    val realTail = if (rem > size)
+      internalIndex(lastIndex)
+    else
+      internalIndex(rem - 1)
+
+    // If the desired data is in a straight line (unbroken)
+    if (realHead <= realTail) {
+      // then we can straight copy and be done
+      data.copyInto(array, offset, realHead, realTail + 1)
+      return
+    }
+
+    // Number of values we have starting from the head of the deque that are on
+    // the back end of the data array.
+    val leaders = data.size - realHead
+
+    // Number of values we have starting from the 'middle' of the deque that are
+    // on the front end of the data array.
+    val trailers = realTail + 1
+
+    // Copy the front of the deque from the back of our array to the front of
+    // theirs.
+    data.copyInto(array, offset, realHead, realHead + leaders)
+
+    // Copy at most [trailers] values into their array.  If their array is not
+    // long enough to hold [trailers] values, then [remainder] values will be
+    // copied in instead.
+    data.copyInto(array, offset + leaders, 0, trailers)
+  }
+
+  override fun toString() = "ULongDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is ULongDeque) data.contentEquals(other.data) else false
+
   // endregion Positionless
 
+
   // endregion Public API
+
 
   /**
    * Copies the data currently in the backing buffer into a new buffer of size
