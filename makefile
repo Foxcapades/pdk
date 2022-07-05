@@ -34,3 +34,4 @@ gen-latest-docs:
 	@git add dokka/latest
 	@git commit -m 'update latest docs'
 	@git push
+	@git checkout main
