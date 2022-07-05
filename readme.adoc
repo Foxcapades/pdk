@@ -7,5 +7,5 @@ Documentation generated using the Kotlin https://github.com/Kotlin/dokka[Dokka]
 tool.
 
 * https://foxcapades.github.io/pdk/dokka/latest[Latest]
-* v1.0.1
+* https://foxcapades.github.io/pdk/dokka/latest[v1.0.1]
 * v1.0.0
