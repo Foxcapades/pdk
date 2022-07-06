@@ -846,6 +846,8 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
 
   override fun equals(other: Any?) = if (other is DoubleDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

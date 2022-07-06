@@ -846,6 +846,8 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   override fun equals(other: Any?) = if (other is BooleanDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

@@ -846,6 +846,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
 
   override fun equals(other: Any?) = if (other is ByteDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

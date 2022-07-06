@@ -846,6 +846,8 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
 
   override fun equals(other: Any?) = if (other is LongDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

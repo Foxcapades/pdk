@@ -846,6 +846,8 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
 
   override fun equals(other: Any?) = if (other is FloatDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

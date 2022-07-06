@@ -846,6 +846,8 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
 
   override fun equals(other: Any?) = if (other is CharDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

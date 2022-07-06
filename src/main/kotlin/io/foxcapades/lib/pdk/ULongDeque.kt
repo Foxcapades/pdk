@@ -846,6 +846,8 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
 
   override fun equals(other: Any?) = if (other is ULongDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

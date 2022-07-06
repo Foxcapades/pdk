@@ -846,6 +846,8 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
 
   override fun equals(other: Any?) = if (other is UShortDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**

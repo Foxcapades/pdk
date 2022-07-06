@@ -846,6 +846,8 @@ class UIntDeque : PrimitiveDeque<UInt, UIntArray> {
 
   override fun equals(other: Any?) = if (other is UIntDeque) data.contentEquals(other.data) else false
 
+  override fun hashCode() = data.contentHashCode()
+
   // endregion Positionless
 
   /**
