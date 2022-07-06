@@ -23,6 +23,12 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   override val space: Int
     get() = data.size - size
 
+  /**
+   * Indicates whether the data in this deque is currently inline
+   */
+  private inline val isInline: Boolean
+    get() = realHead + size <= data.size
+
   // region Constructors
 
 
@@ -653,6 +659,29 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     ensureCapacity(size + values.size)
     for (v in values)
       pushTail(v)
+  }
+
+  fun pushTail(values: ByteDeque) {
+    // If the input deque is empty, then we have nothing to do.
+    if (values.isEmpty)
+      return
+
+    // If our backing buffer is empty, then we can just clone the given deque
+    if (data.isEmpty()) {
+      data = values.data.copyOf()
+      size = values.size
+      realHead = values.realHead
+      return
+    }
+
+    // If the other one is just a single value, no need to do all the heavy
+    // lifting
+    if (values.size == 1)
+      return pushTail(values.head)
+
+    // TODO: this should be reserved for the worst case scenario where we could
+    //       need 4-8 array copies to do the transfer
+    pushTail(values.toArray())
   }
 
   //////////////////////////////////////////////////////////////////////////////
