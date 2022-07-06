@@ -172,7 +172,22 @@ internal class Byte_dequeKtTest {
 
     @Nested
     @DisplayName("when the given deque is not empty")
-    inner class NotEmpty
+    inner class NotEmpty {
+
+      @Test
+      @DisplayName("reads up to `space` bytes")
+      fun t1() {
+        val inp = ByteArrayInputStream("world".toByteArray())
+        val tgt = ByteDeque(10)
+        tgt.pushTail("hello".toByteArray())
+
+        assertEquals(5, tgt.space)
+        assertEquals(5, inp.read(tgt))
+        assertEquals(10, tgt.cap)
+        assertEquals(10, tgt.size)
+        assertEquals("helloworld", tgt.toArray().decodeToString())
+      }
+    }
 
     @Nested
     @DisplayName("when the given deque is empty")

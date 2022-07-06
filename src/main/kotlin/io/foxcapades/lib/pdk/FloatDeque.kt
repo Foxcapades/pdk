@@ -615,7 +615,7 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
 
     // If this deque is empty, we can just copy the input array as our new
     // backing buffer.
-    if (isEmpty) {
+    if (data.isEmpty()) {
       data = values.copyOf()
       size = values.size
       return
