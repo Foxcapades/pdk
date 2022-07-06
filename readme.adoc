@@ -36,7 +36,7 @@ first element in the deque, has the alias properties `first` and `front`,
 similarly the method `pushHead`, which pushes an element onto the head of the
 deque, has the alias methods `pushFirst` and `pushFront`.
 
-=== Helper Functions
+=== Mixins
 
 The following functions are provided as mixins that may be used along with the
 `PrimitiveDeque` implementation types.
@@ -67,6 +67,17 @@ The following functions are provided as mixins that may be used along with the
 
 | popULong( littleEndian = false ): ULong
 | Pops the first 8 bytes out of the deque as a `ULong` value.
+|===
+
+
+==== `InputStream`
+
+[cols="1m,1"]
+|===
+| Function | Description
+
+| read( deque ): Int
+| Reads data from the receiver `InputStream` into the given deque.
 |===
 
 == Provided Types
