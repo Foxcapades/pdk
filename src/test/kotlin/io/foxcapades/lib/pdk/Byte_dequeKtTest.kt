@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.io.ByteArrayInputStream
 
 @DisplayName("ByteDeque Helpers")
 internal class Byte_dequeKtTest {
@@ -131,5 +132,55 @@ internal class Byte_dequeKtTest {
         assertTrue(t.isEmpty)
       }
     }
+  }
+
+  @Nested
+  @DisplayName("InputStream.read(ByteDeque)")
+  inner class InputStreamRead1 {
+
+    @Nested
+    @DisplayName("when the given deque has a capacity of 0")
+    inner class Cap0 {
+
+      @Test
+      @DisplayName("reads 0 bytes")
+      fun t1() {
+        val inp = ByteArrayInputStream("Hello".toByteArray())
+        val tgt = ByteDeque()
+
+        assertEquals(0, inp.read(tgt))
+        assertEquals(0, tgt.cap)
+        assertEquals(0, tgt.size)
+      }
+    }
+
+    @Nested
+    @DisplayName("when the given deque has 0 space")
+    inner class Space0 {
+
+      @Test
+      @DisplayName("reads 0 bytes")
+      fun t1() {
+        val inp = ByteArrayInputStream("Hello".toByteArray())
+        val tgt = ByteDeque("hello".toByteArray())
+
+        assertEquals(0, inp.read(tgt))
+        assertEquals(5, tgt.cap)
+        assertEquals(5, tgt.size)
+      }
+    }
+
+    @Nested
+    @DisplayName("when the given deque is not empty")
+    inner class NotEmpty
+
+    @Nested
+    @DisplayName("when the given deque is empty")
+    inner class Empty
+
+    @Nested
+    @DisplayName("when the input stream has no data")
+    inner class EmptyStream
+
   }
 }
