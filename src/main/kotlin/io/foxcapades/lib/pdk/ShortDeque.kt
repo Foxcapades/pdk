@@ -20,6 +20,9 @@ class ShortDeque : PrimitiveDeque<Short, ShortArray> {
   override val cap
     get() = data.size
 
+  override val space: Int
+    get() = data.size - size
+
   // region Constructors
 
 
