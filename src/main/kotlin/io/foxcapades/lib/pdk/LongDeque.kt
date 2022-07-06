@@ -20,6 +20,9 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
   override val cap
     get() = data.size
 
+  override val space: Int
+    get() = data.size - size
+
   // region Constructors
 
 

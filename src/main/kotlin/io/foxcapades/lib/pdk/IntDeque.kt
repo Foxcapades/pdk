@@ -20,6 +20,9 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
   override val cap
     get() = data.size
 
+  override val space: Int
+    get() = data.size - size
+
   // region Constructors
 
 

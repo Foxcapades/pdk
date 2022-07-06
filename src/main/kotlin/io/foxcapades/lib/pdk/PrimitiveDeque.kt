@@ -59,6 +59,14 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   abstract val cap: Int
 
   /**
+   * The amount of space left in the currently allocated backing container for
+   * this deque.
+   *
+   * This value is calculated as `cap - size`.
+   */
+  abstract val space: Int
+
+  /**
    * Whether this deque is empty (contains no elements).
    */
   inline val isEmpty: Boolean
