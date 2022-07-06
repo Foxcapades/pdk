@@ -77,7 +77,7 @@ The following functions are provided as mixins that may be used along with the
 | Function | Description
 
 | read( deque ): Int
-| Reads data from the receiver `InputStream` into the given deque.
+| Reads data from the receiver `InputStream` into the given `ByteDeque`.
 |===
 
 == Provided Types
