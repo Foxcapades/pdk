@@ -940,6 +940,39 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     return out
   }
 
+  override fun sliceToArray(start: Int, end: Int): UByteArray {
+    // If they gave us one or more invalid indices, throw an exception
+    if (start !in 0 until size || start > end || end > size)
+      throw IndexOutOfBoundsException()
+
+    val realSize  = end - start
+
+    // Shortcuts
+    when (realSize) {
+      0    -> return UByteArray(0)
+      1    -> return UByteArray(1) { data[internalIndex(start)] }
+      size -> return toArray()
+    }
+
+    val realStart = internalIndex(start)
+    val realEnd   = internalIndex(end)
+
+    val out = UByteArray(realSize)
+
+    // If the values are inline, we can just arraycopy out
+    if (realStart < realEnd) {
+      data.copyInto(out, 0, realStart, realEnd)
+    }
+
+    // The values are out of line, we have to do 2 copies
+    else {
+      data.copyInto(out, 0, realStart, data.size)
+      data.copyInto(out, data.size - realStart, 0, realEnd)
+    }
+
+    return out
+  }
+
   override fun toString() = "UByteDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is UByteDeque) data.contentEquals(other.data) else false

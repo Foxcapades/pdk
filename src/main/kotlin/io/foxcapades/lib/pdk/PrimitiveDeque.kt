@@ -158,20 +158,50 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   abstract fun copyInto(array: A, offset: Int = 0)
 
   /**
-   * Creates a new deque containing only the elements in the specified index
-   * range.
+   * Creates a new deque containing the elements from this deque that fall
+   * within the specified index range.
+   *
+   * **Example**
+   * ```
+   * val deque = Deque{0, 1, 2, 3, 4, 5}
+   *
+   * deque.slice(1, 4) // Deque{1, 2, 3}
+   * ```
    *
    * @param start Inclusive start position of the range of values to slice.
    *
    * @param end Exclusive end position of the range of values to slice.
    *
-   * @return A new deque containing only the elements in the given specified
-   * index range.
+   * @return A new deque containing the elements from this deque that fall
+   * within the given specified index range.
    *
    * @throws IndexOutOfBoundsException If [start] is less than `0`, if [end] is
    * greater than [size], or if [start] is greater than [end].
    */
   abstract fun slice(start: Int, end: Int = size): PrimitiveDeque<V, A>
+
+  /**
+   * Creates a new array containing the elements from this deque that fall
+   * within the specified index range.
+   *
+   * **Example**
+   * ```
+   * val deque = Deque{0, 1, 2, 3, 4, 5}
+   *
+   * deque.sliceToArray(1, 4) // [1, 2, 3]
+   * ```
+   *
+   * @param start Inclusive start position of the range of values to slice.
+   *
+   * @param end Exclusive end position of the range of values to slice.
+   *
+   * @return A new array containing the elements from this deque that fall
+   * within the given specified index range.
+   *
+   * @throws IndexOutOfBoundsException If [start] is less than `0`, if [end] is
+   * greater than [size], or if [start] is greater than [end].
+   */
+  abstract fun sliceToArray(start: Int, end: Int = size): A
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Positionless
