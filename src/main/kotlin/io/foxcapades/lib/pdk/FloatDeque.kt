@@ -940,6 +940,8 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     return out
   }
 
+  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+
   override fun sliceToArray(start: Int, end: Int): FloatArray {
     // If they gave us one or more invalid indices, throw an exception
     if (start !in 0 until size || start > end || end > size)
