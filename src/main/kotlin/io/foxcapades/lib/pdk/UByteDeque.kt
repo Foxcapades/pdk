@@ -1009,6 +1009,14 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [UByteDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: UByte) = UByteDeque(values)
   }

@@ -1009,6 +1009,14 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [ByteDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Byte) = ByteDeque(values)
   }

@@ -1009,6 +1009,14 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [FloatDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Float) = FloatDeque(values)
   }

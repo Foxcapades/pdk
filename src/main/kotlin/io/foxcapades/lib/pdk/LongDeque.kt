@@ -1009,6 +1009,14 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [LongDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Long) = LongDeque(values)
   }

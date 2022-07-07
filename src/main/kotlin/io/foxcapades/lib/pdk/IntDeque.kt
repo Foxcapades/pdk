@@ -1009,6 +1009,14 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [IntDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Int) = IntDeque(values)
   }

@@ -1009,6 +1009,14 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [BooleanDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Boolean) = BooleanDeque(values)
   }

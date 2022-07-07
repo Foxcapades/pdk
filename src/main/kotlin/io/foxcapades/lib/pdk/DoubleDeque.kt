@@ -1009,6 +1009,14 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [DoubleDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Double) = DoubleDeque(values)
   }

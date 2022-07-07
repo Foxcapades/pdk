@@ -1009,6 +1009,14 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [CharDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: Char) = CharDeque(values)
   }

@@ -1009,6 +1009,14 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [ULongDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: ULong) = ULongDeque(values)
   }

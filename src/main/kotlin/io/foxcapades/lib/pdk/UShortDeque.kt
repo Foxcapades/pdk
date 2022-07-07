@@ -1009,6 +1009,14 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
   }
 
   companion object {
+
+    /**
+     * Creates a new [UShortDeque] instance wrapping the given values.
+     *
+     * @param values Values to wrap.
+     *
+     * @return A new deque wrapping the given values.
+     */
     @JvmStatic
     fun of(vararg values: UShort) = UShortDeque(values)
   }
