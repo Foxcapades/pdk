@@ -56,6 +56,12 @@ The following functions are provided as mixins that may be used along with the
 | popLong( littleEndian = false ): Long
 | Pops the first 8 bytes out of the deque as a `Long` value.
 
+| popFloat( littleEndian = false ): Float
+| Pops the first 4 bytes out of the deque as a `Float` value.
+
+| popDouble( littleEndian = false ): Double
+| Pops the first 8 bytes out of the deque as a `Double` value.
+
 | popUByte(): UByte
 | Pops the first byte out of the deque as a `UByte` value.
 
@@ -88,6 +94,12 @@ The following functions are provided as mixins that may be used along with the
 
 | popLong( littleEndian = false ): Long
 | Pops the first 8 bytes out of the deque as a `Long` value.
+
+| popFloat( littleEndian = false ): Float
+| Pops the first 4 bytes out of the deque as a `Float` value.
+
+| popDouble( littleEndian = false ): Double
+| Pops the first 8 bytes out of the deque as a `Double` value.
 
 | popUShort( littleEndian = false ): UShort
 | Pops the first 2 bytes out of the deque as a `UShort` value.
