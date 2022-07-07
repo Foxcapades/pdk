@@ -1025,6 +1025,8 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
 
   override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
 
+  override fun compact() = copyElements(cap)
+
   override fun toString() = "CharDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is CharDeque) data.contentEquals(other.data) else false
