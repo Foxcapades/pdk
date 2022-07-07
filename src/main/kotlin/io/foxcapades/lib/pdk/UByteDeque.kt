@@ -911,7 +911,12 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
     // Shortcuts
     when (realSize) {
       0    -> return UByteDeque()
-      1    -> return UByteDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = UByteDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

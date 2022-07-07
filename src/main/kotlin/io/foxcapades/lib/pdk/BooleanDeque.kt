@@ -911,7 +911,12 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     // Shortcuts
     when (realSize) {
       0    -> return BooleanDeque()
-      1    -> return BooleanDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = BooleanDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

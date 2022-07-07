@@ -911,7 +911,12 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     // Shortcuts
     when (realSize) {
       0    -> return FloatDeque()
-      1    -> return FloatDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = FloatDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

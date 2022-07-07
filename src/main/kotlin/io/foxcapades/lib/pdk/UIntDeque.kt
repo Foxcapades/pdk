@@ -911,7 +911,12 @@ class UIntDeque : PrimitiveDeque<UInt, UIntArray> {
     // Shortcuts
     when (realSize) {
       0    -> return UIntDeque()
-      1    -> return UIntDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = UIntDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

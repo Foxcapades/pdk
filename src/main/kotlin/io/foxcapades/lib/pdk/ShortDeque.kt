@@ -911,7 +911,12 @@ class ShortDeque : PrimitiveDeque<Short, ShortArray> {
     // Shortcuts
     when (realSize) {
       0    -> return ShortDeque()
-      1    -> return ShortDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = ShortDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

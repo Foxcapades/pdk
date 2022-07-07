@@ -911,7 +911,12 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     // Shortcuts
     when (realSize) {
       0    -> return ULongDeque()
-      1    -> return ULongDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = ULongDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

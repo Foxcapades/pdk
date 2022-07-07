@@ -911,7 +911,12 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     // Shortcuts
     when (realSize) {
       0    -> return DoubleDeque()
-      1    -> return DoubleDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = DoubleDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

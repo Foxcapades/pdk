@@ -911,7 +911,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     // Shortcuts
     when (realSize) {
       0    -> return UShortDeque()
-      1    -> return UShortDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = UShortDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

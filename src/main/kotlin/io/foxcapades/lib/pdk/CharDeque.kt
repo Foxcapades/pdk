@@ -911,7 +911,12 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     // Shortcuts
     when (realSize) {
       0    -> return CharDeque()
-      1    -> return CharDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = CharDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 

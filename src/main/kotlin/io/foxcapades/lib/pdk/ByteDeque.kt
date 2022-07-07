@@ -911,7 +911,12 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     // Shortcuts
     when (realSize) {
       0    -> return ByteDeque()
-      1    -> return ByteDeque(byteArrayOf(get(start)))
+      1    -> {
+        val out = ByteDeque(1)
+        out.data[0] = data[internalIndex(start)]
+        out.size = 1
+        return out
+      }
       size -> return copy()
     }
 
