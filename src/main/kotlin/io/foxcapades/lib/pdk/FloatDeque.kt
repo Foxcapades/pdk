@@ -903,7 +903,7 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
 
   override fun slice(start: Int, end: Int): FloatDeque {
     // If they gave us one or more invalid indices, throw an exception
-    if (start < 0 || start > end || end > size)
+    if (start !in 0 until size || start > end || end > size)
       throw IndexOutOfBoundsException()
 
     val realSize  = end - start

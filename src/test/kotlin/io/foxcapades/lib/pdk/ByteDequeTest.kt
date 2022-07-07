@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertContentEquals
 
 @DisplayName("ByteQueue")
 internal class ByteDequeTest {
@@ -320,6 +322,194 @@ internal class ByteDequeTest {
       t1.pushTail("world".toByteArray())
 
       assertEquals("hello world", String(t1.toArray()))
+    }
+  }
+
+  @Nested
+  @DisplayName("slice(Int, Int)")
+  inner class Slice1 {
+
+    @Nested
+    @DisplayName("when the inputs are invalid")
+    inner class InvalidInputs {
+
+      @Nested
+      @DisplayName("due to the start index being less than 0")
+      inner class StartLT0 {
+
+        @Test
+        @DisplayName("throws an IndexOutOfBoundsException")
+        fun t1() {
+          val tgt = ByteDeque("hello world".toByteArray())
+          assertThrows<IndexOutOfBoundsException> { tgt.slice(-1) }
+        }
+      }
+
+      @Nested
+      @DisplayName("due to the start index being greater than or equal to the deque's size")
+      inner class StartGTEQSize {
+
+        @Test
+        @DisplayName("throws an IndexOutOfBoundsException")
+        fun t1() {
+          val tgt = ByteDeque("hello world".toByteArray())
+          assertThrows<IndexOutOfBoundsException> { tgt.slice(tgt.size) }
+          assertThrows<IndexOutOfBoundsException> { tgt.slice(tgt.size+1, tgt.size+2) }
+        }
+      }
+
+      @Nested
+      @DisplayName("due to the start index being greater than the end index")
+      inner class StartGTEnd {
+
+        @Test
+        @DisplayName("throws an IndexOutOfBoundsException")
+        fun t1() {
+          val tgt = ByteDeque("hello world".toByteArray())
+          assertThrows<IndexOutOfBoundsException> { tgt.slice(2, 1) }
+        }
+      }
+
+      @Nested
+      @DisplayName("due to the end index being greater than the deque's size")
+      inner class EndGTSize {
+
+        @Test
+        @DisplayName("throws an IndexOutOfBoundsException")
+        fun t1() {
+          val tgt = ByteDeque("hello world".toByteArray())
+          assertThrows<IndexOutOfBoundsException> { tgt.slice(0, 100) }
+        }
+      }
+    }
+
+    @Nested
+    @DisplayName("when the inputs are valid")
+    inner class ValidInputs {
+
+      @Nested
+      @DisplayName("the deque is inline")
+      inner class Inline {
+
+        val tgt get() = ByteDeque("hello world".toByteArray())
+
+        @Nested
+        @DisplayName("and the start index equals the input end index")
+        inner class StartEQEnd {
+
+          @Test
+          @DisplayName("returns an empty deque")
+          fun t1() {
+            assertTrue(tgt.slice(4, 4).isEmpty)
+          }
+        }
+
+        @Nested
+        @DisplayName("and the start index is 1 less than the end index")
+        inner class Start1LTEnd {
+
+          @Test
+          @DisplayName("returns a deque with a single element")
+          fun t1() {
+            val res = tgt.slice(4, 5)
+            assertEquals(1, res.size)
+            assertEquals('o'.code.toByte(), res.first)
+          }
+        }
+
+        @Nested
+        @DisplayName("and the start index equals zero while the end index equals the deque's size")
+        inner class SameSize {
+
+          @Test
+          @DisplayName("returns a copy of the original deque")
+          fun t1() {
+            val res = tgt.slice(0)
+            assertEquals(tgt.size, res.size)
+            assertContentEquals(tgt.toArray(), res.toArray())
+          }
+        }
+
+        @Nested
+        @DisplayName("and the start and end indices specify a valid subset of the deque")
+        inner class Subset {
+
+          @Test
+          @DisplayName("returns a deque wrapping the subset")
+          fun t1() {
+            val res = tgt.slice(1, 5)
+            assertEquals(4, res.size)
+            assertEquals("ello", res.toArray().decodeToString())
+          }
+        }
+      }
+
+      @Nested
+      @DisplayName("the deque is not inline")
+      inner class NotInline {
+
+        val tgt: ByteDeque
+          get() {
+            val out = ByteDeque(11)
+            out.pushTail(" world".toByteArray())
+            out.pushHead('o'.code.toByte())
+            out.pushHead('l'.code.toByte())
+            out.pushHead('l'.code.toByte())
+            out.pushHead('e'.code.toByte())
+            out.pushHead('h'.code.toByte())
+            return out
+          }
+
+        @Nested
+        @DisplayName("and the start index equals the input end index")
+        inner class StartEQEnd {
+
+          @Test
+          @DisplayName("returns an empty deque")
+          fun t1() {
+            assertTrue(tgt.slice(4, 4).isEmpty)
+          }
+        }
+
+        @Nested
+        @DisplayName("and the start index is 1 less than the end index")
+        inner class Start1LTEnd {
+
+          @Test
+          @DisplayName("returns a deque with a single element")
+          fun t1() {
+            val res = tgt.slice(4, 5)
+            assertEquals(1, res.size)
+            assertEquals('o'.code.toByte(), res.first)
+          }
+        }
+
+        @Nested
+        @DisplayName("and the start index equals zero while the end index equals the deque's size")
+        inner class SameSize {
+
+          @Test
+          @DisplayName("returns a copy of the original deque")
+          fun t1() {
+            val res = tgt.slice(0)
+            assertEquals(tgt.size, res.size)
+            assertContentEquals(tgt.toArray(), res.toArray())
+          }
+        }
+
+        @Nested
+        @DisplayName("and the start and end indices specify a valid subset of the deque")
+        inner class Subset {
+
+          @Test
+          @DisplayName("returns a deque wrapping the subset")
+          fun t1() {
+            val res = tgt.slice(1, 5)
+            assertEquals(4, res.size)
+            assertEquals("ello", res.toArray().decodeToString())
+          }
+        }
+      }
     }
   }
 }
