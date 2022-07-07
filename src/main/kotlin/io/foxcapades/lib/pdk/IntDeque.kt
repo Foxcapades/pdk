@@ -661,6 +661,15 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
       pushTail(v)
   }
 
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
   fun pushTail(values: IntDeque) {
     // If the input deque is empty, then we have nothing to do.
     if (values.isEmpty)
@@ -713,6 +722,45 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
     //       need 4-8 array copies to do the transfer
     pushTail(values.toArray())
   }
+
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
+  inline fun pushLast(values: IntDeque) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
+  inline fun pushBack(values: IntDeque) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
+  inline operator fun plusAssign(values: IntDeque) = pushTail(values)
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Push Multiple Values

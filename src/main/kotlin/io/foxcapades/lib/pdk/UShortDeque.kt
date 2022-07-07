@@ -661,6 +661,15 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
       pushTail(v)
   }
 
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
   fun pushTail(values: UShortDeque) {
     // If the input deque is empty, then we have nothing to do.
     if (values.isEmpty)
@@ -713,6 +722,45 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     //       need 4-8 array copies to do the transfer
     pushTail(values.toArray())
   }
+
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
+  inline fun pushLast(values: UShortDeque) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
+  inline fun pushBack(values: UShortDeque) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given deque onto the back of this deque.
+   *
+   * If the capacity of this deque was less than the current deque size plus
+   * the size of the input deque, the internal container will be resized to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Deque that will be pushed onto the back of this deque.
+   */
+  inline operator fun plusAssign(values: UShortDeque) = pushTail(values)
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Push Multiple Values
