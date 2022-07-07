@@ -76,6 +76,16 @@ The following functions are provided as mixins that may be used along with the
 |===
 
 
+==== `CharDeque`
+
+[cols="1m,1"]
+|===
+| Function | Description
+
+| stringValue()
+| Returns the contents of the deque as a `String` value.
+|===
+
 
 ==== `UByteDeque`
 
