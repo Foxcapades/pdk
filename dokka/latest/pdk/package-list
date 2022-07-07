@@ -1,14 +1,24 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:io.foxcapades.lib.pdk////PointingToDeclaration/pdk/io.foxcapades.lib.pdk/index.html
+$dokka.location:io.foxcapades.lib.pdk//popByte/io.foxcapades.lib.pdk.UByteDeque#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-byte.html
+$dokka.location:io.foxcapades.lib.pdk//popDouble/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-double.html
+$dokka.location:io.foxcapades.lib.pdk//popDouble/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-double.html
+$dokka.location:io.foxcapades.lib.pdk//popFloat/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-float.html
+$dokka.location:io.foxcapades.lib.pdk//popFloat/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-float.html
 $dokka.location:io.foxcapades.lib.pdk//popInt/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-int.html
+$dokka.location:io.foxcapades.lib.pdk//popInt/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-int.html
 $dokka.location:io.foxcapades.lib.pdk//popLong/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-long.html
+$dokka.location:io.foxcapades.lib.pdk//popLong/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-long.html
 $dokka.location:io.foxcapades.lib.pdk//popShort/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-short.html
+$dokka.location:io.foxcapades.lib.pdk//popShort/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-short.html
 $dokka.location:io.foxcapades.lib.pdk//popUByte/io.foxcapades.lib.pdk.ByteDeque#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-byte.html
 $dokka.location:io.foxcapades.lib.pdk//popUInt/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-int.html
+$dokka.location:io.foxcapades.lib.pdk//popUInt/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-int.html
 $dokka.location:io.foxcapades.lib.pdk//popULong/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-long.html
+$dokka.location:io.foxcapades.lib.pdk//popULong/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-long.html
 $dokka.location:io.foxcapades.lib.pdk//popUShort/io.foxcapades.lib.pdk.ByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-short.html
-$dokka.location:io.foxcapades.lib.pdk//read/java.io.InputStream#io.foxcapades.lib.pdk.ByteDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/read.html
+$dokka.location:io.foxcapades.lib.pdk//popUShort/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-short.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque.Companion///PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/-companion/index.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque.Companion/of/#kotlin.BooleanArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/-companion/of.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque///PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/index.html
@@ -31,6 +41,7 @@ $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/equals/#kotlin.Any?/PointingT
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/BooleanDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/last.html
@@ -49,6 +60,7 @@ $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushFirst/#kotlin.Boolean/Poi
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushFront/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushHead/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushLast/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushTail/#io.foxcapades.lib.pdk.BooleanDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushTail/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushTail/#kotlin.BooleanArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/pushTail/#kotlin.collections.Collection[kotlin.Boolean]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/push-tail.html
@@ -60,6 +72,7 @@ $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/removeLast/#/PointingToDeclar
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/set/#kotlin.Int#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/BooleanDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/to-array.html
@@ -87,6 +100,7 @@ $dokka.location:io.foxcapades.lib.pdk/ByteDeque/equals/#kotlin.Any?/PointingToDe
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/ByteDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/last.html
@@ -105,6 +119,7 @@ $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushFirst/#kotlin.Byte/PointingT
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushFront/#kotlin.Byte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushHead/#kotlin.Byte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushLast/#kotlin.Byte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushTail/#io.foxcapades.lib.pdk.ByteDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushTail/#kotlin.Byte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushTail/#kotlin.ByteArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/pushTail/#kotlin.collections.Collection[kotlin.Byte]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/push-tail.html
@@ -116,6 +131,7 @@ $dokka.location:io.foxcapades.lib.pdk/ByteDeque/removeLast/#/PointingToDeclarati
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/set/#kotlin.Int#kotlin.Byte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/ByteDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/to-array.html
@@ -143,6 +159,7 @@ $dokka.location:io.foxcapades.lib.pdk/CharDeque/equals/#kotlin.Any?/PointingToDe
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/CharDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/last.html
@@ -161,6 +178,7 @@ $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushFirst/#kotlin.Char/PointingT
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushFront/#kotlin.Char/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushHead/#kotlin.Char/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushLast/#kotlin.Char/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/CharDeque/pushTail/#io.foxcapades.lib.pdk.CharDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushTail/#kotlin.Char/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushTail/#kotlin.CharArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/pushTail/#kotlin.collections.Collection[kotlin.Char]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/push-tail.html
@@ -172,6 +190,7 @@ $dokka.location:io.foxcapades.lib.pdk/CharDeque/removeLast/#/PointingToDeclarati
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/set/#kotlin.Int#kotlin.Char/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/CharDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/to-array.html
@@ -199,6 +218,7 @@ $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/equals/#kotlin.Any?/PointingTo
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/DoubleDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/last.html
@@ -217,6 +237,7 @@ $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushFirst/#kotlin.Double/Point
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushFront/#kotlin.Double/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushHead/#kotlin.Double/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushLast/#kotlin.Double/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushTail/#io.foxcapades.lib.pdk.DoubleDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushTail/#kotlin.Double/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushTail/#kotlin.DoubleArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/pushTail/#kotlin.collections.Collection[kotlin.Double]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/push-tail.html
@@ -228,6 +249,7 @@ $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/removeLast/#/PointingToDeclara
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/set/#kotlin.Int#kotlin.Double/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/DoubleDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/to-array.html
@@ -255,6 +277,7 @@ $dokka.location:io.foxcapades.lib.pdk/FloatDeque/equals/#kotlin.Any?/PointingToD
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/FloatDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/last.html
@@ -273,6 +296,7 @@ $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushFirst/#kotlin.Float/Pointin
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushFront/#kotlin.Float/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushHead/#kotlin.Float/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushLast/#kotlin.Float/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushTail/#io.foxcapades.lib.pdk.FloatDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushTail/#kotlin.Float/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushTail/#kotlin.FloatArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/pushTail/#kotlin.collections.Collection[kotlin.Float]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/push-tail.html
@@ -284,6 +308,7 @@ $dokka.location:io.foxcapades.lib.pdk/FloatDeque/removeLast/#/PointingToDeclarat
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/set/#kotlin.Int#kotlin.Float/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/FloatDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/to-array.html
@@ -311,6 +336,7 @@ $dokka.location:io.foxcapades.lib.pdk/IntDeque/equals/#kotlin.Any?/PointingToDec
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/IntDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/last.html
@@ -329,6 +355,7 @@ $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushFirst/#kotlin.Int/PointingToD
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushFront/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushHead/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushLast/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/IntDeque/pushTail/#io.foxcapades.lib.pdk.IntDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushTail/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushTail/#kotlin.IntArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/pushTail/#kotlin.collections.Collection[kotlin.Int]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/push-tail.html
@@ -340,6 +367,7 @@ $dokka.location:io.foxcapades.lib.pdk/IntDeque/removeLast/#/PointingToDeclaratio
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/set/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/IntDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/to-array.html
@@ -367,6 +395,7 @@ $dokka.location:io.foxcapades.lib.pdk/LongDeque/equals/#kotlin.Any?/PointingToDe
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/LongDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/last.html
@@ -385,6 +414,7 @@ $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushFirst/#kotlin.Long/PointingT
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushFront/#kotlin.Long/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushHead/#kotlin.Long/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushLast/#kotlin.Long/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/LongDeque/pushTail/#io.foxcapades.lib.pdk.LongDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushTail/#kotlin.Long/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushTail/#kotlin.LongArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/pushTail/#kotlin.collections.Collection[kotlin.Long]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/push-tail.html
@@ -396,6 +426,7 @@ $dokka.location:io.foxcapades.lib.pdk/LongDeque/removeLast/#/PointingToDeclarati
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/set/#kotlin.Int#kotlin.Long/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/LongDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/to-array.html
@@ -419,6 +450,7 @@ $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/pushTail/#TypeParam(bounds=
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/pushTail/#kotlin.collections.Collection[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/reset/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/reset.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/to-array.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/toList/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/to-list.html
@@ -444,6 +476,7 @@ $dokka.location:io.foxcapades.lib.pdk/ShortDeque/equals/#kotlin.Any?/PointingToD
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/ShortDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/last.html
@@ -462,6 +495,7 @@ $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushFirst/#kotlin.Short/Pointin
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushFront/#kotlin.Short/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushHead/#kotlin.Short/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushLast/#kotlin.Short/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushTail/#io.foxcapades.lib.pdk.ShortDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushTail/#kotlin.Short/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushTail/#kotlin.ShortArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/pushTail/#kotlin.collections.Collection[kotlin.Short]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/push-tail.html
@@ -473,6 +507,7 @@ $dokka.location:io.foxcapades.lib.pdk/ShortDeque/removeLast/#/PointingToDeclarat
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/set/#kotlin.Int#kotlin.Short/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/ShortDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/to-array.html
@@ -500,6 +535,7 @@ $dokka.location:io.foxcapades.lib.pdk/UByteDeque/equals/#kotlin.Any?/PointingToD
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/last.html
@@ -518,6 +554,7 @@ $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushFirst/#kotlin.UByte/Pointin
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushFront/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushHead/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushLast/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushTail/#io.foxcapades.lib.pdk.UByteDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushTail/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushTail/#kotlin.UByteArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushTail/#kotlin.collections.Collection[kotlin.UByte]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-tail.html
@@ -529,6 +566,7 @@ $dokka.location:io.foxcapades.lib.pdk/UByteDeque/removeLast/#/PointingToDeclarat
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/set/#kotlin.Int#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/to-array.html
@@ -556,6 +594,7 @@ $dokka.location:io.foxcapades.lib.pdk/UIntDeque/equals/#kotlin.Any?/PointingToDe
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/UIntDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/last.html
@@ -574,6 +613,7 @@ $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushFirst/#kotlin.UInt/PointingT
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushFront/#kotlin.UInt/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushHead/#kotlin.UInt/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushLast/#kotlin.UInt/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushTail/#io.foxcapades.lib.pdk.UIntDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushTail/#kotlin.UInt/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushTail/#kotlin.UIntArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/pushTail/#kotlin.collections.Collection[kotlin.UInt]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/push-tail.html
@@ -585,6 +625,7 @@ $dokka.location:io.foxcapades.lib.pdk/UIntDeque/removeLast/#/PointingToDeclarati
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/set/#kotlin.Int#kotlin.UInt/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/UIntDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/to-array.html
@@ -612,6 +653,7 @@ $dokka.location:io.foxcapades.lib.pdk/ULongDeque/equals/#kotlin.Any?/PointingToD
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/ULongDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/last.html
@@ -630,6 +672,7 @@ $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushFirst/#kotlin.ULong/Pointin
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushFront/#kotlin.ULong/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushHead/#kotlin.ULong/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushLast/#kotlin.ULong/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushTail/#io.foxcapades.lib.pdk.ULongDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushTail/#kotlin.ULong/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushTail/#kotlin.ULongArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/pushTail/#kotlin.collections.Collection[kotlin.ULong]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/push-tail.html
@@ -641,6 +684,7 @@ $dokka.location:io.foxcapades.lib.pdk/ULongDeque/removeLast/#/PointingToDeclarat
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/set/#kotlin.Int#kotlin.ULong/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/ULongDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/to-array.html
@@ -668,6 +712,7 @@ $dokka.location:io.foxcapades.lib.pdk/UShortDeque/equals/#kotlin.Any?/PointingTo
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/first/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/first.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/front/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/front.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/get/#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/get.html
+$dokka.location:io.foxcapades.lib.pdk/UShortDeque/hashCode/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/hash-code.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/head/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/head.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/iterator/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/iterator.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/last/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/last.html
@@ -686,6 +731,7 @@ $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushFirst/#kotlin.UShort/Point
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushFront/#kotlin.UShort/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-front.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushHead/#kotlin.UShort/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-head.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushLast/#kotlin.UShort/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-last.html
+$dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushTail/#io.foxcapades.lib.pdk.UShortDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushTail/#kotlin.UShort/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushTail/#kotlin.UShortArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/pushTail/#kotlin.collections.Collection[kotlin.UShort]/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/push-tail.html
@@ -697,6 +743,7 @@ $dokka.location:io.foxcapades.lib.pdk/UShortDeque/removeLast/#/PointingToDeclara
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/removeTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/remove-tail.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/set/#kotlin.Int#kotlin.UShort/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/set.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/size/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/size.html
+$dokka.location:io.foxcapades.lib.pdk/UShortDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/to-array.html
