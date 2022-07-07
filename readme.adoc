@@ -16,7 +16,7 @@ types that deal in unboxed values.
 [source, kotlin]
 ----
 dependencies {
-  implementation("io.foxcapades.lib:pdk:1.1.0")
+  implementation("io.foxcapades.lib:pdk:1.2.0")
 }
 ----
 
