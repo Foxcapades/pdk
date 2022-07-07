@@ -1027,6 +1027,8 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
 
   override fun compact() = copyElements(cap)
 
+  override fun trimToSize() = copyElements(size)
+
   override fun toString() = "DoubleDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is DoubleDeque) data.contentEquals(other.data) else false

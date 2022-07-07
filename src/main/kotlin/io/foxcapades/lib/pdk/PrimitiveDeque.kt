@@ -259,6 +259,14 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   abstract fun compact()
 
+  /**
+   * Trims the capacity of this deque to be the same as the current size.
+   *
+   * Callers can use this operation to minimize the storage used by a deque
+   * instance.
+   */
+  abstract fun trimToSize()
+
   //////////////////////////////////////////////////////////////////////////////
   // endregion Positionless
 

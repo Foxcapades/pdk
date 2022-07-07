@@ -1027,6 +1027,8 @@ class ShortDeque : PrimitiveDeque<Short, ShortArray> {
 
   override fun compact() = copyElements(cap)
 
+  override fun trimToSize() = copyElements(size)
+
   override fun toString() = "ShortDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is ShortDeque) data.contentEquals(other.data) else false

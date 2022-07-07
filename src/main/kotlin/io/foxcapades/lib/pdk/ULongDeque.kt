@@ -1027,6 +1027,8 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
 
   override fun compact() = copyElements(cap)
 
+  override fun trimToSize() = copyElements(size)
+
   override fun toString() = "ULongDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is ULongDeque) data.contentEquals(other.data) else false

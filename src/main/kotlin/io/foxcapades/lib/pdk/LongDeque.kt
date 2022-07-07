@@ -1027,6 +1027,8 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
 
   override fun compact() = copyElements(cap)
 
+  override fun trimToSize() = copyElements(size)
+
   override fun toString() = "LongDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is LongDeque) data.contentEquals(other.data) else false
