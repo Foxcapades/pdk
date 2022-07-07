@@ -1025,6 +1025,8 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
 
+  override fun compact() = copyElements(cap)
+
   override fun toString() = "UByteDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is UByteDeque) data.contentEquals(other.data) else false

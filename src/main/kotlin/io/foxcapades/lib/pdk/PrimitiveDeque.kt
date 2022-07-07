@@ -247,6 +247,18 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   abstract fun sliceToArray(range: IntRange): A
 
+  /**
+   * Optional operation that rearranges the data in the internal container to be
+   * in a single contiguous block.
+   *
+   * This is particularly useful when preparing a deque to be used for repeated
+   * reads from a stream source as it minimizes the number of internal reads
+   * needed to fill the deque's backing container.
+   *
+   * The size and capacity of this deque will not be altered by this method.
+   */
+  abstract fun compact()
+
   //////////////////////////////////////////////////////////////////////////////
   // endregion Positionless
 

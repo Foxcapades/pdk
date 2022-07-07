@@ -1025,6 +1025,8 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
 
+  override fun compact() = copyElements(cap)
+
   override fun toString() = "BooleanDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is BooleanDeque) data.contentEquals(other.data) else false

@@ -1025,6 +1025,8 @@ class UIntDeque : PrimitiveDeque<UInt, UIntArray> {
 
   override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
 
+  override fun compact() = copyElements(cap)
+
   override fun toString() = "UIntDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is UIntDeque) data.contentEquals(other.data) else false

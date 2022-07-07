@@ -1025,6 +1025,8 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
 
   override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
 
+  override fun compact() = copyElements(cap)
+
   override fun toString() = "FloatDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is FloatDeque) data.contentEquals(other.data) else false
