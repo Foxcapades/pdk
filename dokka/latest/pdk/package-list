@@ -75,6 +75,7 @@ $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/size/#/PointingToDeclaration/
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/BooleanDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/to-array.html
@@ -136,6 +137,7 @@ $dokka.location:io.foxcapades.lib.pdk/ByteDeque/size/#/PointingToDeclaration/pd
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/ByteDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/ByteDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-byte-deque/to-array.html
@@ -197,6 +199,7 @@ $dokka.location:io.foxcapades.lib.pdk/CharDeque/size/#/PointingToDeclaration/pd
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/CharDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/CharDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-char-deque/to-array.html
@@ -258,6 +261,7 @@ $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/size/#/PointingToDeclaration/
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/DoubleDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/DoubleDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-double-deque/to-array.html
@@ -319,6 +323,7 @@ $dokka.location:io.foxcapades.lib.pdk/FloatDeque/size/#/PointingToDeclaration/p
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/FloatDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/FloatDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-float-deque/to-array.html
@@ -380,6 +385,7 @@ $dokka.location:io.foxcapades.lib.pdk/IntDeque/size/#/PointingToDeclaration/pdk
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/IntDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/IntDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-int-deque/to-array.html
@@ -441,6 +447,7 @@ $dokka.location:io.foxcapades.lib.pdk/LongDeque/size/#/PointingToDeclaration/pd
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/LongDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/LongDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-long-deque/to-array.html
@@ -467,6 +474,7 @@ $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/size/#/PointingToDeclaratio
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/to-array.html
 $dokka.location:io.foxcapades.lib.pdk/PrimitiveDeque/toList/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-primitive-deque/to-list.html
@@ -526,6 +534,7 @@ $dokka.location:io.foxcapades.lib.pdk/ShortDeque/size/#/PointingToDeclaration/p
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/ShortDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/ShortDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-short-deque/to-array.html
@@ -587,6 +596,7 @@ $dokka.location:io.foxcapades.lib.pdk/UByteDeque/size/#/PointingToDeclaration/p
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/to-array.html
@@ -648,6 +658,7 @@ $dokka.location:io.foxcapades.lib.pdk/UIntDeque/size/#/PointingToDeclaration/pd
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/UIntDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/UIntDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-int-deque/to-array.html
@@ -709,6 +720,7 @@ $dokka.location:io.foxcapades.lib.pdk/ULongDeque/size/#/PointingToDeclaration/p
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/ULongDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/ULongDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-long-deque/to-array.html
@@ -770,6 +782,7 @@ $dokka.location:io.foxcapades.lib.pdk/UShortDeque/size/#/PointingToDeclaration/
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/slice/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/slice/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/slice.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/sliceToArray/#kotlin.Int#kotlin.Int/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/slice-to-array.html
+$dokka.location:io.foxcapades.lib.pdk/UShortDeque/sliceToArray/#kotlin.ranges.IntRange/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/slice-to-array.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/space/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/space.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/tail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/tail.html
 $dokka.location:io.foxcapades.lib.pdk/UShortDeque/toArray/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-short-deque/to-array.html
