@@ -70,6 +70,35 @@ The following functions are provided as mixins that may be used along with the
 |===
 
 
+
+==== `UByteDeque`
+
+[cols="1m,1"]
+|===
+| Function | Description
+
+| popByte(): Byte
+| Pops the first byte out of the deque as a `Byte` value.
+
+| popShort( littleEndian = false ): Short
+| Pops the first 2 bytes out of the deque as a `Short` value.
+
+| popInt( littleEndian = false ): Int
+| Pops the first 4 bytes out of the deque as an `Int` value.
+
+| popLong( littleEndian = false ): Long
+| Pops the first 8 bytes out of the deque as a `Long` value.
+
+| popUShort( littleEndian = false ): UShort
+| Pops the first 2 bytes out of the deque as a `UShort` value.
+
+| popUInt( littleEndian = false ): UInt
+| Pops the first 4 bytes out of the deque as a `UInt` value.
+
+| popULong( littleEndian = false ): ULong
+| Pops the first 8 bytes out of the deque as a `ULong` value.
+|===
+
 == Provided Types
 
 * link:{srcDir}/BooleanDeque.kt[`BooleanDeque`]
