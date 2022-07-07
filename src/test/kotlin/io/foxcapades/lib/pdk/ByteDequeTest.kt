@@ -504,9 +504,9 @@ internal class ByteDequeTest {
           @Test
           @DisplayName("returns a deque wrapping the subset")
           fun t1() {
-            val res = tgt.slice(1, 5)
-            assertEquals(4, res.size)
-            assertEquals("ello", res.toArray().decodeToString())
+            val res = tgt.slice(3, 8)
+            assertEquals(5, res.size)
+            assertEquals("lo wo", res.toArray().decodeToString())
           }
         }
       }
