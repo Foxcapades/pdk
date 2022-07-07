@@ -37,6 +37,9 @@ package io.foxcapades.lib.pdk
 @Suppress("NOTHING_TO_INLINE")
 sealed class PrimitiveDeque<V, A> : Iterable<V> {
 
+  // region Properties
+  //////////////////////////////////////////////////////////////////////////////
+
   /**
    * Index of the 'first' element in the deque, which may or may not be the
    * first element in the backing array.
@@ -79,6 +82,12 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   inline val lastIndex: Int
     get() = size - 1
+
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Properties
+
+  // region Positionless
+  //////////////////////////////////////////////////////////////////////////////
 
   /**
    * Clears all elements from this deque, leaving it empty, but with the same
@@ -147,6 +156,26 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * copied.
    */
   abstract fun copyInto(array: A, offset: Int = 0)
+
+  /**
+   * Creates a new deque containing only the elements in the specified index
+   * range.
+   *
+   * @param start Inclusive start position of the range of values to slice.
+   *
+   * @param end Exclusive end position of the range of values to slice.
+   *
+   * @return A new deque containing only the elements in the given specified
+   * index range.
+   *
+   * @throws IndexOutOfBoundsException If [start] is less than `0`, if [end] is
+   * greater than [size], or if [start] is greater than [end].
+   */
+  abstract fun slice(start: Int, end: Int = size): PrimitiveDeque<V, A>
+
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Positionless
+
 
   // region Tail End
   //////////////////////////////////////////////////////////////////////////////

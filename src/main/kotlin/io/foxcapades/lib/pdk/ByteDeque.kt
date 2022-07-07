@@ -901,6 +901,40 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
+  override fun slice(start: Int, end: Int): ByteDeque {
+    // If they gave us one or more invalid indices, throw an exception
+    if (start < 0 || start > end || end > size)
+      throw IndexOutOfBoundsException()
+
+    val realSize  = end - start
+
+    // Shortcuts
+    when (realSize) {
+      0    -> return ByteDeque()
+      1    -> return ByteDeque(byteArrayOf(get(start)))
+      size -> return copy()
+    }
+
+    val realStart = internalIndex(start)
+    val realEnd   = internalIndex(end)
+
+    val out = ByteDeque(realSize)
+    out.size = realSize
+
+    // If the values are inline, we can just arraycopy out
+    if (realStart < realEnd) {
+      data.copyInto(out.data, 0, realStart, realEnd)
+    }
+
+    // The values are out of line, we have to do 2 copies
+    else {
+      data.copyInto(out.data, 0, realStart, data.size)
+      data.copyInto(out.data, data.size - realStart, 0, realEnd)
+    }
+
+    return out
+  }
+
   override fun toString() = "ByteDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is ByteDeque) data.contentEquals(other.data) else false
