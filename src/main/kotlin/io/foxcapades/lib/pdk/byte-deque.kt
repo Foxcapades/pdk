@@ -1,7 +1,5 @@
 package io.foxcapades.lib.pdk
 
-import java.io.InputStream
-
 /**
  * Takes the first 2 bytes from the backing [ByteDeque] and translates them into
  * a [Short] value.
@@ -9,7 +7,7 @@ import java.io.InputStream
  * This method makes no attempt to verify that the backing `ByteDeque` actually
  * contains at least 2 bytes.  This means, when called on a `ByteDeque` instance
  * containing less than 2 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ the available byte has been
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
  * popped from the head of the deque.  Callers should verify the length of
  * the deque before attempting to call this method.
  *
@@ -19,7 +17,7 @@ import java.io.InputStream
  * Defaults to `false` (big endian).
  *
  * @throws NoSuchElementException If called on a deque instance with fewer than
- * 2 bytes.  This exception will only be thrown _after_ the byte available in
+ * 2 bytes.  This exception will only be thrown _after_ any bytes available in
  * the deque have been consumed.
  */
 fun ByteDeque.popShort(littleEndian: Boolean = false): Short =
@@ -37,7 +35,7 @@ fun ByteDeque.popShort(littleEndian: Boolean = false): Short =
  * This method makes no attempt to verify that the backing `ByteDeque` actually
  * contains at least 4 bytes.  This means, when called on a `ByteDeque` instance
  * containing less than 4 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ the available bytes have been
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
  * popped from the head of the deque.  Callers should verify the length of
  * the deque before attempting to call this method.
  *
@@ -47,7 +45,7 @@ fun ByteDeque.popShort(littleEndian: Boolean = false): Short =
  * Defaults to `false` (big endian).
  *
  * @throws NoSuchElementException If called on a deque instance with fewer than
- * 4 bytes.  This exception will only be thrown _after_ the bytes available in
+ * 4 bytes.  This exception will only be thrown _after_ any bytes available in
  * the deque have been consumed.
  */
 fun ByteDeque.popInt(littleEndian: Boolean = false): Int =
@@ -69,7 +67,7 @@ fun ByteDeque.popInt(littleEndian: Boolean = false): Int =
  * This method makes no attempt to verify that the backing `ByteDeque` actually
  * contains at least 8 bytes.  This means, when called on a `ByteDeque` instance
  * containing less than 8 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ the available bytes have been
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
  * popped from the head of the deque.  Callers should verify the length of
  * the deque before attempting to call this method.
  *
@@ -79,7 +77,7 @@ fun ByteDeque.popInt(littleEndian: Boolean = false): Int =
  * Defaults to `false` (big endian).
  *
  * @throws NoSuchElementException If called on a deque instance with fewer than
- * 8 bytes.  This exception will only be thrown _after_ the bytes available in
+ * 8 bytes.  This exception will only be thrown _after_ any bytes available in
  * the deque have been consumed.
  */
 fun ByteDeque.popLong(littleEndian: Boolean = false): Long =
@@ -123,7 +121,7 @@ fun ByteDeque.popUByte(): UByte = pop().toUByte()
  * This method makes no attempt to verify that the backing `ByteDeque` actually
  * contains at least 2 bytes.  This means, when called on a `ByteDeque` instance
  * containing less than 2 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ the available byte has been
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
  * popped from the head of the deque.  Callers should verify the length of
  * the deque before attempting to call this method.
  *
@@ -133,7 +131,7 @@ fun ByteDeque.popUByte(): UByte = pop().toUByte()
  * Defaults to `false` (big endian).
  *
  * @throws NoSuchElementException If called on a deque instance with fewer than
- * 2 bytes.  This exception will only be thrown _after_ the byte available in
+ * 2 bytes.  This exception will only be thrown _after_ any bytes available in
  * the deque have been consumed.
  */
 fun ByteDeque.popUShort(littleEndian: Boolean = false): UShort =
@@ -151,7 +149,7 @@ fun ByteDeque.popUShort(littleEndian: Boolean = false): UShort =
  * This method makes no attempt to verify that the backing `ByteDeque` actually
  * contains at least 4 bytes.  This means, when called on a `ByteDeque` instance
  * containing less than 4 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ the available bytes have been
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
  * popped from the head of the deque.  Callers should verify the length of
  * the deque before attempting to call this method.
  *
@@ -161,7 +159,7 @@ fun ByteDeque.popUShort(littleEndian: Boolean = false): UShort =
  * Defaults to `false` (big endian).
  *
  * @throws NoSuchElementException If called on a deque instance with fewer than
- * 4 bytes.  This exception will only be thrown _after_ the bytes available in
+ * 4 bytes.  This exception will only be thrown _after_ any bytes available in
  * the deque have been consumed.
  */
 fun ByteDeque.popUInt(littleEndian: Boolean = false): UInt =
@@ -183,7 +181,7 @@ fun ByteDeque.popUInt(littleEndian: Boolean = false): UInt =
  * This method makes no attempt to verify that the backing `ByteDeque` actually
  * contains at least 8 bytes.  This means, when called on a `ByteDeque` instance
  * containing less than 8 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ the available bytes have been
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
  * popped from the head of the deque.  Callers should verify the length of
  * the deque before attempting to call this method.
  *
@@ -193,7 +191,7 @@ fun ByteDeque.popUInt(littleEndian: Boolean = false): UInt =
  * Defaults to `false` (big endian).
  *
  * @throws NoSuchElementException If called on a deque instance with fewer than
- * 8 bytes.  This exception will only be thrown _after_ the bytes available in
+ * 8 bytes.  This exception will only be thrown _after_ any bytes available in
  * the deque have been consumed.
  */
 fun ByteDeque.popULong(littleEndian: Boolean = false): ULong =
@@ -215,3 +213,49 @@ fun ByteDeque.popULong(littleEndian: Boolean = false): ULong =
     ((pop().toULong() and 0xFFu) shl 16) or
     ((pop().toULong() and 0xFFu) shl 8)  or
     (pop().toULong()  and 0xFFu)
+
+/**
+ * Takes the first 4 bytes from the backing [ByteDeque] and translates them into
+ * a [Float] value.
+ *
+ * This method makes no attempt to verify that the backing `ByteDeque` actually
+ * contains at least 4 bytes.  This means, when called on a `ByteDeque` instance
+ * containing less than 4 bytes, this method will cause a
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
+ * popped from the head of the deque.  Callers should verify the length of
+ * the deque before attempting to call this method.
+ *
+ * @param littleEndian Boolean flag indicating whether the bytes in the deque
+ * should be translated to an int with a little endian byte order.
+ *
+ * Defaults to `false` (big endian).
+ *
+ * @throws NoSuchElementException If called on a deque instance with fewer than
+ * 4 bytes.  This exception will only be thrown _after_ any bytes available in
+ * the deque have been consumed.
+ */
+fun ByteDeque.popFloat(littleEndian: Boolean = false): Float =
+  Float.fromBits(popInt(littleEndian))
+
+/**
+ * Takes the first 8 bytes from the backing [ByteDeque] and translates them into
+ * a [Double] value.
+ *
+ * This method makes no attempt to verify that the backing `ByteDeque` actually
+ * contains at least 8 bytes.  This means, when called on a `ByteDeque` instance
+ * containing less than 8 bytes, this method will cause a
+ * [NoSuchElementException] to be thrown _after_ any available bytes have been
+ * popped from the head of the deque.  Callers should verify the length of
+ * the deque before attempting to call this method.
+ *
+ * @param littleEndian Boolean flag indicating whether the bytes in the deque
+ * should be translated to an int with a little endian byte order.
+ *
+ * Defaults to `false` (big endian).
+ *
+ * @throws NoSuchElementException If called on a deque instance with fewer than
+ * 8 bytes.  This exception will only be thrown _after_ any bytes available in
+ * the deque have been consumed.
+ */
+fun ByteDeque.popDouble(littleEndian: Boolean = false): Double =
+  Double.fromBits(popLong(littleEndian))
