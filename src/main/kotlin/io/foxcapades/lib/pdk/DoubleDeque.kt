@@ -975,6 +975,8 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     return out
   }
 
+  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
+
   override fun toString() = "DoubleDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is DoubleDeque) data.contentEquals(other.data) else false

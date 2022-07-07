@@ -975,6 +975,8 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     return out
   }
 
+  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
+
   override fun toString() = "ULongDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is ULongDeque) data.contentEquals(other.data) else false

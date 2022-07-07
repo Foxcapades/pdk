@@ -225,6 +225,28 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   abstract fun sliceToArray(start: Int, end: Int = size): A
 
+  /**
+   * Creates a new array containing the elements from this deque that fall
+   * within the given index range.
+   *
+   * **Example**
+   * ```
+   * val deque = Deque{0, 1, 2, 3, 4, 5}
+   *
+   * deque.slice(1..4) // Deque{1, 2, 3}
+   * ```
+   *
+   * @param range Inclusive range of indices that will be sliced.
+   *
+   * @return A new array containing the elements from this deque that fall
+   * within the given specified index range.
+   *
+   * @throws IndexOutOfBoundsException If the start of the given range is less
+   * than `0`, if the end of the given range is greater than or equal to [size],
+   * or if the start of the given range is greater than the end.
+   */
+  abstract fun sliceToArray(range: IntRange): A
+
   //////////////////////////////////////////////////////////////////////////////
   // endregion Positionless
 

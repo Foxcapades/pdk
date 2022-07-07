@@ -975,6 +975,8 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     return out
   }
 
+  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
+
   override fun toString() = "UShortDeque($size:$cap)"
 
   override fun equals(other: Any?) = if (other is UShortDeque) data.contentEquals(other.data) else false
