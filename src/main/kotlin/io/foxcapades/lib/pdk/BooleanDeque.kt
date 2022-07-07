@@ -675,9 +675,39 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     }
 
     // If the other one is just a single value, no need to do all the heavy
-    // lifting
+    // lifting.
     if (values.size == 1)
       return pushTail(values.head)
+
+    // Make sure we have enough room for everything.
+    ensureCapacity(size + values.size)
+
+    // If the incoming data happens to be inline, we can do a simple transfer of
+    // one or two array copies.
+    if (values.isInline) {
+
+      // Our starting offset, one past the current last value.
+      val oldTail = internalIndex(size)
+      // Our ending index
+      val newTail = internalIndex(size + values.lastIndex)
+
+      // If we are currently inline, then we can just do a single array copy.
+      if (oldTail <= newTail) {
+        values.data.copyInto(data, oldTail, values.realHead, values.realHead + values.size)
+      }
+
+      // If we aren't currently inline, then we have to do 2 array copies, one
+      // to the 'front' segment at the back of our data array, and one to the
+      // 'back' segment at the front of our data array.
+      else {
+        val chunk1Size = data.size - oldTail
+        values.data.copyInto(data, oldTail, 0, chunk1Size)
+        values.data.copyInto(data, 0, values.size - chunk1Size, values.size)
+      }
+
+      size += values.size
+      return
+    }
 
     // TODO: this should be reserved for the worst case scenario where we could
     //       need 4-8 array copies to do the transfer
