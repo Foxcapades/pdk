@@ -37,3 +37,6 @@ gen-latest-docs:
 	@git commit -m 'update latest docs'
 	@git push
 	@git checkout main
+
+gen-data.bin:
+	@dd if=/dev/urandom of=data.bin bs=1MB count=1000

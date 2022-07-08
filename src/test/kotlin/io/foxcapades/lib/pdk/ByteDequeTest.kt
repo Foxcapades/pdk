@@ -5,10 +5,21 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.io.ByteArrayInputStream
 import kotlin.test.assertContentEquals
 
 @DisplayName("ByteQueue")
 internal class ByteDequeTest {
+
+  fun createWonky(size: Int, byteArray: ByteArray): ByteDeque {
+    val out = ByteDeque(size)
+
+    for (i in byteArray.indices.reversed()) {
+      out.pushHead(byteArray[i])
+    }
+
+    return out
+  }
 
   @Nested
   @DisplayName("size")
@@ -512,4 +523,39 @@ internal class ByteDequeTest {
       }
     }
   }
+
+  @Nested
+  @DisplayName("fillFrom(InputStream)")
+  inner class FillFrom1 {
+
+    @Nested
+    @DisplayName("when the ByteDeque is empty")
+    inner class IsEmpty {
+
+    }
+
+    @Nested
+    @DisplayName("when the ByteDeque is not empty")
+    inner class IsNotEmpty {
+
+      @Nested
+      @DisplayName("and is wonky")
+      inner class Wonky {
+
+        @Test
+        @DisplayName("fills correctly")
+        fun t1() {
+          val tgt = createWonky(11, "hello ".toByteArray())
+          val inp = ByteArrayInputStream(" world!".toByteArray()) // the '!' character wont fit
+
+          tgt.removeTail()
+          tgt.fillFrom(inp)
+
+          assertEquals(11, tgt.size)
+          assertEquals("hello world", tgt.toArray().decodeToString())
+        }
+      }
+    }
+  }
+
 }

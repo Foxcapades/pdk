@@ -60,45 +60,6 @@ fun ByteDeque.popInt(littleEndian: Boolean = false): Int =
     ((pop().toInt() and 0xFF) shl 8 ) or
     (pop().toInt()  and 0xFF)
 
-/**
- * Takes the first 8 bytes from the backing [ByteDeque] and translates them into
- * a [Long] value.
- *
- * This method makes no attempt to verify that the backing `ByteDeque` actually
- * contains at least 8 bytes.  This means, when called on a `ByteDeque` instance
- * containing less than 8 bytes, this method will cause a
- * [NoSuchElementException] to be thrown _after_ any available bytes have been
- * popped from the head of the deque.  Callers should verify the length of
- * the deque before attempting to call this method.
- *
- * @param littleEndian Boolean flag indicating whether the bytes in the deque
- * should be translated to an int with a little endian byte order.
- *
- * Defaults to `false` (big endian).
- *
- * @throws NoSuchElementException If called on a deque instance with fewer than
- * 8 bytes.  This exception will only be thrown _after_ any bytes available in
- * the deque have been consumed.
- */
-fun ByteDeque.popLong(littleEndian: Boolean = false): Long =
-  if (littleEndian)
-    (pop().toLong()  and 0xFFL)         or
-    ((pop().toLong() and 0xFFL) shl 8)  or
-    ((pop().toLong() and 0xFFL) shl 16) or
-    ((pop().toLong() and 0xFFL) shl 24) or
-    ((pop().toLong() and 0xFFL) shl 32) or
-    ((pop().toLong() and 0xFFL) shl 40) or
-    ((pop().toLong() and 0xFFL) shl 48) or
-    ((pop().toLong() and 0xFFL) shl 56)
-  else
-    ((pop().toLong() and 0xFFL) shl 56) or
-    ((pop().toLong() and 0xFFL) shl 48) or
-    ((pop().toLong() and 0xFFL) shl 40) or
-    ((pop().toLong() and 0xFFL) shl 32) or
-    ((pop().toLong() and 0xFFL) shl 24) or
-    ((pop().toLong() and 0xFFL) shl 16) or
-    ((pop().toLong() and 0xFFL) shl 8)  or
-    (pop().toLong()  and 0xFFL)
 
 /**
  * Takes the first byte from the backing [ByteDeque] and translates it into a
