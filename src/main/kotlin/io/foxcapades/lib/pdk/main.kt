@@ -1,26 +1,23 @@
 package io.foxcapades.lib.pdk
 
 import java.io.FileInputStream
-import java.nio.BufferUnderflowException
 import java.nio.ByteBuffer
 
 val chunkSize = 8192
+val bytes = 2
 
 fun byteBuffer() {
-  val input = FileInputStream("/home/ellie/code/mine/jvm/lib/pdk/data.bin")
+  val input  = FileInputStream("/home/ellie/code/mine/jvm/lib/pdk/data.bin")
   val buffer = ByteBuffer.allocate(chunkSize)
+  var total  = 0
 
-  var i = 0L
   val start = System.currentTimeMillis()
   while (true) {
     val red = input.read(buffer.array())
 
-    try {
-      while (true) {
-        buffer.long
-        i++
-      }
-    } catch (e: BufferUnderflowException) {}
+    (0 until red step bytes).forEach {
+      total += buffer.short
+    }
 
     buffer.clear()
     if (red < chunkSize)
@@ -28,21 +25,20 @@ fun byteBuffer() {
   }
 
   println(System.currentTimeMillis() - start)
-  println(i)
+  println(total)
 }
 
 fun byteDeque() {
-  val input = FileInputStream("/home/ellie/code/mine/jvm/lib/pdk/data.bin")
+  val input  = FileInputStream("/home/ellie/code/mine/jvm/lib/pdk/data.bin")
   val buffer = ByteDeque(chunkSize)
+  var total  = 0
 
-  var i = 0L
   val start = System.currentTimeMillis()
   while (true) {
     val red = buffer.fillFrom(input)
 
-    while (buffer.size >= 8) {
-      buffer.popLong(false)
-      i++
+    (0 until red step bytes).forEach {
+      total += buffer.popShort(false)
     }
 
     buffer.clear()
@@ -50,35 +46,27 @@ fun byteDeque() {
       break
   }
   println(System.currentTimeMillis() - start)
-  println(i)
+  println(total)
 }
 
 fun rawArray() {
-  val input = FileInputStream("/home/ellie/code/mine/jvm/lib/pdk/data.bin")
+  val input  = FileInputStream("/home/ellie/code/mine/jvm/lib/pdk/data.bin")
   val buffer = ByteArray(chunkSize)
+  var total  = 0
 
-  var i = 0L
   val start = System.currentTimeMillis()
   while (true) {
     val red = input.read(buffer)
 
-    (0 until chunkSize step 8).forEach {
-      (buffer[it].toLong()  and 0xFFL)         or
-      ((buffer[it+1].toLong() and 0xFFL) shl 8)  or
-      ((buffer[it+2].toLong() and 0xFFL) shl 16) or
-      ((buffer[it+3].toLong() and 0xFFL) shl 24) or
-      ((buffer[it+4].toLong() and 0xFFL) shl 32) or
-      ((buffer[it+5].toLong() and 0xFFL) shl 40) or
-      ((buffer[it+6].toLong() and 0xFFL) shl 48) or
-      ((buffer[it+7].toLong() and 0xFFL) shl 56)
-      i++
+    (0 until red step bytes).forEach {
+      total += buffer.toShort(it)
     }
 
     if (red < chunkSize)
       break
   }
   println(System.currentTimeMillis() - start)
-  println(i)
+  println(total)
 }
 
 fun main() {
@@ -86,3 +74,23 @@ fun main() {
   byteDeque()
   rawArray()
 }
+
+inline fun ByteArray.toShort(off: Int) =
+  ((this[off+1].toInt()  and 0xFF)  or
+  ((this[off].toInt() and 0xFF) shl 8)).toShort()
+
+inline fun ByteArray.toInt(off: Int) =
+  (this[off+3].toInt()  and 0xFF)  or
+  ((this[off+2].toInt() and 0xFF) shl 8)  or
+  ((this[off+1].toInt() and 0xFF) shl 16) or
+  ((this[off].toInt() and 0xFF) shl 24)
+
+inline fun ByteArray.toLong(off: Int) =
+  (this[off+7].toLong()  and 0xFFL)  or
+  ((this[off+6].toLong() and 0xFFL) shl 8)  or
+  ((this[off+5].toLong() and 0xFFL) shl 16) or
+  ((this[off+4].toLong() and 0xFFL) shl 24) or
+  ((this[off+3].toLong() and 0xFFL) shl 32) or
+  ((this[off+2].toLong() and 0xFFL) shl 40) or
+  ((this[off+1].toLong() and 0xFFL) shl 48) or
+  ((this[off].toLong() and 0xFFL) shl 56)

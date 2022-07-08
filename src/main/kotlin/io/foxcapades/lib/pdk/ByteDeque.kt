@@ -175,6 +175,114 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   inline fun popFront() = pop()
 
   /**
+   * Pops the first 2 bytes from this [ByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 2 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 2 bytes
+   * when this method is called.
+   */
+  fun popShort(littleEndian: Boolean = false): Short {
+    if (size < 2)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(1)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 2
+      size -= 2
+      return if (littleEndian)
+        ((data[head].toInt()   and 0xFF)         or
+        ((data[head+1].toInt() and 0xFF) shl 8)).toShort()
+      else
+        (((data[head].toInt() and 0xFF) shl 8)  or
+        (data[head+1].toInt()  and 0xFF)).toShort()
+    }
+
+    size -= 2
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      ((data[internalIndex(0)].toInt()  and 0xFF) or
+      ((data[internalIndex(1)].toInt() and 0xFF) shl 8)).toShort()
+    else
+      (((data[internalIndex(0)].toInt() and 0xFF) shl 8) or
+      (data[internalIndex(1)].toInt()  and 0xFF)).toShort()
+
+    realHead = internalIndex(2)
+
+    return out
+  }
+
+  /**
+   * Pops the first 4 bytes from this [ByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 4 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
+   * when this method is called.
+   */
+  fun popInt(littleEndian: Boolean = false): Int {
+    if (size < 4)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(3)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 4
+      size -= 4
+      return if (littleEndian)
+        (data[head].toInt()    and 0xFF)         or
+        ((data[head+1].toInt() and 0xFF) shl 8)  or
+        ((data[head+2].toInt() and 0xFF) shl 16) or
+        ((data[head+3].toInt() and 0xFF) shl 24)
+      else
+        ((data[head].toInt() and 0xFF)   shl 24) or
+        ((data[head+1].toInt() and 0xFF) shl 16) or
+        ((data[head+2].toInt() and 0xFF) shl 8)  or
+        (data[head+3].toInt()  and 0xFF)
+    }
+
+    size -= 4
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      (data[internalIndex(0)].toInt()  and 0xFF)         or
+      ((data[internalIndex(1)].toInt() and 0xFF) shl 8)  or
+      ((data[internalIndex(2)].toInt() and 0xFF) shl 16) or
+      ((data[internalIndex(3)].toInt() and 0xFF) shl 24)
+    else
+      ((data[internalIndex(0)].toInt() and 0xFF) shl 24) or
+      ((data[internalIndex(1)].toInt() and 0xFF) shl 16) or
+      ((data[internalIndex(2)].toInt() and 0xFF) shl 8)  or
+      (data[internalIndex(3)].toInt()  and 0xFF)
+
+    realHead = internalIndex(4)
+
+    return out
+  }
+
+  /**
    * Pops the first 8 bytes from this [ByteDeque] and translates them into a
    * [Long] value.
    *
@@ -220,25 +328,32 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
           (data[head+7].toLong()  and 0xFFL)
     }
 
-    // TODO: this is horrifyingly inefficient, replace it.
-    return 0/*if (littleEndian)
-      (pop().toLong()  and 0xFFL)         or
-        ((pop().toLong() and 0xFFL) shl 8)  or
-        ((pop().toLong() and 0xFFL) shl 16) or
-        ((pop().toLong() and 0xFFL) shl 24) or
-        ((pop().toLong() and 0xFFL) shl 32) or
-        ((pop().toLong() and 0xFFL) shl 40) or
-        ((pop().toLong() and 0xFFL) shl 48) or
-        ((pop().toLong() and 0xFFL) shl 56)
+    size -= 8
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      (data[internalIndex(0)].toLong()  and 0xFFL)         or
+        ((data[internalIndex(1)].toLong() and 0xFFL) shl 8)  or
+        ((data[internalIndex(2)].toLong() and 0xFFL) shl 16) or
+        ((data[internalIndex(3)].toLong() and 0xFFL) shl 24) or
+        ((data[internalIndex(4)].toLong() and 0xFFL) shl 32) or
+        ((data[internalIndex(5)].toLong() and 0xFFL) shl 40) or
+        ((data[internalIndex(6)].toLong() and 0xFFL) shl 48) or
+        ((data[internalIndex(7)].toLong() and 0xFFL) shl 56)
     else
-      ((pop().toLong() and 0xFFL) shl 56) or
-        ((pop().toLong() and 0xFFL) shl 48) or
-        ((pop().toLong() and 0xFFL) shl 40) or
-        ((pop().toLong() and 0xFFL) shl 32) or
-        ((pop().toLong() and 0xFFL) shl 24) or
-        ((pop().toLong() and 0xFFL) shl 16) or
-        ((pop().toLong() and 0xFFL) shl 8)  or
-        (pop().toLong()  and 0xFFL)*/
+      ((data[internalIndex(0)].toLong() and 0xFFL) shl 56) or
+        ((data[internalIndex(1)].toLong() and 0xFFL) shl 48) or
+        ((data[internalIndex(2)].toLong() and 0xFFL) shl 40) or
+        ((data[internalIndex(3)].toLong() and 0xFFL) shl 32) or
+        ((data[internalIndex(4)].toLong() and 0xFFL) shl 24) or
+        ((data[internalIndex(5)].toLong() and 0xFFL) shl 16) or
+        ((data[internalIndex(6)].toLong() and 0xFFL) shl 8)  or
+        (data[internalIndex(7)].toLong()  and 0xFFL)
+
+    realHead = internalIndex(8)
+
+    return out
   }
 
   // endregion Pop
