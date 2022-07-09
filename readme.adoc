@@ -263,9 +263,10 @@ index range.
 
 | slice(from .. to)
 
-| sliceToArray(from, to) +
-sliceToArray(from .. to)
-| Returns an array containing the contents of the target deque in the given index range.
+| sliceToArray(from, to)
+.2+| Returns an array containing the contents of the target deque in the given index range.
+
+| sliceToArray(from .. to)
 |===
 
 ==== Byte Deque
@@ -312,9 +313,9 @@ input stream.
 |===
 | Method / Operator | Description
 
-| += String +
-+= CharSequence
-| Appends the characters of the given value to the back of the deque.
+| += String
+.2+| Appends the characters of the given value to the back of the deque.
+| += CharSequence
 
 | stringValue()
 | Creates a new `String` value representing the current contents of the deque.
