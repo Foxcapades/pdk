@@ -95,8 +95,7 @@ copying the contents of a `Collection` instance into a deque.
 
 === Dependencies
 
-`pdk` only depends on the Kotlin standard library and, apart from unit testing,
-does not contain a single import statement.
+`pdk` only depends on the Kotlin and JDK standard library.
 
 
 == Development
