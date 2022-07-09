@@ -1,6 +1,7 @@
 package io.foxcapades.lib.pdk
 
 import java.io.InputStream
+import java.nio.BufferUnderflowException
 
 /**
  * # UByte Deque
@@ -173,6 +174,422 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
    */
   inline fun popFront() = pop()
 
+  /**
+   * Takes the first byte from the backing [UByteDeque] and translates it into a
+   * [Byte] value.
+   *
+   * If this deque is empty, this method throws a [BufferUnderflowException].
+   *
+   * @throws BufferUnderflowException If this deque is empty when this method is
+   * called.
+   */
+  fun popByte(): Byte = pop().toByte()
+
+  /**
+   * Pops the first 2 bytes from this [UByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 2 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 2 bytes
+   * when this method is called.
+   */
+  fun popShort(littleEndian: Boolean = false): Short {
+    if (size < 2)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(1)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 2
+      size -= 2
+      return if (littleEndian)
+        ((data[head].toInt()   and 0xFF)         or
+          ((data[head+1].toInt() and 0xFF) shl 8)).toShort()
+      else
+        (((data[head].toInt() and 0xFF) shl 8)  or
+          (data[head+1].toInt()  and 0xFF)).toShort()
+    }
+
+    size -= 2
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      ((data[internalIndex(0)].toInt()  and 0xFF) or
+        ((data[internalIndex(1)].toInt() and 0xFF) shl 8)).toShort()
+    else
+      (((data[internalIndex(0)].toInt() and 0xFF) shl 8) or
+        (data[internalIndex(1)].toInt()  and 0xFF)).toShort()
+
+    realHead = internalIndex(2)
+
+    return out
+  }
+
+  /**
+   * Pops the first 4 bytes from this [UByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 4 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
+   * when this method is called.
+   */
+  fun popInt(littleEndian: Boolean = false): Int {
+    if (size < 4)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(3)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 4
+      size -= 4
+      return if (littleEndian)
+        (data[head].toInt()    and 0xFF)         or
+          ((data[head+1].toInt() and 0xFF) shl 8)  or
+          ((data[head+2].toInt() and 0xFF) shl 16) or
+          ((data[head+3].toInt() and 0xFF) shl 24)
+      else
+        ((data[head].toInt() and 0xFF)   shl 24) or
+          ((data[head+1].toInt() and 0xFF) shl 16) or
+          ((data[head+2].toInt() and 0xFF) shl 8)  or
+          (data[head+3].toInt()  and 0xFF)
+    }
+
+    size -= 4
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      (data[internalIndex(0)].toInt()  and 0xFF)         or
+        ((data[internalIndex(1)].toInt() and 0xFF) shl 8)  or
+        ((data[internalIndex(2)].toInt() and 0xFF) shl 16) or
+        ((data[internalIndex(3)].toInt() and 0xFF) shl 24)
+    else
+      ((data[internalIndex(0)].toInt() and 0xFF) shl 24) or
+        ((data[internalIndex(1)].toInt() and 0xFF) shl 16) or
+        ((data[internalIndex(2)].toInt() and 0xFF) shl 8)  or
+        (data[internalIndex(3)].toInt()  and 0xFF)
+
+    realHead = internalIndex(4)
+
+    return out
+  }
+
+  /**
+   * Pops the first 8 bytes from this [UByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 8 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 8 bytes
+   * when this method is called.
+   */
+  fun popLong(littleEndian: Boolean = false): Long {
+    if (size < 8)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(7)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 8
+      size -= 8
+      return if (littleEndian)
+        (data[head].toLong()  and 0xFFL)         or
+          ((data[head+1].toLong() and 0xFFL) shl 8)  or
+          ((data[head+2].toLong() and 0xFFL) shl 16) or
+          ((data[head+3].toLong() and 0xFFL) shl 24) or
+          ((data[head+4].toLong() and 0xFFL) shl 32) or
+          ((data[head+5].toLong() and 0xFFL) shl 40) or
+          ((data[head+6].toLong() and 0xFFL) shl 48) or
+          ((data[head+7].toLong() and 0xFFL) shl 56)
+      else
+        ((data[head].toLong() and 0xFFL) shl 56) or
+          ((data[head+1].toLong() and 0xFFL) shl 48) or
+          ((data[head+2].toLong() and 0xFFL) shl 40) or
+          ((data[head+3].toLong() and 0xFFL) shl 32) or
+          ((data[head+4].toLong() and 0xFFL) shl 24) or
+          ((data[head+5].toLong() and 0xFFL) shl 16) or
+          ((data[head+6].toLong() and 0xFFL) shl 8)  or
+          (data[head+7].toLong()  and 0xFFL)
+    }
+
+    size -= 8
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      (data[internalIndex(0)].toLong()  and 0xFFL)         or
+        ((data[internalIndex(1)].toLong() and 0xFFL) shl 8)  or
+        ((data[internalIndex(2)].toLong() and 0xFFL) shl 16) or
+        ((data[internalIndex(3)].toLong() and 0xFFL) shl 24) or
+        ((data[internalIndex(4)].toLong() and 0xFFL) shl 32) or
+        ((data[internalIndex(5)].toLong() and 0xFFL) shl 40) or
+        ((data[internalIndex(6)].toLong() and 0xFFL) shl 48) or
+        ((data[internalIndex(7)].toLong() and 0xFFL) shl 56)
+    else
+      ((data[internalIndex(0)].toLong() and 0xFFL) shl 56) or
+        ((data[internalIndex(1)].toLong() and 0xFFL) shl 48) or
+        ((data[internalIndex(2)].toLong() and 0xFFL) shl 40) or
+        ((data[internalIndex(3)].toLong() and 0xFFL) shl 32) or
+        ((data[internalIndex(4)].toLong() and 0xFFL) shl 24) or
+        ((data[internalIndex(5)].toLong() and 0xFFL) shl 16) or
+        ((data[internalIndex(6)].toLong() and 0xFFL) shl 8)  or
+        (data[internalIndex(7)].toLong()  and 0xFFL)
+
+    realHead = internalIndex(8)
+
+    return out
+  }
+
+  /**
+   * Pops the first 2 bytes from this [UByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 2 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 2 bytes
+   * when this method is called.
+   */
+  fun popUShort(littleEndian: Boolean = false): UShort {
+    if (size < 2)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(1)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 2
+      size -= 2
+      return if (littleEndian)
+        ((data[head].toInt()   and 0xFF) or
+          ((data[head+1].toInt() and 0xFF) shl 8)).toUShort()
+      else
+        (((data[head].toInt() and 0xFF) shl 8)  or
+          (data[head+1].toInt() and 0xFF)).toUShort()
+    }
+
+    size -= 2
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      ((data[internalIndex(0)].toInt() and 0xFF) or
+        ((data[internalIndex(1)].toInt() and 0xFF) shl 8)).toUShort()
+    else
+      (((data[internalIndex(0)].toInt() and 0xFF) shl 8) or
+        (data[internalIndex(1)].toInt()   and 0xFF)).toUShort()
+
+    realHead = internalIndex(2)
+
+    return out
+  }
+
+  /**
+   * Pops the first 4 bytes from this [UByteDeque] and translates them into a
+   * [UInt] value.
+   *
+   * If this deque contains fewer than 4 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
+   * when this method is called.
+   */
+  fun popUInt(littleEndian: Boolean = false): UInt {
+    if (size < 4)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(3)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 4
+      size -= 4
+      return if (littleEndian)
+        (data[head].toUInt()  and 0xFFu)           or
+        ((data[head+1].toUInt() and 0xFFu) shl 8)  or
+        ((data[head+2].toUInt() and 0xFFu) shl 16) or
+        ((data[head+3].toUInt() and 0xFFu) shl 24)
+      else
+        ((data[head].toUInt() and 0xFFu) shl 24)   or
+        ((data[head+1].toUInt() and 0xFFu) shl 16) or
+        ((data[head+2].toUInt() and 0xFFu) shl 8)  or
+        (data[head+3].toUInt()  and 0xFFu)
+    }
+
+    size -= 4
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      (data[internalIndex(0)].toUInt()  and 0xFFu)         or
+      ((data[internalIndex(1)].toUInt() and 0xFFu) shl 8)  or
+      ((data[internalIndex(2)].toUInt() and 0xFFu) shl 16) or
+      ((data[internalIndex(3)].toUInt() and 0xFFu) shl 24)
+    else
+      ((data[internalIndex(0)].toUInt() and 0xFFu) shl 24) or
+      ((data[internalIndex(1)].toUInt() and 0xFFu) shl 16) or
+      ((data[internalIndex(2)].toUInt() and 0xFFu) shl 8)  or
+      (data[internalIndex(3)].toUInt()  and 0xFFu)
+
+    realHead = internalIndex(4)
+
+    return out
+  }
+
+  /**
+   * Pops the first 8 bytes from this [UByteDeque] and translates them into a
+   * [ULong] value.
+   *
+   * If this deque contains fewer than 8 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 8 bytes
+   * when this method is called.
+   */
+  fun popULong(littleEndian: Boolean = false): ULong {
+    if (size < 8)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(7)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 8
+      size -= 8
+      return if (littleEndian)
+        (data[head].toULong()  and 0xFFu)         or
+        ((data[head+1].toULong() and 0xFFu) shl 8)  or
+        ((data[head+2].toULong() and 0xFFu) shl 16) or
+        ((data[head+3].toULong() and 0xFFu) shl 24) or
+        ((data[head+4].toULong() and 0xFFu) shl 32) or
+        ((data[head+5].toULong() and 0xFFu) shl 40) or
+        ((data[head+6].toULong() and 0xFFu) shl 48) or
+        ((data[head+7].toULong() and 0xFFu) shl 56)
+      else
+        ((data[head].toULong() and 0xFFu) shl 56) or
+        ((data[head+1].toULong() and 0xFFu) shl 48) or
+        ((data[head+2].toULong() and 0xFFu) shl 40) or
+        ((data[head+3].toULong() and 0xFFu) shl 32) or
+        ((data[head+4].toULong() and 0xFFu) shl 24) or
+        ((data[head+5].toULong() and 0xFFu) shl 16) or
+        ((data[head+6].toULong() and 0xFFu) shl 8)  or
+        (data[head+7].toULong()  and 0xFFu)
+    }
+
+    size -= 8
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      (data[internalIndex(0)].toULong()  and 0xFFu)         or
+      ((data[internalIndex(1)].toULong() and 0xFFu) shl 8)  or
+      ((data[internalIndex(2)].toULong() and 0xFFu) shl 16) or
+      ((data[internalIndex(3)].toULong() and 0xFFu) shl 24) or
+      ((data[internalIndex(4)].toULong() and 0xFFu) shl 32) or
+      ((data[internalIndex(5)].toULong() and 0xFFu) shl 40) or
+      ((data[internalIndex(6)].toULong() and 0xFFu) shl 48) or
+      ((data[internalIndex(7)].toULong() and 0xFFu) shl 56)
+    else
+      ((data[internalIndex(0)].toULong() and 0xFFu) shl 56) or
+      ((data[internalIndex(1)].toULong() and 0xFFu) shl 48) or
+      ((data[internalIndex(2)].toULong() and 0xFFu) shl 40) or
+      ((data[internalIndex(3)].toULong() and 0xFFu) shl 32) or
+      ((data[internalIndex(4)].toULong() and 0xFFu) shl 24) or
+      ((data[internalIndex(5)].toULong() and 0xFFu) shl 16) or
+      ((data[internalIndex(6)].toULong() and 0xFFu) shl 8)  or
+      (data[internalIndex(7)].toULong()  and 0xFFu)
+
+    realHead = internalIndex(8)
+
+    return out
+  }
+
+  /**
+   * Pops the first 4 bytes from this [UByteDeque] and translates them into a
+   * [Float] value.
+   *
+   * If this deque contains fewer than 4 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @return The `Float` value parsed from the first 4 bytes popped from this
+   * deque.
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
+   * when this method is called.
+   */
+  fun popFloat(littleEndian: Boolean = false): Float =
+    Float.fromBits(popInt(littleEndian))
+
+  /**
+   * Pops the first 8 bytes from this [UByteDeque] and translates them into a
+   * [Double] value.
+   *
+   * If this deque contains fewer than 8 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @return The `Double` value parsed from the first 8 bytes popped from this
+   * deque.
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 8 bytes
+   * when this method is called.
+   */
+  fun popDouble(littleEndian: Boolean = false): Double =
+    Double.fromBits(popLong(littleEndian))
 
   // endregion Pop
 
