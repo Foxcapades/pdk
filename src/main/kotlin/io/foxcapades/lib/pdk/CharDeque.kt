@@ -9,7 +9,6 @@ package io.foxcapades.lib.pdk
  * @since v1.0.0
  */
 @Suppress("NOTHING_TO_INLINE")
-@OptIn(ExperimentalUnsignedTypes::class)
 class CharDeque : PrimitiveDeque<Char, CharArray> {
 
   private var data: CharArray
@@ -450,6 +449,8 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
   //  Methods for pushing elements onto the tail end of the deque en masse
   //
 
+  // region Overrides
+
   override fun pushTail(values: CharArray) {
     // If the input array is empty, then we have nothing to do.
     if (values.isEmpty())
@@ -496,6 +497,134 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     for (v in values)
       pushTail(v)
   }
+
+  // endregion Overrides
+
+  // region String
+
+  /**
+   * Pushes the contents of the given String onto the back of this deque.
+   *
+   * If the length of the given string plus the current size of this deque is
+   * greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * @param values String of characters that will be pushed onto the back of
+   * this deque.
+   */
+  fun pushTail(values: String) {
+    if (values.isEmpty())
+      return
+
+    pushTail(values.toCharArray())
+  }
+
+  /**
+   * Pushes the contents of the given String onto the back of this deque.
+   *
+   * If the length of the given string plus the current size of this deque is
+   * greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values String of characters that will be pushed onto the back of
+   * this deque.
+   */
+  inline fun pushLast(values: String) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given String onto the back of this deque.
+   *
+   * If the length of the given string plus the current size of this deque is
+   * greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values String of characters that will be pushed onto the back of
+   * this deque.
+   */
+  inline fun pushBack(values: String) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given String onto the back of this deque.
+   *
+   * If the length of the given string plus the current size of this deque is
+   * greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values String of characters that will be pushed onto the back of
+   * this deque.
+   */
+  inline operator fun plusAssign(values: String) = pushTail(values)
+
+  // endregion String
+
+  // region CharSequence
+
+  /**
+   * Pushes the contents of the given CharSequence onto the back of this deque.
+   *
+   * If the length of the given CharSequence plus the current size of this deque
+   * is greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * @param values Sequence of characters that will be pushed onto the back of
+   * this deque.
+   */
+  fun pushTail(values: CharSequence) {
+    if (values.isEmpty())
+      return
+
+    pushTail(CharArray(values.length) { values[it] })
+  }
+
+  /**
+   * Pushes the contents of the given CharSequence onto the back of this deque.
+   *
+   * If the length of the given CharSequence plus the current size of this deque
+   * is greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Sequence of characters that will be pushed onto the back of
+   * this deque.
+   */
+  inline fun pushLast(values: CharSequence) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given CharSequence onto the back of this deque.
+   *
+   * If the length of the given CharSequence plus the current size of this deque
+   * is greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Sequence of characters that will be pushed onto the back of
+   * this deque.
+   */
+  inline fun pushBack(values: CharSequence) = pushTail(values)
+
+  /**
+   * Pushes the contents of the given CharSequence onto the back of this deque.
+   *
+   * If the length of the given CharSequence plus the current size of this deque
+   * is greater than this deque's current capacity, this deque will resize to
+   * accommodate the new values.
+   *
+   * Alias of [pushTail]
+   *
+   * @param values Sequence of characters that will be pushed onto the back of
+   * this deque.
+   */
+  inline operator fun plusAssign(values: CharSequence) = pushTail(values)
+
+  // endregion CharSequence
 
   /**
    * Pushes the contents of the given deque onto the back of this deque.
