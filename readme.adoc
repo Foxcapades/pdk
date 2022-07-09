@@ -35,7 +35,7 @@ for (i in 0 until read step 8)
 ----
 
 NOTE: This is just an example, the JDK's builtin type `ByteBuffer` is able to
-read long values from a stream up to 50% faster than `ByteDeque` due
+read long values from a stream up to 50% faster than `ByteDeque` due to
 `ByteBuffer` utilizing the `Unsafe` class to raw cast bytes in memory as a long
 value.
 --
