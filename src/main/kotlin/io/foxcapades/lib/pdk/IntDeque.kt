@@ -9,7 +9,6 @@ package io.foxcapades.lib.pdk
  * @since v1.0.0
  */
 @Suppress("NOTHING_TO_INLINE")
-@OptIn(ExperimentalUnsignedTypes::class)
 class IntDeque : PrimitiveDeque<Int, IntArray> {
 
   private var data: IntArray
