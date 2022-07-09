@@ -1,5 +1,7 @@
 package io.foxcapades.lib.pdk
 
+import java.io.InputStream
+
 /**
  * # UByte Deque
  *
@@ -597,6 +599,64 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
    * @param values Deque that will be pushed onto the back of this deque.
    */
   inline operator fun plusAssign(values: UByteDeque) = pushTail(values)
+
+  /**
+   * Fills this [UByteDeque] with data from the given [InputStream].
+   *
+   * This method will read at most `deque.cap - deque.size` bytes from the given
+   * `InputStream`.
+   *
+   * @param stream `InputStream` from which this `UByteDeque` will be filled.
+   *
+   * @return The number of bytes read into this `UByteDeque` from the given
+   * `InputStream`, or `-1` if the end of the `InputStream` had been reached
+   * before this method was called.
+   */
+  fun fillFrom(stream: InputStream): Int {
+    // If the current size of the deque is `0` then use the full data array
+    // regardless of where the head was previously.
+    if (size == 0) {
+      realHead = 0
+      val red = stream.read(data.asByteArray())
+
+      if (red == -1) {
+        size = 0
+        return -1
+      }
+
+      size = red
+      return red
+    }
+
+    // If we don't have any space available, then bail here
+    if (space == 0)
+      return 0
+
+    val oldTail = internalIndex(size)
+    val newTail = internalIndex(lastIndex)
+
+    val red = stream.read(data.asByteArray(), oldTail, data.size - oldTail)
+
+    if (red == -1)
+      return -1
+
+    size += red
+
+    // If we are going to stay inline
+    if (oldTail < newTail) {
+      return red
+    }
+
+    // We are going out of line... they should've compacted :(
+    val r2 = stream.read(data.asByteArray(), 0, realHead)
+
+    if (r2 == -1)
+      return red
+
+    size += r2
+
+    return red + r2
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Push Multiple Values
