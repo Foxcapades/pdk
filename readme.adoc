@@ -102,6 +102,8 @@ copying the contents of a `Collection` instance into a deque.
 
 === Comparison / Mapping
 
+Comparison of basic deque functions across libraries.
+
 [%header, cols="1,1a,1a,1a,1a"]
 |===
 ^| Action
