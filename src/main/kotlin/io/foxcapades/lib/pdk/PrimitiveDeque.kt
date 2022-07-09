@@ -270,6 +270,131 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   //////////////////////////////////////////////////////////////////////////////
   // endregion Positionless
 
+  // region Head End
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  //  Methods specifically relating to or operating on the head end of the
+  //  deque.
+  //
+
+  // region Remove
+
+  /**
+   * Removes the first [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  abstract fun removeHead(count: Int = 1)
+
+  /**
+   * Removes the first [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeHead]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun removeFirst(count: Int = 1) = removeHead(count)
+
+  /**
+   * Removes the first [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeHead]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun removeFront(count: Int = 1) = removeHead(count)
+
+  /**
+   * Removes the first [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeHead]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun deleteHead(count: Int = 1) = removeHead(count)
+
+  /**
+   * Removes the first [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeHead]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun deleteFirst(count: Int = 1) = removeHead(count)
+
+  /**
+   * Removes the first [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeHead]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun deleteFront(count: Int = 1) = removeHead(count)
+
+  // endregion Remove
+
+  //////////////////////////////////////////////////////////////////////////////
+  // endregion Head End
 
   // region Tail End
   //////////////////////////////////////////////////////////////////////////////
@@ -277,6 +402,122 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   //  Methods specifically relating to or operating on the tail end of the
   //  deque.
   //
+
+  // region Remove
+
+  /**
+   * Removes the last [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  abstract fun removeTail(count: Int = 1)
+
+  /**
+   * Removes the last [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeTail]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun removeLast(count: Int = 1) = removeTail(count)
+
+  /**
+   * Removes the last [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeTail]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun removeBack(count: Int = 1) = removeTail(count)
+
+  /**
+   * Removes the last [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeTail]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun deleteTail(count: Int = 1) = removeTail(count)
+
+  /**
+   * Removes the last [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeTail]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun deleteLast(count: Int = 1) = removeTail(count)
+
+  /**
+   * Removes the last [count] elements of this deque.
+   *
+   * If this deque was empty, or if [count] equals `0`, this method does
+   * nothing.
+   *
+   * If [count] is greater than or equal to [size], this method clears the deque
+   * entirely (same as calling [clear]).
+   *
+   * Alias of [removeTail]
+   *
+   * @param count Number of elements to remove from this deque.
+   *
+   * Defaults to `1`.
+   *
+   * @throws IllegalArgumentException If [count] is less than `0`.
+   */
+  inline fun deleteBack(count: Int = 1) = removeTail(count)
+
+  // endregion Remove
 
   // region Push Array
   //////////////////////////////////////////////////////////////////////////////

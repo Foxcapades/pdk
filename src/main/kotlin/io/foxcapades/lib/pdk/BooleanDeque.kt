@@ -9,7 +9,6 @@ package io.foxcapades.lib.pdk
  * @since v1.0.0
  */
 @Suppress("NOTHING_TO_INLINE")
-@OptIn(ExperimentalUnsignedTypes::class)
 class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   private var data: BooleanArray
@@ -176,99 +175,18 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   // region Remove
 
-  /**
-   * Removes the first element of this deque.
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  fun removeHead() {
-    if (!isEmpty) {
-      realHead = incremented(realHead)
-      size--
+  override fun removeHead(count: Int) {
+    when {
+      count < 0     -> throw IllegalArgumentException()
+      isEmpty       -> {}
+      count == 0    -> {}
+      count >= size -> clear()
+      else          -> {
+        realHead = internalIndex(realHead + count)
+        size -= count
+      }
     }
   }
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeFirst() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeFront() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteHead() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteFirst() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteFront() = removeHead()
-
 
   // endregion Remove
 
@@ -443,98 +361,15 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   // region Remove
 
-  /**
-   * Removes the last element of this deque.
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  fun removeTail() {
-    if (!isEmpty) {
-      size--
+  override fun removeTail(count: Int) {
+    when {
+      count  < 0    ->  throw IllegalArgumentException()
+      count == 0    -> {}
+      isEmpty       -> {}
+      count >= size -> clear()
+      else          -> size -= count
     }
   }
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeLast() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeBack() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteTail() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteLast() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteBack() = removeTail()
-
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Remove

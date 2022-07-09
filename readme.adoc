@@ -1,6 +1,7 @@
 = Primitive Deque Types
 :srcDir: src/main/kotlin/io/foxcapades/lib/pdk
 :source-highlighter: highlightjs
+:icons: font
 
 image:https://img.shields.io/github/license/Foxcapades/pdk[]
 image:https://img.shields.io/badge/jdk-1.8-blue[]
@@ -20,6 +21,25 @@ dependencies {
 }
 ----
 
+=== Examples
+
+.*Reading Longs from a Stream*
+--
+[source, kotlin]
+----
+val deque = ByteDeque(8192)
+val read  = deque.fillFrom(inputStream)
+
+for (i in 0 until read step 8)
+  println(deque.popLong())
+----
+
+NOTE: This is just an example, the JDK's builtin type `ByteBuffer` is able to
+read long values from a stream up to 50% faster than `ByteDeque` due
+`ByteBuffer` utilizing the `Unsafe` class to raw cast bytes in memory as a long
+value.
+--
+
 === Method & Property Aliases
 
 Similar to the JDK's `Queue` type and various implementations, the `*Deque`
@@ -36,90 +56,6 @@ first element in the deque, has the alias properties `first` and `front`,
 similarly the method `pushHead`, which pushes an element onto the head of the
 deque, has the alias methods `pushFirst` and `pushFront`.
 
-=== Mixins
-
-The following functions are provided as mixins that may be used along with the
-`PrimitiveDeque` implementation types.
-
-==== `ByteDeque`
-
-[cols="1m,1"]
-|===
-| Function | Description
-
-| popShort( littleEndian = false ): Short
-| Pops the first 2 bytes out of the deque as a `Short` value.
-
-| popInt( littleEndian = false ): Int
-| Pops the first 4 bytes out of the deque as an `Int` value.
-
-| popLong( littleEndian = false ): Long
-| Pops the first 8 bytes out of the deque as a `Long` value.
-
-| popFloat( littleEndian = false ): Float
-| Pops the first 4 bytes out of the deque as a `Float` value.
-
-| popDouble( littleEndian = false ): Double
-| Pops the first 8 bytes out of the deque as a `Double` value.
-
-| popUByte(): UByte
-| Pops the first byte out of the deque as a `UByte` value.
-
-| popUShort( littleEndian = false ): UShort
-| Pops the first 2 bytes out of the deque as a `UShort` value.
-
-| popUInt( littleEndian = false ): UInt
-| Pops the first 4 bytes out of the deque as a `UInt` value.
-
-| popULong( littleEndian = false ): ULong
-| Pops the first 8 bytes out of the deque as a `ULong` value.
-|===
-
-
-==== `CharDeque`
-
-[cols="1m,1"]
-|===
-| Function | Description
-
-| stringValue()
-| Returns the contents of the deque as a `String` value.
-|===
-
-
-==== `UByteDeque`
-
-[cols="1m,1"]
-|===
-| Function | Description
-
-| popByte(): Byte
-| Pops the first byte out of the deque as a `Byte` value.
-
-| popShort( littleEndian = false ): Short
-| Pops the first 2 bytes out of the deque as a `Short` value.
-
-| popInt( littleEndian = false ): Int
-| Pops the first 4 bytes out of the deque as an `Int` value.
-
-| popLong( littleEndian = false ): Long
-| Pops the first 8 bytes out of the deque as a `Long` value.
-
-| popFloat( littleEndian = false ): Float
-| Pops the first 4 bytes out of the deque as a `Float` value.
-
-| popDouble( littleEndian = false ): Double
-| Pops the first 8 bytes out of the deque as a `Double` value.
-
-| popUShort( littleEndian = false ): UShort
-| Pops the first 2 bytes out of the deque as a `UShort` value.
-
-| popUInt( littleEndian = false ): UInt
-| Pops the first 4 bytes out of the deque as a `UInt` value.
-
-| popULong( littleEndian = false ): ULong
-| Pops the first 8 bytes out of the deque as a `ULong` value.
-|===
 
 == Provided Types
 

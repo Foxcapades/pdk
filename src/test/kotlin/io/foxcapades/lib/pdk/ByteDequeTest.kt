@@ -5,10 +5,21 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.io.ByteArrayInputStream
 import kotlin.test.assertContentEquals
 
 @DisplayName("ByteQueue")
 internal class ByteDequeTest {
+
+  fun createWonky(size: Int, byteArray: ByteArray): ByteDeque {
+    val out = ByteDeque(size)
+
+    for (i in byteArray.indices.reversed()) {
+      out.pushHead(byteArray[i])
+    }
+
+    return out
+  }
 
   @Nested
   @DisplayName("size")
@@ -512,4 +523,164 @@ internal class ByteDequeTest {
       }
     }
   }
+
+  @Nested
+  @DisplayName("fillFrom(InputStream)")
+  inner class FillFrom1 {
+
+    @Nested
+    @DisplayName("when the ByteDeque is empty")
+    inner class IsEmpty {
+
+    }
+
+    @Nested
+    @DisplayName("when the ByteDeque is not empty")
+    inner class IsNotEmpty {
+
+      @Nested
+      @DisplayName("and is wonky")
+      inner class Wonky {
+
+        @Test
+        @DisplayName("fills correctly")
+        fun t1() {
+          val tgt = createWonky(11, "hello ".toByteArray())
+          val inp = ByteArrayInputStream(" world!".toByteArray()) // the '!' character wont fit
+
+          tgt.removeTail()
+          tgt.fillFrom(inp)
+
+          assertEquals(11, tgt.size)
+          assertEquals("hello world", tgt.toArray().decodeToString())
+        }
+      }
+    }
+  }
+
+  @Nested
+  @DisplayName("popUByte()")
+  inner class PopUByte {
+
+    @Test
+    @DisplayName("correctly parses the bytes for a positive byte value")
+    fun t1() {
+      val t = ByteDeque(byteArrayOf(127))
+      assertEquals(127.toUByte(), t.popUByte())
+      assertTrue(t.isEmpty)
+    }
+
+    @Test
+    @DisplayName("correctly parses the bytes for a negative byte value")
+    fun t2() {
+      val t = ByteDeque(byteArrayOf(-1))
+      assertEquals(255.toUByte(), t.popUByte())
+      assertTrue(t.isEmpty)
+    }
+  }
+
+  @Nested
+  @DisplayName("popShort(Boolean)")
+  inner class PopShort1 {
+
+    @Nested
+    @DisplayName("when littleEndian is true")
+    inner class LittleEndian {
+
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(0, 1))
+        assertEquals(256, t.popShort(true))
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(0, -128))
+        assertEquals(-32768, t.popShort(true))
+        assertTrue(t.isEmpty)
+      }
+    }
+
+    @Nested
+    @DisplayName("when littleEndian is false")
+    inner class BigEndian {
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(1, 0))
+        assertEquals(256, t.popShort())
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(-128, 0))
+        assertEquals(-32768, t.popShort())
+        assertTrue(t.isEmpty)
+      }
+    }
+  }
+
+  @Nested
+  @DisplayName("popUShort(Boolean)")
+  inner class PopUShort1 {
+
+    @Nested
+    @DisplayName("when littleEndian is true")
+    inner class LittleEndian {
+
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(0, 1))
+        assertEquals(256.toUShort(), t.popUShort(true))
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(0, -128))
+        assertEquals(32768.toUShort(), t.popUShort(true))
+        assertTrue(t.isEmpty)
+
+        t += -1
+        t += -1
+
+        assertEquals(65535.toUShort(), t.popUShort(true))
+        assertTrue(t.isEmpty)
+      }
+    }
+
+    @Nested
+    @DisplayName("when littleEndian is false")
+    inner class BigEndian {
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(1, 0))
+        assertEquals(256.toUShort(), t.popUShort())
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(-128, 0))
+        assertEquals(32768.toUShort(), t.popUShort())
+        assertTrue(t.isEmpty)
+
+        t += -1
+        t += -1
+
+        assertEquals(65535.toUShort(), t.popUShort())
+        assertTrue(t.isEmpty)
+      }
+    }
+  }
+
 }

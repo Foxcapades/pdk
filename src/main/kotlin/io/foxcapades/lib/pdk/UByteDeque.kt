@@ -1,5 +1,7 @@
 package io.foxcapades.lib.pdk
 
+import java.io.InputStream
+
 /**
  * # UByte Deque
  *
@@ -176,99 +178,18 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // region Remove
 
-  /**
-   * Removes the first element of this deque.
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  fun removeHead() {
-    if (!isEmpty) {
-      realHead = incremented(realHead)
-      size--
+  override fun removeHead(count: Int) {
+    when {
+      count < 0     -> throw IllegalArgumentException()
+      isEmpty       -> {}
+      count == 0    -> {}
+      count >= size -> clear()
+      else          -> {
+        realHead = internalIndex(realHead + count)
+        size -= count
+      }
     }
   }
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeFirst() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeFront() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteHead() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteFirst() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteFront() = removeHead()
-
 
   // endregion Remove
 
@@ -443,98 +364,15 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
 
   // region Remove
 
-  /**
-   * Removes the last element of this deque.
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  fun removeTail() {
-    if (!isEmpty) {
-      size--
+  override fun removeTail(count: Int) {
+    when {
+      count  < 0    ->  throw IllegalArgumentException()
+      count == 0    -> {}
+      isEmpty       -> {}
+      count >= size -> clear()
+      else          -> size -= count
     }
   }
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeLast() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeBack() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteTail() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteLast() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteBack() = removeTail()
-
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Remove
@@ -761,6 +599,64 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
    * @param values Deque that will be pushed onto the back of this deque.
    */
   inline operator fun plusAssign(values: UByteDeque) = pushTail(values)
+
+  /**
+   * Fills this [UByteDeque] with data from the given [InputStream].
+   *
+   * This method will read at most `deque.cap - deque.size` bytes from the given
+   * `InputStream`.
+   *
+   * @param stream `InputStream` from which this `UByteDeque` will be filled.
+   *
+   * @return The number of bytes read into this `UByteDeque` from the given
+   * `InputStream`, or `-1` if the end of the `InputStream` had been reached
+   * before this method was called.
+   */
+  fun fillFrom(stream: InputStream): Int {
+    // If the current size of the deque is `0` then use the full data array
+    // regardless of where the head was previously.
+    if (size == 0) {
+      realHead = 0
+      val red = stream.read(data.asByteArray())
+
+      if (red == -1) {
+        size = 0
+        return -1
+      }
+
+      size = red
+      return red
+    }
+
+    // If we don't have any space available, then bail here
+    if (space == 0)
+      return 0
+
+    val oldTail = internalIndex(size)
+    val newTail = internalIndex(lastIndex)
+
+    val red = stream.read(data.asByteArray(), oldTail, data.size - oldTail)
+
+    if (red == -1)
+      return -1
+
+    size += red
+
+    // If we are going to stay inline
+    if (oldTail < newTail) {
+      return red
+    }
+
+    // We are going out of line... they should've compacted :(
+    val r2 = stream.read(data.asByteArray(), 0, realHead)
+
+    if (r2 == -1)
+      return red
+
+    size += r2
+
+    return red + r2
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Push Multiple Values
