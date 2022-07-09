@@ -1,15 +1,6 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:io.foxcapades.lib.pdk////PointingToDeclaration/pdk/io.foxcapades.lib.pdk/index.html
-$dokka.location:io.foxcapades.lib.pdk//popByte/io.foxcapades.lib.pdk.UByteDeque#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-byte.html
-$dokka.location:io.foxcapades.lib.pdk//popDouble/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-double.html
-$dokka.location:io.foxcapades.lib.pdk//popFloat/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-float.html
-$dokka.location:io.foxcapades.lib.pdk//popInt/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-int.html
-$dokka.location:io.foxcapades.lib.pdk//popLong/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-long.html
-$dokka.location:io.foxcapades.lib.pdk//popShort/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-short.html
-$dokka.location:io.foxcapades.lib.pdk//popUInt/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-int.html
-$dokka.location:io.foxcapades.lib.pdk//popULong/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-long.html
-$dokka.location:io.foxcapades.lib.pdk//popUShort/io.foxcapades.lib.pdk.UByteDeque#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/pop-u-short.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque.Companion///PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/-companion/index.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque.Companion/of/#kotlin.BooleanArray/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/-companion/of.html
 $dokka.location:io.foxcapades.lib.pdk/BooleanDeque///PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-boolean-deque/index.html
@@ -551,11 +542,20 @@ $dokka.location:io.foxcapades.lib.pdk/UByteDeque/plusAssign/#io.foxcapades.lib.p
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/plusAssign/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/plus-assign.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pop/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/popBack/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-back.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popByte/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-byte.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popDouble/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-double.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/popFirst/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-first.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popFloat/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-float.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/popFront/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-front.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/popHead/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-head.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popInt/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-int.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/popLast/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-last.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popLong/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-long.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popShort/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-short.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/popTail/#/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-tail.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popUInt/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-u-int.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popULong/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-u-long.html
+$dokka.location:io.foxcapades.lib.pdk/UByteDeque/popUShort/#kotlin.Boolean/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/pop-u-short.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/push/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushBack/#io.foxcapades.lib.pdk.UByteDeque/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-back.html
 $dokka.location:io.foxcapades.lib.pdk/UByteDeque/pushBack/#kotlin.UByte/PointingToDeclaration/pdk/io.foxcapades.lib.pdk/-u-byte-deque/push-back.html
