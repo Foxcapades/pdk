@@ -1,12 +1,13 @@
 package io.foxcapades.lib.pdk
 
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.io.ByteArrayInputStream
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 @DisplayName("ByteQueue")
 internal class ByteDequeTest {
@@ -25,6 +26,37 @@ internal class ByteDequeTest {
   @DisplayName("size")
   inner class Size {
 
+    @Nested
+    @DisplayName("when the deque is empty")
+    inner class Empty {
+
+      @Nested
+      @DisplayName("and the capacity is 0")
+      inner class Cap0 {
+
+        @Test
+        @DisplayName("returns 0")
+        fun t1() = assertEquals(0, ByteDeque(0).size)
+      }
+
+      @Nested
+      @DisplayName("and the capacity is greater than 0")
+      inner class Cap1 {
+
+        @Test
+        @DisplayName("returns 0")
+        fun t1() = assertEquals(0, ByteDeque(10).size)
+      }
+    }
+
+    @Nested
+    @DisplayName("when the deque is not empty")
+    inner class NotEmpty {
+
+      @Test
+      @DisplayName("returns the number of elements in the deque")
+      fun t1() = assertEquals(3, ByteDeque.of(0, 1, 2).size)
+    }
   }
 
   @Nested
@@ -282,11 +314,9 @@ internal class ByteDequeTest {
         fun t1() {
           val t = ByteDeque()
           t.pushTail("h".toByteArray())
-          assertArrayEquals("h".toByteArray(), t.toArray())
+          assertContentEquals("h".toByteArray(), t.toArray())
         }
-
       }
-
     }
 
     @Nested
@@ -352,7 +382,7 @@ internal class ByteDequeTest {
         @DisplayName("throws an IndexOutOfBoundsException")
         fun t1() {
           val tgt = ByteDeque("hello world".toByteArray())
-          assertThrows<IndexOutOfBoundsException> { tgt.slice(-1) }
+          assertFailsWith<IndexOutOfBoundsException> { tgt.slice(-1) }
         }
       }
 
@@ -364,8 +394,8 @@ internal class ByteDequeTest {
         @DisplayName("throws an IndexOutOfBoundsException")
         fun t1() {
           val tgt = ByteDeque("hello world".toByteArray())
-          assertThrows<IndexOutOfBoundsException> { tgt.slice(tgt.size) }
-          assertThrows<IndexOutOfBoundsException> { tgt.slice(tgt.size+1, tgt.size+2) }
+          assertFailsWith<IndexOutOfBoundsException> { tgt.slice(tgt.size) }
+          assertFailsWith<IndexOutOfBoundsException> { tgt.slice(tgt.size+1, tgt.size+2) }
         }
       }
 
@@ -377,7 +407,7 @@ internal class ByteDequeTest {
         @DisplayName("throws an IndexOutOfBoundsException")
         fun t1() {
           val tgt = ByteDeque("hello world".toByteArray())
-          assertThrows<IndexOutOfBoundsException> { tgt.slice(2, 1) }
+          assertFailsWith<IndexOutOfBoundsException> { tgt.slice(2, 1) }
         }
       }
 
@@ -389,7 +419,7 @@ internal class ByteDequeTest {
         @DisplayName("throws an IndexOutOfBoundsException")
         fun t1() {
           val tgt = ByteDeque("hello world".toByteArray())
-          assertThrows<IndexOutOfBoundsException> { tgt.slice(0, 100) }
+          assertFailsWith<IndexOutOfBoundsException> { tgt.slice(0, 100) }
         }
       }
     }
@@ -620,6 +650,98 @@ internal class ByteDequeTest {
       fun t2() {
         val t = ByteDeque(byteArrayOf(-128, 0))
         assertEquals(-32768, t.popShort())
+        assertTrue(t.isEmpty)
+      }
+    }
+  }
+
+  @Nested
+  @DisplayName("popInt(Boolean)")
+  inner class PopInt1 {
+
+    @Nested
+    @DisplayName("when littleEndian is true")
+    inner class LittleEndian {
+
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(1, 2, 3, 4))
+        assertEquals(67305985, t.popInt(true))
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(1, 2, 3, -128))
+        assertEquals(-2147286527, t.popInt(true))
+        assertTrue(t.isEmpty)
+      }
+    }
+
+    @Nested
+    @DisplayName("when littleEndian is false")
+    inner class BigEndian {
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(1, 2, 3, 4))
+        assertEquals(16909060, t.popInt())
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(-128, 3, 2, 1))
+        assertEquals(-2147286527, t.popInt())
+        assertTrue(t.isEmpty)
+      }
+    }
+  }
+
+  @Nested
+  @DisplayName("popLong(Boolean)")
+  inner class PopLong1 {
+
+    @Nested
+    @DisplayName("when littleEndian is true")
+    inner class LittleEndian {
+
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(1, 2, 3, 4, 5, 6, 7, 8))
+        assertEquals(578437695752307201, t.popLong(true))
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(1, 2, 3, 4, 5, 6, 7, -128))
+        assertEquals(-9221395093405892095, t.popLong(true))
+        assertTrue(t.isEmpty)
+      }
+    }
+
+    @Nested
+    @DisplayName("when littleEndian is false")
+    inner class BigEndian {
+      @Test
+      @DisplayName("correctly parses the bytes for a positive short value")
+      fun t1() {
+        val t = ByteDeque(byteArrayOf(1, 2, 3, 4, 5, 6, 7, 8))
+        assertEquals(72623859790382856, t.popLong())
+        assertTrue(t.isEmpty)
+      }
+
+      @Test
+      @DisplayName("correctly parses the bytes for a negative short value")
+      fun t2() {
+        val t = ByteDeque(byteArrayOf(-128, 7, 6, 5, 4, 3, 2, 1))
+        assertEquals(-9221395093405892095, t.popLong())
         assertTrue(t.isEmpty)
       }
     }
