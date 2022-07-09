@@ -357,6 +357,67 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   }
 
   /**
+   * Takes the first byte from the backing [ByteDeque] and translates it into a
+   * [UByte] value.
+   *
+   * If this deque is empty, this method throws a [BufferUnderflowException].
+   *
+   * @throws BufferUnderflowException If this deque is empty when this method is
+   * called.
+   */
+  fun popUByte(): UByte = pop().toUByte()
+
+  /**
+   * Pops the first 2 bytes from this [ByteDeque] and translates them into a
+   * [Long] value.
+   *
+   * If this deque contains fewer than 2 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 2 bytes
+   * when this method is called.
+   */
+  fun popUShort(littleEndian: Boolean = false): UShort {
+    if (size < 2)
+      throw BufferUnderflowException()
+
+    val head      = realHead
+    val lastIndex = internalIndex(1)
+
+    // Our data is inline
+    if (head < lastIndex) {
+      realHead = head + 2
+      size -= 2
+      return if (littleEndian)
+        ((data[head].toInt()   and 0xFF) or
+        ((data[head+1].toInt() and 0xFF) shl 8)).toUShort()
+      else
+        (((data[head].toInt() and 0xFF) shl 8)  or
+        (data[head+1].toInt() and 0xFF)).toUShort()
+    }
+
+    size -= 2
+
+    // We are out of line, so just use the internal indices to get the values
+    // rather than doing a bunch of complex logic to make it happen.
+    val out = if (littleEndian)
+      ((data[internalIndex(0)].toInt() and 0xFF) or
+      ((data[internalIndex(1)].toInt() and 0xFF) shl 8)).toUShort()
+    else
+      (((data[internalIndex(0)].toInt() and 0xFF) shl 8) or
+      (data[internalIndex(1)].toInt()   and 0xFF)).toUShort()
+
+    realHead = internalIndex(2)
+
+    return out
+  }
+
+  /**
    * Pops the first 4 bytes from this [ByteDeque] and translates them into a
    * [UInt] value.
    *
