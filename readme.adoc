@@ -247,18 +247,21 @@ implementations included in the `pdk` library.
 | forEach(fn)
 | Calls the given function on every element of the deque.
 
-| += array +
-+= deque +
-+= collection
-| Appends the elements of the given value to the back of the deque.
+| += array
+.3+| Appends the elements of the given value to the back of the deque.
+
+| += deque
+| += collection
+
 
 | + deque
 | Creates a new deque containing the elements from both original deques.
 
-| slice(from, to) +
-slice(from .. to)
-| Returns a new deque containing the contents of the target deque in the given
+| slice(from, to)
+.2+| Returns a new deque containing the contents of the target deque in the given
 index range.
+
+| slice(from .. to)
 
 | sliceToArray(from, to) +
 sliceToArray(from .. to)
