@@ -219,3 +219,150 @@ Comparison of basic deque functions across libraries.
 * `[i]`
 
 |===
+
+
+=== Additional Functionality
+
+==== All Deque Types
+
+The following additional functions and operators are available on all deque
+implementations included in the `pdk` library.
+
+[cols="1m,2"]
+|===
+| Method / Operator | Description
+
+| copy()
+| Clones the deque and it's data.
+
+| contains(value)
+| Tests whether the deque contains an element equal to the given value.
+
+| copyInto(array, offset)
+| Copies data from the deque into the given array starting at the given offset.
+
+| iterator()
+| Returns an iterator over the contents of the deque.
+
+| forEach(fn)
+| Calls the given function on every element of the deque.
+
+| += array +
++= deque +
++= collection
+| Appends the elements of the given value to the back of the deque.
+
+| + deque
+| Creates a new deque containing the elements from both original deques.
+
+| slice(from, to) +
+slice(from .. to)
+| Returns a new deque containing the contents of the target deque in the given
+index range.
+
+| sliceToArray(from, to) +
+sliceToArray(from .. to)
+| Returns an array containing the contents of the target deque in the given index range.
+|===
+
+==== Byte Deque
+
+[cols="1m,2"]
+|===
+| Method / Operator | Description
+
+| fillFrom(InputStream)
+| Fills the remaining space in the `ByteDeque` from the contents of the given
+input stream.
+
+| popShort(littleEndian=false)
+| Pops the first 2 bytes from the deque and parses them as a `Short` value.
+
+| popInt(littleEndian=false)
+| Pops the first 4 bytes from the deque and parses them as an `Int` value.
+
+| popLong(littleEndian=false)
+| Pops the first 8 bytes from the deque and parses them as a `Long` value.
+
+| popFloat(littleEndian=false)
+| Pops the first 4 bytes from the deque and parses them as a `Float` value.
+
+| popDouble(littleEndian=false)
+| Pops the first 8 bytes from the deque and parses them as a `Double` value.
+
+| popUByte()
+| Pops the first byte from the deque as a `UByte` value.
+
+| popUShort(littleEndian=false)
+| Pops the first 2 bytes from the deque and parses them as a `UShort` value.
+
+| popUInt(littleEndian=false)
+| Pops the first 4 bytes from the deque and parses them as a `UInt` value.
+
+| popULong(littleEndian=false)
+| Pops the first 8 bytes from the deque and parses them as a `ULong` value.
+|===
+
+==== Char Deque
+
+[cols="1m,2"]
+|===
+| Method / Operator | Description
+
+| += String +
++= CharSequence
+| Appends the characters of the given value to the back of the deque.
+
+| stringValue()
+| Creates a new `String` value representing the current contents of the deque.
+|===
+
+==== UByte Deque
+
+[cols="1m,2"]
+|===
+| Method / Operator | Description
+
+| fillFrom(InputStream)
+| Fills the remaining space in the `ByteDeque` from the contents of the given
+input stream.
+
+| popByte()
+| Pops the first value from the deque as a `Byte` value.
+
+| popShort(littleEndian=false)
+| Pops the first 2 unsigned bytes from the deque and parses them as a `Short`
+value.
+
+| popInt(littleEndian=false)
+| Pops the first 4 unsigned bytes from the deque and parses them as an `Int`
+value.
+
+| popLong(littleEndian=false)
+| Pops the first 8 unsigned bytes from the deque and parses them as a `Long`
+value.
+
+| popFloat(littleEndian=false)
+| Pops the first 4 unsigned bytes from the deque and parses them as a `Float`
+value.
+
+| popDouble(littleEndian=false)
+| Pops the first 8 unsigned bytes from the deque and parses them as a `Double`
+value.
+
+| popUShort(littleEndian=false)
+| Pops the first 2 unsigned bytes from the deque and parses them as a `UShort`
+value.
+
+| popUInt(littleEndian=false)
+| Pops the first 4 unsigned bytes from the deque and parses them as a `UInt`
+value.
+
+| popULong(littleEndian=false)
+| Pops the first 8 unsigned bytes from the deque and parses them as a `ULong`
+value.
+|===
+
+
+|===
+|===
