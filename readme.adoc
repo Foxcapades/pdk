@@ -2,6 +2,13 @@
 :srcDir: src/main/kotlin/io/foxcapades/lib/pdk
 :source-highlighter: highlightjs
 :icons: font
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 image:https://img.shields.io/github/license/Foxcapades/pdk[]
 image:https://img.shields.io/badge/jdk-1.8-blue[]
