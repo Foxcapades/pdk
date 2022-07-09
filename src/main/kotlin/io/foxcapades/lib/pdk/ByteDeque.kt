@@ -549,103 +549,64 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     return out
   }
 
+  /**
+   * Pops the first 4 bytes from this [ByteDeque] and translates them into a
+   * [Float] value.
+   *
+   * If this deque contains fewer than 4 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @return The `Float` value parsed from the first 4 bytes popped from this
+   * deque.
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
+   * when this method is called.
+   */
+  fun popFloat(littleEndian: Boolean = false): Float =
+    Float.fromBits(popInt(littleEndian))
+
+  /**
+   * Pops the first 8 bytes from this [ByteDeque] and translates them into a
+   * [Double] value.
+   *
+   * If this deque contains fewer than 8 bytes, this method throws a
+   * [BufferUnderflowException].
+   *
+   * @param littleEndian Boolean flag indicating whether the bytes in the deque
+   * should be translated to an int with a little endian byte order.
+   *
+   * Defaults to `false` (big endian).
+   *
+   * @return The `Double` value parsed from the first 8 bytes popped from this
+   * deque.
+   *
+   * @throws BufferUnderflowException If this deque contains fewer than 8 bytes
+   * when this method is called.
+   */
+  fun popDouble(littleEndian: Boolean = false): Double =
+    Double.fromBits(popLong(littleEndian))
+
   // endregion Pop
 
   // region Remove
 
-  /**
-   * Removes the first element of this deque.
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  fun removeHead() {
-    if (!isEmpty) {
-      realHead = incremented(realHead)
-      size--
+  override fun removeHead(count: Int) {
+    when {
+      count < 0     -> throw IllegalArgumentException()
+      isEmpty       -> {}
+      count == 0    -> {}
+      count >= size -> clear()
+      else          -> {
+        realHead = internalIndex(realHead + count)
+        size -= count
+      }
     }
   }
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeFirst() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeFront() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteHead() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteFirst() = removeHead()
-
-  /**
-   * Removes the first element of this deque.
-   *
-   * Alias of [removeHead]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [pop] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteFront() = removeHead()
-
 
   // endregion Remove
 
@@ -820,98 +781,15 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
 
   // region Remove
 
-  /**
-   * Removes the last element of this deque.
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  fun removeTail() {
-    if (!isEmpty) {
-      size--
+  override fun removeTail(count: Int) {
+    when {
+      count  < 0    ->  throw IllegalArgumentException()
+      count == 0    -> {}
+      isEmpty       -> {}
+      count >= size -> clear()
+      else          -> size -= count
     }
   }
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeLast() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun removeBack() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteTail() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteLast() = removeTail()
-
-  /**
-   * Removes the last element of this deque.
-   *
-   * Alias of [removeTail]
-   *
-   * If this deque was empty, this method does nothing.
-   *
-   * This method differs from [popTail] in 2 ways:
-   *
-   * 1. This method does not return the removed value.
-   * 2. This method does not throw an exception if the deque was empty on method
-   *    call.
-   */
-  inline fun deleteBack() = removeTail()
-
 
   //////////////////////////////////////////////////////////////////////////////
   // endregion Remove
