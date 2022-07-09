@@ -1,7 +1,5 @@
 package io.foxcapades.lib.pdk
 
-import sun.misc.Unsafe
-
 /**
  * # Primitive Deque
  *
