@@ -60,9 +60,14 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   //
 
   // region Get Head
+  //////////////////////////////////////////////////////////////////////////////
 
   /**
    * The first element in this deque.
+   *
+   * ```
+   * assert(BooleanDeque.of(true, false).head == true)
+   * ```
    *
    * @throws NoSuchElementException If this deque is empty.
    */
@@ -70,6 +75,10 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   /**
    * The first element in this deque.
+   *
+   * ```
+   * assert(BooleanDeque.of(true, false).first == true)
+   * ```
    *
    * Alias of [head].
    *
@@ -80,6 +89,10 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   /**
    * The first element in this deque.
    *
+   * ```
+   * assert(BooleanDeque.of(true, false).front == true)
+   * ```
+   *
    * Alias of [head].
    *
    * @throws NoSuchElementException If this deque is empty.
@@ -88,6 +101,10 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   /**
    * Returns the first element in this deque.
+   *
+   * ```
+   * assert(BooleanDeque.of(true, false).head() == true)
+   * ```
    *
    * Alias of [head].
    *
@@ -98,6 +115,10 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   /**
    * Returns the first element in this deque.
    *
+   * ```
+   * assert(BooleanDeque.of(true, false).first() == true)
+   * ```
+   *
    * Alias of [head].
    *
    * @throws NoSuchElementException If this deque is empty.
@@ -107,16 +128,21 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   /**
    * Returns the first element in this deque.
    *
+   * ```
+   * assert(BooleanDeque.of(true, false).front() == true)
+   * ```
+   *
    * Alias of [head].
    *
    * @throws NoSuchElementException If this deque is empty.
    */
   inline fun front() = head
 
-
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Get Head
 
   // region Pop
+  //////////////////////////////////////////////////////////////////////////////
 
   /**
    * Removes the first element from this deque and returns it.
@@ -170,10 +196,11 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun popFront() = pop()
 
-
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Pop
 
   // region Remove
+  //////////////////////////////////////////////////////////////////////////////
 
   override fun removeHead(count: Int) {
     when {
@@ -188,9 +215,11 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Remove
 
   // region Push
+  //////////////////////////////////////////////////////////////////////////////
 
   /**
    * Pushes the given value onto the front of this deque.
@@ -261,6 +290,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   //
 
   // region Get Tail
+  //////////////////////////////////////////////////////////////////////////////
 
   /**
    * The last element in this deque.
@@ -314,9 +344,11 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun back() = tail
 
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Get Tail
 
   // region Pop
+  //////////////////////////////////////////////////////////////////////////////
 
   /**
    * Removes the last element from this deque and returns it.
@@ -356,10 +388,11 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun popBack(): Boolean = popTail()
 
-
+  //////////////////////////////////////////////////////////////////////////////
   // endregion Pop
 
   // region Remove
+  //////////////////////////////////////////////////////////////////////////////
 
   override fun removeTail(count: Int) {
     when {
