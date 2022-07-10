@@ -175,8 +175,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * Creates a copy of this deque and its data.
    *
    * The copied deque instance will have the same capacity as the original.
-   *
-   * This operation happens in `O(n)` time, where `n` is equal to [size].
    */
   abstract fun copy(): PrimitiveDeque<V, A>
 
@@ -211,24 +209,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * @return A new list containing the data from this deque.
    */
   abstract fun toList(): List<V>
-
-  /**
-   * Copies data from this deque into the given array.
-   *
-   * If either this deque, or the given array are empty, nothing is copied.
-   *
-   * If this deque's size is greater than the length of the given array, only
-   * those values that can fit into the given array will be copied.
-   *
-   * If the given array's size is greater than the size of this deque, at most
-   * [size] values will be copied into the given array.
-   *
-   * @param array Array into which values should be copied from this deque.
-   *
-   * @param offset Offset in the input array at which values should start to be
-   * copied.
-   */
-  abstract fun copyInto(array: A, offset: Int = 0)
 
   /**
    * Creates a new deque containing the elements from this deque that fall

@@ -730,7 +730,23 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     return toArray().asList()
   }
 
-  override fun copyInto(array: DoubleArray, offset: Int) {
+  /**
+   * Copies data from this deque into the given array.
+   *
+   * If either this deque, or the given array are empty, nothing is copied.
+   *
+   * If this deque's size is greater than the length of the given array, only
+   * those values that can fit into the given array will be copied.
+   *
+   * If the given array's size is greater than the size of this deque, at most
+   * [size] values will be copied into the given array.
+   *
+   * @param array Array into which values should be copied from this deque.
+   *
+   * @param offset Offset in the input array at which values should start to be
+   * copied.
+   */
+  fun copyInto(array: DoubleArray, offset: Int) {
     // If the input array is empty, return because we can't put anything into
     // an empty array.
     //
