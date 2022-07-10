@@ -37,9 +37,6 @@ package io.foxcapades.lib.pdk
 @Suppress("NOTHING_TO_INLINE")
 sealed class PrimitiveDeque<V, A> : Iterable<V> {
 
-  // region Properties
-  //////////////////////////////////////////////////////////////////////////////
-
   /**
    * Index of the 'first' element in the deque, which may or may not be the
    * first element in the backing array.
@@ -156,12 +153,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   inline val lastIndex: Int
     get() = size - 1
 
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Properties
-
-  // region Positionless
-  //////////////////////////////////////////////////////////////////////////////
-
   /**
    * Clears all elements from this deque, leaving it empty, but with the same
    * allocated capacity.
@@ -193,10 +184,13 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * Ensures that this deque has at least the given capacity allocated.
    *
    * If the current capacity of this deque is less than the given value, the
-   * underlying container will be resized to [minCapacity].
+   * underlying container will be resized to have a capacity of *at least*
+   * [minCapacity].
    *
    * If the current capacity of this deque is already greater than or equal to
    * the given value, this method does nothing.
+   *
+   * @param minCapacity Minimum capacity this deque must have.
    */
   abstract fun ensureCapacity(minCapacity: Int)
 
@@ -417,18 +411,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   abstract fun trimToSize()
 
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Positionless
-
-  // region Head End
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the head end of the
-  //  deque.
-  //
-
-  // region Remove
-
   /**
    * Removes the first [count] elements of this deque.
    *
@@ -552,20 +534,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * @throws IllegalArgumentException If [count] is less than `0`.
    */
   inline fun deleteFront(count: Int = 1) = removeHead(count)
-
-  // endregion Remove
-
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Head End
-
-  // region Tail End
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the tail end of the
-  //  deque.
-  //
-
-  // region Remove
 
   /**
    * Removes the last [count] elements of this deque.
@@ -691,14 +659,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   inline fun deleteBack(count: Int = 1) = removeTail(count)
 
-  // endregion Remove
-
-  // region Push Array
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods relating to pushing an array of values into the deque.
-  //
-
   /**
    * Pushes the contents of the given array onto the back of this deque.
    *
@@ -752,15 +712,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * deque.
    */
   inline operator fun plusAssign(values: A) = pushTail(values)
-
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Push Array
-
-  // region Push Collection
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods relating to pushing a JDK collection of values into the deque.
-  //
 
   /**
    * Pushes the contents of the given [Collection] onto the back of this deque.
@@ -828,19 +779,6 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    */
   inline operator fun plusAssign(values: Collection<V>) = pushTail(values)
 
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Push Collection
-
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Tail End
-
-  // region Internals
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for internal use by implementers fo the PrimitiveDeque abstract
-  // type.
-  //
-
   /**
    * Ensures that the given external index is valid.
    */
@@ -877,7 +815,4 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
       else      -> new
     }
   }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Internals
 }

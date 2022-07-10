@@ -714,7 +714,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
-      // If they gave us a invalid capacity
+      // If they gave us an invalid capacity
       minCapacity < 0          -> throw IllegalArgumentException()
       // If we already have the desired capacity
       minCapacity <= data.size -> {}
