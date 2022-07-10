@@ -165,12 +165,16 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   /**
    * Clears all elements from this deque, leaving it empty, but with the same
    * allocated capacity.
+   *
+   * This operation happens in `O(1)` time.
    */
   abstract fun clear()
 
   /**
    * Clears all elements from this deque, leaving it empty, but with the same
    * allocated capacity.
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias for [clear]
    */
@@ -180,6 +184,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * Creates a copy of this deque and its data.
    *
    * The copied deque instance will have the same capacity as the original.
+   *
+   * This operation happens in `O(n)` time, where `n` is equal to [size].
    */
   abstract fun copy(): PrimitiveDeque<V, A>
 
@@ -432,6 +438,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
    *
+   * This operation happens in `O(1)` time.
+   *
    * @param count Number of elements to remove from this deque.
    *
    * Defaults to `1`.
@@ -448,6 +456,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    *
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias of [removeHead]
    *
@@ -468,6 +478,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
    *
+   * This operation happens in `O(1)` time.
+   *
    * Alias of [removeHead]
    *
    * @param count Number of elements to remove from this deque.
@@ -486,6 +498,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    *
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias of [removeHead]
    *
@@ -506,6 +520,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
    *
+   * This operation happens in `O(1)` time.
+   *
    * Alias of [removeHead]
    *
    * @param count Number of elements to remove from this deque.
@@ -524,6 +540,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    *
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias of [removeHead]
    *
@@ -558,6 +576,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
    *
+   * This operation happens in `O(1)` time.
+   *
    * @param count Number of elements to remove from this deque.
    *
    * Defaults to `1`.
@@ -574,6 +594,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    *
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias of [removeTail]
    *
@@ -594,6 +616,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
    *
+   * This operation happens in `O(1)` time.
+   *
    * Alias of [removeTail]
    *
    * @param count Number of elements to remove from this deque.
@@ -612,6 +636,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    *
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias of [removeTail]
    *
@@ -632,6 +658,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
    *
+   * This operation happens in `O(1)` time.
+   *
    * Alias of [removeTail]
    *
    * @param count Number of elements to remove from this deque.
@@ -650,6 +678,8 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    *
    * If [count] is greater than or equal to [size], this method clears the deque
    * entirely (same as calling [clear]).
+   *
+   * This operation happens in `O(1)` time.
    *
    * Alias of [removeTail]
    *
