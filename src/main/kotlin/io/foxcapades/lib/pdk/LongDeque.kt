@@ -746,7 +746,7 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
    * @param offset Offset in the input array at which values should start to be
    * copied.
    */
-  fun copyInto(array: LongArray, offset: Int) {
+  fun copyInto(array: LongArray, offset: Int = 0) {
     // If the input array is empty, return because we can't put anything into
     // an empty array.
     //

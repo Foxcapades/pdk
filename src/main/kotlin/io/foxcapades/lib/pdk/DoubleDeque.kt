@@ -746,7 +746,7 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
    * @param offset Offset in the input array at which values should start to be
    * copied.
    */
-  fun copyInto(array: DoubleArray, offset: Int) {
+  fun copyInto(array: DoubleArray, offset: Int = 0) {
     // If the input array is empty, return because we can't put anything into
     // an empty array.
     //

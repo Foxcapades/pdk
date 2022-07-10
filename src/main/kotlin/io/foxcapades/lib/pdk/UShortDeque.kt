@@ -29,7 +29,13 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
   private inline val isInline: Boolean
     get() = realHead + size <= data.size
 
+
   // region Constructors
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
+  // ┃                                                                    ┃ //
+  // ┃  Class Constructors                                                ┃ //
+  // ┃                                                                    ┃ //
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
 
 
   /**
@@ -53,14 +59,18 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
 
   // endregion Constructors
 
+
   // region Front
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the head end of the
-  //  deque.
-  //
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
+  // ┃                                                                    ┃ //
+  // ┃  Methods specifically relating to or operating on the head end of  ┃ //
+  // ┃  the deque.                                                        ┃ //
+  // ┃                                                                    ┃ //
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
+
 
   // region Get Head
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   /**
    * The first element in this deque.
@@ -114,10 +124,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline fun front() = head
 
-
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Get Head
 
+
   // region Pop
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   /**
    * Removes the first element from this deque and returns it.
@@ -171,10 +183,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline fun popFront() = pop()
 
-
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Pop
 
+
   // region Remove
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   override fun removeHead(count: Int) {
     when {
@@ -189,9 +203,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     }
   }
 
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Remove
 
+
   // region Push
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   /**
    * Pushes the given value onto the front of this deque.
@@ -248,20 +265,24 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline fun pushFront(value: UShort) = push(value)
 
-  //////////////////////////////////////////////////////////////////////////////
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Push
 
-  //////////////////////////////////////////////////////////////////////////////
+
   // endregion Front
 
+
   // region Back
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the tail end of the
-  //  deque.
-  //
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
+  // ┃                                                                    ┃ //
+  // ┃  Methods specifically relating to or operating on the tail end of  ┃ //
+  // ┃  the deque.                                                        ┃ //
+  // ┃                                                                    ┃ //
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
+
 
   // region Get Tail
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   /**
    * The last element in this deque.
@@ -315,9 +336,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline fun back() = tail
 
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Get Tail
 
+
   // region Pop
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   /**
    * Removes the last element from this deque and returns it.
@@ -357,10 +381,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline fun popBack(): UShort = popTail()
 
-
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Pop
 
+
   // region Remove
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   override fun removeTail(count: Int) {
     when {
@@ -372,21 +398,16 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////////
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Remove
 
+
   // region Push
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque
-  //
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
+
 
   // region Push Single Value
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque one element at
-  //  a time.
-  //
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   /**
    * Pushes the given value onto the back of this deque.
@@ -442,13 +463,12 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline operator fun plusAssign(value: UShort) = pushTail(value)
 
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Push Single Value
 
+
   // region Push Multiple Values
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque en masse
-  //
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ //
 
   override fun pushTail(values: UShortArray) {
     // If the input array is empty, then we have nothing to do.
@@ -598,14 +618,16 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    */
   inline operator fun plusAssign(values: UShortDeque) = pushTail(values)
 
-  //////////////////////////////////////////////////////////////////////////////
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Push Multiple Values
 
-  //////////////////////////////////////////////////////////////////////////////
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ //
   // endregion Push
 
-  //////////////////////////////////////////////////////////////////////////////
+
   // endregion Back
+
+
 
   // region Positionless
   //////////////////////////////////////////////////////////////////////////////
@@ -747,7 +769,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    * @param offset Offset in the input array at which values should start to be
    * copied.
    */
-  fun copyInto(array: UShortArray, offset: Int) {
+  fun copyInto(array: UShortArray, offset: Int = 0) {
     // If the input array is empty, return because we can't put anything into
     // an empty array.
     //

@@ -1224,7 +1224,7 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
    * @param offset Offset in the input array at which values should start to be
    * copied.
    */
-  fun copyInto(array: UByteArray, offset: Int) {
+  fun copyInto(array: UByteArray, offset: Int = 0) {
     // If the input array is empty, return because we can't put anything into
     // an empty array.
     //
