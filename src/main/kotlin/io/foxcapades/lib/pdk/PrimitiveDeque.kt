@@ -43,11 +43,49 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
   /**
    * Index of the 'first' element in the deque, which may or may not be the
    * first element in the backing array.
+   *
+   * When the deque is accessed by a given index (external index), the
+   * [realHead] value is used to calculate the actual index (internal index).
+   *
+   * In the following examples, the `|` character represents the [realHead]
+   * position and the value underneath it is the actual [realHead] value for the
+   * example.
+   *
+   * *Compacted*
+   * ```
+   * Deque{1, 2, 3, 4, 5, 6, 0, 0, 0}
+   *       |
+   *       0
+   * ```
+   *
+   * *Uncompacted*
+   * ```
+   * Deque{4, 5, 6, 0, 0, 0, 1, 2, 3}
+   *                         |
+   *                         6
+   * ```
    */
   protected var realHead = 0
 
   /**
    * Number of elements in this deque.
+   *
+   * This value will always be less than or equal to the value of [cap].
+   *
+   * **Example**
+   * ```
+   * // Create a deque with an initial capacity (cap) value of `9`
+   * val deque = Deque(9)        // deque == {0, 0, 0, 0, 0, 0, 0, 0, 0}
+   *
+   * // Deque size will be 0 as no elements have been inserted.
+   * assert(deque.size == 0)
+   *
+   * // Add some elements to the deque
+   * deque += [1, 2, 3, 4, 5, 6] // deque == {1, 2, 3, 4, 5, 6, 0, 0, 0}
+   *
+   * // Deque size will now be 6 as we appended 6 elements to the empty deque.
+   * assert(deque.size == 6)
+   * ```
    */
   abstract val size: Int
 
@@ -58,6 +96,33 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * will reallocate a larger backing buffer.
    *
    * This value will always be greater than or equal to [size].
+   *
+   * **Example**
+   * ```
+   * // Create a deque with an initial capacity (cap) value of `9`
+   * val deque = Deque(9)        // deque == {0, 0, 0, 0, 0, 0, 0, 0, 0}
+   *
+   * // Even though we have not yet inserted any elements, the capacity is 9
+   * assert(deque.cap == 9)
+   *
+   * // Add some elements to the deque
+   * deque += [1, 2, 3, 4, 5, 6] // deque == {1, 2, 3, 4, 5, 6, 0, 0, 0}
+   *
+   * // Deque capacity will still be 9 as we have not yet inserted enough
+   * // elements to require a capacity increase
+   * assert(deque.cap == 9)
+   *
+   * // Increase the capacity to 12
+   * deque.ensureCapacity(12)    // deque == {1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}
+   * ```
+   *
+   * The backing buffer is always increased to at minimum hold the number of
+   * values being inserted, but the rate of increase may scale the size of the
+   * capacity faster than that.
+   *
+   * This is to avoid many repeated re-allocations of the backing container.
+   * To put it simply, it would be very expensive to use a deque (or [ArrayList]
+   * for that matter) if every new element required a resize.
    */
   abstract val cap: Int
 
@@ -255,7 +320,34 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * reads from a stream source as it minimizes the number of internal reads
    * needed to fill the deque's backing container.
    *
-   * The size and capacity of this deque will not be altered by this method.
+   * The size, capacity, and publicly accessible data of this deque will not be
+   * altered by this method.
+   *
+   * This operation happens in `O(n)` time, where `n` is the current deque
+   * [cap].
+   *
+   * **Example**
+   *
+   * The following example describes the state of a deque containing the values
+   * `1, 2, 3, 4, 5, 6` before and after calling the [compact] method.
+   *
+   * To create a deque that needs to be compacted, we will need to insert data
+   * at both ends of the deque.
+   * ```
+   * // Create a deque with an initial capacity
+   * val deque = Deque(9)
+   *
+   * // Append some elements to the end of the deque
+   * deque += [4, 5, 6] // deque == {4, 5, 6, 0, 0, 0, 0, 0, 0}
+   *
+   * // Insert some elements at the front of the deque
+   * deque.pushHead(3)  // deque == {4, 5, 6, 0, 0, 0, 0, 0, 3}
+   * deque.pushHead(2)  // deque == {4, 5, 6, 0, 0, 0, 0, 2, 3}
+   * deque.pushHead(1)  // deque == {4, 5, 6, 0, 0, 0, 1, 2, 3}
+   *
+   * // Compact the deque
+   * deque.compact()    // deque == {1, 2, 3, 4, 5, 6, 0, 0, 0}
+   * ```
    */
   abstract fun compact()
 
@@ -263,7 +355,51 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
    * Trims the capacity of this deque to be the same as the current size.
    *
    * Callers can use this operation to minimize the storage used by a deque
-   * instance.
+   * instance to only the space necessary to hold [size] values.
+   *
+   * This operation is optional and is not necessary in most deque use cases.
+   * Instances where many deques are in play, deques are pre-sized with large
+   * initial capacities, and/or deques are held for long periods of time are
+   * examples of situations where this action may be desirable.
+   *
+   * The data in the deque will be [compacted][compact] as part of this
+   * operation.
+   *
+   * This operation happens in `O(n)` time, where `n` is the current deque
+   * [size].
+   *
+   * **Examples**
+   *
+   * *Uncompacted*
+   *
+   * The following example describes the internal state change of an uncompacted
+   * ("out of line") deque when [trimToSize] is called.
+   *
+   * ```
+   * // Create our deque
+   * val deque = Deque(9)
+   *
+   * // Populate it
+   * populateDeque(deque) // deque == {4, 5, 6, 0, 0, 0, 1, 2, 3}
+   *
+   * // Trim it
+   * deque.trimToSize()   // deque == {1, 2, 3, 4, 5, 6}
+   * ```
+   *
+   * *Compacted*
+   *
+   * The following example describes the internal state change of a compacted
+   * ("inline") deque when [trimToSize] is called.
+   *
+   * ```
+   * // Create our deque
+   * val deque = Deque(9)
+   *
+   * // Populate it
+   * populateDeque(deque) // deque == {1, 2, 3, 4, 5, 6, 0, 0, 0}
+   *
+   * // Trim it
+   * deque.trimToSize()   // deque == {1, 2, 3, 4, 5, 6}
    */
   abstract fun trimToSize()
 
@@ -686,6 +822,15 @@ sealed class PrimitiveDeque<V, A> : Iterable<V> {
 
   protected inline fun decremented(i: Int) = if (i == 0) cap - 1 else i - 1
 
+  /**
+   * Calculate a new capacity for the deque based on the given inputs.
+   *
+   * @param old Current deque capacity.
+   *
+   * @param min Minimum required capacity.
+   *
+   * @return The new capacity the deque should be reallocated to.
+   */
   protected fun newCap(old: Int, min: Int): Int {
     val new = old + (old shr 1)
 
