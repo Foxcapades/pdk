@@ -182,7 +182,7 @@ class ShortDeque : PrimitiveDeque<Short, ShortArray> {
       count == 0    -> {}
       count >= size -> clear()
       else          -> {
-        realHead = internalIndex(realHead + count)
+        realHead = internalIndex(count)
         size -= count
       }
     }

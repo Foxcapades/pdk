@@ -183,7 +183,7 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
       count == 0    -> {}
       count >= size -> clear()
       else          -> {
-        realHead = internalIndex(realHead + count)
+        realHead = internalIndex(count)
         size -= count
       }
     }

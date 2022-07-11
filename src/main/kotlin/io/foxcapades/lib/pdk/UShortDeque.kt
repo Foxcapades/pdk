@@ -197,7 +197,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
       count == 0    -> {}
       count >= size -> clear()
       else          -> {
-        realHead = internalIndex(realHead + count)
+        realHead = internalIndex(count)
         size -= count
       }
     }

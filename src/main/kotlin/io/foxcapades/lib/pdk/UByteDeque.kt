@@ -602,7 +602,7 @@ class UByteDeque : PrimitiveDeque<UByte, UByteArray> {
       count == 0    -> {}
       count >= size -> clear()
       else          -> {
-        realHead = internalIndex(realHead + count)
+        realHead = internalIndex(count)
         size -= count
       }
     }

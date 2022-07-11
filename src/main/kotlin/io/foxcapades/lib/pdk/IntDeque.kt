@@ -182,7 +182,7 @@ class IntDeque : PrimitiveDeque<Int, IntArray> {
       count == 0    -> {}
       count >= size -> clear()
       else          -> {
-        realHead = internalIndex(realHead + count)
+        realHead = internalIndex(count)
         size -= count
       }
     }

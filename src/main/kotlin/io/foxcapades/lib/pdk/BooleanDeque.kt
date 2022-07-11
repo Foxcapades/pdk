@@ -28,7 +28,9 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   private inline val isInline: Boolean
     get() = realHead + size <= data.size
 
+
   // region Constructors
+
 
 
   /**
@@ -50,17 +52,17 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     this.size = data.size
   }
 
+
+
   // endregion Constructors
 
   // region Front
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the head end of the
-  //  deque.
-  //
+
+
 
   // region Get Head
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   /**
    * The first element in this deque.
@@ -138,11 +140,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun front() = head
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Get Head
 
   // region Pop
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   /**
    * Removes the first element from this deque and returns it.
@@ -196,11 +200,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun popFront() = pop()
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Pop
 
   // region Remove
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   override fun removeHead(count: Int) {
     when {
@@ -209,17 +215,19 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
       count == 0    -> {}
       count >= size -> clear()
       else          -> {
-        realHead = internalIndex(realHead + count)
+        realHead = internalIndex(count)
         size -= count
       }
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Remove
 
   // region Push
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   /**
    * Pushes the given value onto the front of this deque.
@@ -276,21 +284,21 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun pushFront(value: Boolean) = push(value)
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Push
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Front
 
   // region Back
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the tail end of the
-  //  deque.
-  //
+
+
 
   // region Get Tail
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   /**
    * The last element in this deque.
@@ -344,11 +352,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun back() = tail
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Get Tail
 
   // region Pop
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   /**
    * Removes the last element from this deque and returns it.
@@ -388,15 +398,17 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline fun popBack(): Boolean = popTail()
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Pop
 
   // region Remove
-  //////////////////////////////////////////////////////////////////////////////
+
+
 
   override fun removeTail(count: Int) {
     when {
-      count  < 0    ->  throw IllegalArgumentException()
+      count < 0     -> throw IllegalArgumentException()
       count == 0    -> {}
       isEmpty       -> {}
       count >= size -> clear()
@@ -404,21 +416,17 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Remove
 
   // region Push
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque
-  //
+
+
 
   // region Push Single Value
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque one element at
-  //  a time.
-  //
+
+
 
   /**
    * Pushes the given value onto the back of this deque.
@@ -474,13 +482,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline operator fun plusAssign(value: Boolean) = pushTail(value)
 
+
+
   // endregion Push Single Value
 
   // region Push Multiple Values
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque en masse
-  //
+
+
 
   override fun pushTail(values: BooleanArray) {
     // If the input array is empty, then we have nothing to do.
@@ -630,20 +638,21 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   inline operator fun plusAssign(values: BooleanDeque) = pushTail(values)
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Push Multiple Values
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Push
 
-  //////////////////////////////////////////////////////////////////////////////
+
+
   // endregion Back
 
   // region Positionless
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods that are not particularly related to either end of the deque.
-  //
+
+
 
   /**
    * Sets the value at the given index in this deque.
@@ -838,7 +847,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     if (start !in 0 until size || start > end || end > size)
       throw IndexOutOfBoundsException()
 
-    val realSize  = end - start
+    val realSize = end - start
 
     // Shortcuts
     when (realSize) {
@@ -853,7 +862,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     }
 
     val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
+    val realEnd = internalIndex(end)
 
     val out = BooleanDeque(realSize)
     out.size = realSize
@@ -872,14 +881,14 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     return out
   }
 
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = slice(range.first, range.last + 1)
 
   override fun sliceToArray(start: Int, end: Int): BooleanArray {
     // If they gave us one or more invalid indices, throw an exception
     if (start !in 0 until size || start > end || end > size)
       throw IndexOutOfBoundsException()
 
-    val realSize  = end - start
+    val realSize = end - start
 
     // Shortcuts
     when (realSize) {
@@ -889,7 +898,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     }
 
     val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
+    val realEnd = internalIndex(end)
 
     val out = BooleanArray(realSize)
 
@@ -907,7 +916,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     return out
   }
 
-  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
+  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last + 1)
 
   override fun compact() = copyElements(cap)
 
@@ -918,6 +927,8 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   override fun equals(other: Any?) = if (other is BooleanDeque) data.contentEquals(other.data) else false
 
   override fun hashCode() = data.contentHashCode()
+
+
 
   // endregion Positionless
 
