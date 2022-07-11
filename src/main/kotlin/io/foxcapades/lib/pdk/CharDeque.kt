@@ -856,9 +856,7 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     return out
   }
 
-  override fun toList(): List<Char> {
-    return toArray().asList()
-  }
+  override fun toList() = toArray().asList()
 
   /**
    * Copies data from this deque into the given array.
