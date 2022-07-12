@@ -50,6 +50,19 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [FloatDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: FloatArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
+
   // endregion Constructors
 
   // region Front
@@ -622,9 +635,7 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: Float) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: Float) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -665,7 +676,7 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     copyInto(buf)
     rhs.copyInto(buf, size)
 
-    return FloatDeque(buf)
+    return FloatDeque(buf, 0)
   }
 
   override fun clear() {
@@ -673,11 +684,7 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     size = 0
   }
 
-  override fun copy(): FloatDeque {
-    val nb = FloatDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = FloatDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -800,46 +807,9 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): FloatDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
+  override fun slice(start: Int, end: Int) = FloatDeque(sliceToArray(start, end), 0)
 
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return FloatDeque()
-      1    -> {
-        val out = FloatDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = FloatDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = FloatDeque(sliceToArray(range.first, range.last+1), 0)
 
   override fun sliceToArray(start: Int, end: Int): FloatArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -925,6 +895,6 @@ class FloatDeque : PrimitiveDeque<Float, FloatArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: Float) = FloatDeque(values)
+    fun of(vararg values: Float) = FloatDeque(values, 0)
   }
 }

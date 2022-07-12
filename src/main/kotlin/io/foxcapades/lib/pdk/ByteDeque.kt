@@ -12,10 +12,19 @@ import java.nio.BufferUnderflowException
  * @since v1.0.0
  */
 @Suppress("NOTHING_TO_INLINE")
-@OptIn(ExperimentalUnsignedTypes::class)
 class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
 
-  private var data: ByteArray
+  companion object {
+
+    @JvmStatic
+    fun of(vararg values: Byte) = ByteDeque(values, 0)
+  }
+
+  // region Public API
+  // ###################################################################################################################
+
+  // region Positionless
+  // ###########################################################################
 
   override var size = 0
     private set
@@ -26,13 +35,6 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   override val space: Int
     get() = data.size - size
 
-  /**
-   * Indicates whether the data in this deque is currently inline
-   */
-  private inline val isInline: Boolean
-    get() = realHead + size <= data.size
-
-  // region Constructors
 
 
   /**
@@ -54,16 +56,266 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     this.size = data.size
   }
 
-  // endregion Constructors
+  /**
+   * Constructs a new [ByteDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: ByteArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
 
-  // region Front
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the head end of the
-  //  deque.
-  //
 
-  // region Get Head
+
+  /**
+   * Copies data from this deque into the given array.
+   *
+   * If either this deque, or the given array are empty, nothing is copied.
+   *
+   * If this deque's size is greater than the length of the given array, only
+   * those values that can fit into the given array will be copied.
+   *
+   * If the given array's size is greater than the size of this deque, at most
+   * [size] values will be copied into the given array.
+   *
+   * @param array Array into which values should be copied from this deque.
+   *
+   * @param offset Offset in the input array at which values should start to be
+   * copied.
+   */
+  fun copyInto(array: ByteArray, offset: Int = 0) {
+    // If the input array is empty, return because we can't put anything into
+    // an empty array.
+    //
+    // If this deque is empty, return because we have nothing to put into the
+    // given array.
+    //
+    // If the offset is greater than or equal to the given array size, then
+    // there is no room into which we can copy anything.
+    if (array.isEmpty() || this.isEmpty || offset >= array.size)
+      return
+
+    // How much room we actually have to work with in the input array.
+    val rem = array.size - offset
+
+    // Figure out the actual position of the last desired element.
+    //
+    // If the amount of room we have to fill in the given array is larger than
+    // the number of values we actually have, then the last value will be
+    // tail of this deque.
+    //
+    // If the amount of room we have to fill in the given array is smaller than
+    // the number of values we actually have, then the last value will be the
+    // value at position `rem - 1`.
+    val realTail = if (rem > size)
+      internalIndex(lastIndex)
+    else
+      internalIndex(rem - 1)
+
+    // If the desired data is in a straight line (unbroken)
+    if (realHead <= realTail) {
+      // then we can straight copy and be done
+      data.copyInto(array, offset, realHead, realTail + 1)
+      return
+    }
+
+    // Number of values we have starting from the head of the deque that are on
+    // the back end of the data array.
+    val leaders = data.size - realHead
+
+    // Number of values we have starting from the 'middle' of the deque that are
+    // on the front end of the data array.
+    val trailers = realTail + 1
+
+    // Copy the front of the deque from the back of our array to the front of
+    // theirs.
+    data.copyInto(array, offset, realHead, realHead + leaders)
+
+    // Copy at most [trailers] values into their array.  If their array is not
+    // long enough to hold [trailers] values, then [remainder] values will be
+    // copied in instead.
+    data.copyInto(array, offset + leaders, 0, trailers)
+  }
+
+  override fun slice(start: Int, end: Int) = ByteDeque(sliceToArray(start, end), 0)
+
+  override fun slice(range: IntRange) = ByteDeque(sliceToArray(range.first, range.last+1), 0)
+
+  override fun sliceToArray(start: Int, end: Int): ByteArray {
+    // If they gave us one or more invalid indices, throw an exception
+    if (start !in 0 until size || start > end || end > size)
+      throw IndexOutOfBoundsException()
+
+    val realSize  = end - start
+
+    // Shortcuts
+    when (realSize) {
+      0    -> return ByteArray(0)
+      1    -> return ByteArray(1) { data[internalIndex(start)] }
+      size -> return toArray()
+    }
+
+    val realStart = internalIndex(start)
+    val realEnd   = internalIndex(end)
+
+    val out = ByteArray(realSize)
+
+    // If the values are inline, we can just arraycopy out
+    if (realStart < realEnd) {
+      data.copyInto(out, 0, realStart, realEnd)
+    }
+
+    // The values are out of line, we have to do 2 copies
+    else {
+      data.copyInto(out, 0, realStart, data.size)
+      data.copyInto(out, data.size - realStart, 0, realEnd)
+    }
+
+    return out
+  }
+
+  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
+
+  override fun copy() = ByteDeque(data.copyOf(), realHead)
+
+  override fun toArray(): ByteArray {
+    val realTail = internalIndex(lastIndex)
+
+    // If the contents of the deque are in a straight line, we can just copy
+    // them out
+    if (realHead <= realTail) {
+      return data.copyOfRange(realHead, realTail + 1)
+    }
+
+    val out = ByteArray(size)
+
+    // Copy the front of the output array out of the back portion of our data
+    data.copyInto(out, 0, realHead, data.size)
+
+    // Copy the back of the output array out of the front portion of our data
+    data.copyInto(out, data.size - realHead, 0, realTail + 1)
+
+    return out
+  }
+
+  override fun toList() = toArray().asList()
+
+
+
+  /**
+   * Sets the value at the given index in this deque.
+   *
+   * @param index Index at which the value should be set/overwritten.
+   *
+   * @param value Value to set.
+   *
+   * @throws IndexOutOfBoundsException If the given index is less than zero or
+   * is greater than [lastIndex].
+   */
+  operator fun set(index: Int, value: Byte) = data.set(internalIndex(validExtInd(index)), value)
+
+  /**
+   * Gets the value at the given index from this deque.
+   *
+   * @param index Index of the value that should be retrieved.
+   *
+   * @throws IndexOutOfBoundsException If the given index is less than zero or
+   * is greater than [lastIndex].
+   */
+  operator fun get(index: Int) = data[internalIndex(validExtInd(index))]
+
+  /**
+   * Tests whether this deque contains the given value.
+   */
+  operator fun contains(value: Byte): Boolean {
+    for (v in data)
+      if (v == value)
+        return true
+
+    return false
+  }
+
+  /**
+   * Combines the content of this deque with the given other deque to create a
+   * new deque instance with the concatenated content of both original deques.
+   *
+   * Does not modify the state of either input deque.
+   *
+   * @param rhs Deque whose contents will be concatenated with the contents of
+   * this deque to create a new deque instance.
+   *
+   * @return A new deque instance containing the concatenated contents of this
+   * deque and the given input deque.
+   */
+  operator fun plus(rhs: ByteDeque): ByteDeque {
+    val buf = ByteArray(size + rhs.size)
+
+    copyInto(buf)
+    rhs.copyInto(buf, size)
+
+    return ByteDeque(buf, 0)
+  }
+
+
+
+  override fun clear() {
+    realHead = 0
+    size = 0
+  }
+
+  override fun ensureCapacity(minCapacity: Int) {
+    when {
+      // If they gave us an invalid capacity
+      minCapacity < 0          -> throw IllegalArgumentException()
+      // If we already have the desired capacity
+      minCapacity <= data.size -> {}
+      // If we previously had a capacity of 0
+      data.isEmpty()           -> data = ByteArray(minCapacity)
+      // If we need to resize
+      else                     -> copyElements(newCap(data.size, minCapacity))
+    }
+  }
+
+  override fun compact() = copyElements(cap)
+
+  override fun trimToSize() = copyElements(size)
+
+
+
+  override fun toString() = "ByteDeque($size:$cap)"
+
+  override fun equals(other: Any?) = if (other is ByteDeque) data.contentEquals(other.data) else false
+
+  override fun hashCode() = data.contentHashCode()
+
+
+
+  override fun iterator(): Iterator<Byte> {
+    return object : Iterator<Byte> {
+      var pos = 0
+
+      override fun hasNext(): Boolean {
+        return pos < lastIndex
+      }
+
+      override fun next(): Byte {
+        return get(pos++)
+      }
+    }
+  }
+
+
+  // ###########################################################################
+  // endregion Positionless
+
+  // region Head
+  // ###########################################################################
+
+  // region Access
 
   /**
    * The first element in this deque.
@@ -117,8 +369,7 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    */
   inline fun front() = head
 
-
-  // endregion Get Head
+  // endregion Access
 
   // region Pop
 
@@ -176,13 +427,15 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
 
   /**
    * Pops the first 2 bytes from this [ByteDeque] and translates them into a
-   * [Long] value.
+   * [Short] value.
    *
    * If this deque contains fewer than 2 bytes, this method throws a
    * [BufferUnderflowException].
    *
    * @param littleEndian Boolean flag indicating whether the bytes in the deque
    * should be translated to an int with a little endian byte order.
+   *
+   * @return The parsed `Short` value.
    *
    * Defaults to `false` (big endian).
    *
@@ -225,8 +478,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   }
 
   /**
-   * Pops the first 4 bytes from this [ByteDeque] and translates them into a
-   * [Long] value.
+   * Pops the first 4 bytes from this [ByteDeque] and translates them into an
+   * [Int] value.
    *
    * If this deque contains fewer than 4 bytes, this method throws a
    * [BufferUnderflowException].
@@ -235,6 +488,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    * should be translated to an int with a little endian byte order.
    *
    * Defaults to `false` (big endian).
+   *
+   * @return The parsed `Int` value.
    *
    * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
    * when this method is called.
@@ -293,6 +548,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    * should be translated to an int with a little endian byte order.
    *
    * Defaults to `false` (big endian).
+   *
+   * @return The parsed `Long` value.
    *
    * @throws BufferUnderflowException If this deque contains fewer than 8 bytes
    * when this method is called.
@@ -362,6 +619,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    *
    * If this deque is empty, this method throws a [BufferUnderflowException].
    *
+   * @return The parsed `UByte` value.
+   *
    * @throws BufferUnderflowException If this deque is empty when this method is
    * called.
    */
@@ -369,7 +628,7 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
 
   /**
    * Pops the first 2 bytes from this [ByteDeque] and translates them into a
-   * [Long] value.
+   * [UShort] value.
    *
    * If this deque contains fewer than 2 bytes, this method throws a
    * [BufferUnderflowException].
@@ -378,6 +637,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    * should be translated to an int with a little endian byte order.
    *
    * Defaults to `false` (big endian).
+   *
+   * @return The parsed `UShort` value.
    *
    * @throws BufferUnderflowException If this deque contains fewer than 2 bytes
    * when this method is called.
@@ -428,6 +689,8 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    * should be translated to an int with a little endian byte order.
    *
    * Defaults to `false` (big endian).
+   *
+   * @return The parsed `UInt` value.
    *
    * @throws BufferUnderflowException If this deque contains fewer than 4 bytes
    * when this method is called.
@@ -503,22 +766,22 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
       size -= 8
       return if (littleEndian)
         (data[head].toULong()  and 0xFFu)         or
-          ((data[head+1].toULong() and 0xFFu) shl 8)  or
-          ((data[head+2].toULong() and 0xFFu) shl 16) or
-          ((data[head+3].toULong() and 0xFFu) shl 24) or
-          ((data[head+4].toULong() and 0xFFu) shl 32) or
-          ((data[head+5].toULong() and 0xFFu) shl 40) or
-          ((data[head+6].toULong() and 0xFFu) shl 48) or
-          ((data[head+7].toULong() and 0xFFu) shl 56)
+        ((data[head+1].toULong() and 0xFFu) shl 8)  or
+        ((data[head+2].toULong() and 0xFFu) shl 16) or
+        ((data[head+3].toULong() and 0xFFu) shl 24) or
+        ((data[head+4].toULong() and 0xFFu) shl 32) or
+        ((data[head+5].toULong() and 0xFFu) shl 40) or
+        ((data[head+6].toULong() and 0xFFu) shl 48) or
+        ((data[head+7].toULong() and 0xFFu) shl 56)
       else
         ((data[head].toULong() and 0xFFu) shl 56) or
-          ((data[head+1].toULong() and 0xFFu) shl 48) or
-          ((data[head+2].toULong() and 0xFFu) shl 40) or
-          ((data[head+3].toULong() and 0xFFu) shl 32) or
-          ((data[head+4].toULong() and 0xFFu) shl 24) or
-          ((data[head+5].toULong() and 0xFFu) shl 16) or
-          ((data[head+6].toULong() and 0xFFu) shl 8)  or
-          (data[head+7].toULong()  and 0xFFu)
+        ((data[head+1].toULong() and 0xFFu) shl 48) or
+        ((data[head+2].toULong() and 0xFFu) shl 40) or
+        ((data[head+3].toULong() and 0xFFu) shl 32) or
+        ((data[head+4].toULong() and 0xFFu) shl 24) or
+        ((data[head+5].toULong() and 0xFFu) shl 16) or
+        ((data[head+6].toULong() and 0xFFu) shl 8)  or
+        (data[head+7].toULong()  and 0xFFu)
     }
 
     size -= 8
@@ -527,22 +790,22 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     // rather than doing a bunch of complex logic to make it happen.
     val out = if (littleEndian)
       (data[internalIndex(0)].toULong()  and 0xFFu)         or
-        ((data[internalIndex(1)].toULong() and 0xFFu) shl 8)  or
-        ((data[internalIndex(2)].toULong() and 0xFFu) shl 16) or
-        ((data[internalIndex(3)].toULong() and 0xFFu) shl 24) or
-        ((data[internalIndex(4)].toULong() and 0xFFu) shl 32) or
-        ((data[internalIndex(5)].toULong() and 0xFFu) shl 40) or
-        ((data[internalIndex(6)].toULong() and 0xFFu) shl 48) or
-        ((data[internalIndex(7)].toULong() and 0xFFu) shl 56)
+      ((data[internalIndex(1)].toULong() and 0xFFu) shl 8)  or
+      ((data[internalIndex(2)].toULong() and 0xFFu) shl 16) or
+      ((data[internalIndex(3)].toULong() and 0xFFu) shl 24) or
+      ((data[internalIndex(4)].toULong() and 0xFFu) shl 32) or
+      ((data[internalIndex(5)].toULong() and 0xFFu) shl 40) or
+      ((data[internalIndex(6)].toULong() and 0xFFu) shl 48) or
+      ((data[internalIndex(7)].toULong() and 0xFFu) shl 56)
     else
       ((data[internalIndex(0)].toULong() and 0xFFu) shl 56) or
-        ((data[internalIndex(1)].toULong() and 0xFFu) shl 48) or
-        ((data[internalIndex(2)].toULong() and 0xFFu) shl 40) or
-        ((data[internalIndex(3)].toULong() and 0xFFu) shl 32) or
-        ((data[internalIndex(4)].toULong() and 0xFFu) shl 24) or
-        ((data[internalIndex(5)].toULong() and 0xFFu) shl 16) or
-        ((data[internalIndex(6)].toULong() and 0xFFu) shl 8)  or
-        (data[internalIndex(7)].toULong()  and 0xFFu)
+      ((data[internalIndex(1)].toULong() and 0xFFu) shl 48) or
+      ((data[internalIndex(2)].toULong() and 0xFFu) shl 40) or
+      ((data[internalIndex(3)].toULong() and 0xFFu) shl 32) or
+      ((data[internalIndex(4)].toULong() and 0xFFu) shl 24) or
+      ((data[internalIndex(5)].toULong() and 0xFFu) shl 16) or
+      ((data[internalIndex(6)].toULong() and 0xFFu) shl 8)  or
+      (data[internalIndex(7)].toULong()  and 0xFFu)
 
     realHead = internalIndex(8)
 
@@ -670,17 +933,13 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
   //////////////////////////////////////////////////////////////////////////////
   // endregion Push
 
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Front
+  // ###########################################################################
+  // endregion Head
 
-  // region Back
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods specifically relating to or operating on the tail end of the
-  //  deque.
-  //
+  // region Tail
+  // ###########################################################################
 
-  // region Get Tail
+  // region Access
 
   /**
    * The last element in this deque.
@@ -734,7 +993,7 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    */
   inline fun back() = tail
 
-  // endregion Get Tail
+  // endregion Access
 
   // region Pop
 
@@ -791,21 +1050,9 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////////
   // endregion Remove
 
   // region Push
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque
-  //
-
-  // region Push Single Value
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque one element at
-  //  a time.
-  //
 
   /**
    * Pushes the given value onto the back of this deque.
@@ -860,14 +1107,6 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
    * @param value Value that will be pushed onto the back of this deque.
    */
   inline operator fun plusAssign(value: Byte) = pushTail(value)
-
-  // endregion Push Single Value
-
-  // region Push Multiple Values
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods for pushing elements onto the tail end of the deque en masse
-  //
 
   override fun pushTail(values: ByteArray) {
     // If the input array is empty, then we have nothing to do.
@@ -1075,294 +1314,21 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     return red + r2
   }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Push Multiple Values
-
-  //////////////////////////////////////////////////////////////////////////////
   // endregion Push
 
-  //////////////////////////////////////////////////////////////////////////////
-  // endregion Back
+  // ###########################################################################
+  // endregion Tail
 
-  // region Positionless
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Methods that are not particularly related to either end of the deque.
-  //
+  // ###################################################################################################################
+  // endregion Public API
 
-  /**
-   * Sets the value at the given index in this deque.
-   *
-   * @param index Index at which the value should be set/overwritten.
-   *
-   * @param value Value to set.
-   *
-   * @throws IndexOutOfBoundsException If the given index is less than zero or
-   * is greater than [lastIndex].
-   */
-  operator fun set(index: Int, value: Byte) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  private var data: ByteArray
 
   /**
-   * Gets the value at the given index from this deque.
-   *
-   * @param index Index of the value that should be retrieved.
-   *
-   * @throws IndexOutOfBoundsException If the given index is less than zero or
-   * is greater than [lastIndex].
+   * Indicates whether the data in this deque is currently inline
    */
-  operator fun get(index: Int) = data[internalIndex(validExtInd(index))]
-
-  /**
-   * Tests whether this deque contains the given value.
-   */
-  operator fun contains(value: Byte): Boolean {
-    for (v in data)
-      if (v == value)
-        return true
-
-    return false
-  }
-
-  /**
-   * Combines the content of this deque with the given other deque to create a
-   * new deque instance with the concatenated content of both original deques.
-   *
-   * Does not modify the state of either input deque.
-   *
-   * @param rhs Deque whose contents will be concatenated with the contents of
-   * this deque to create a new deque instance.
-   *
-   * @return A new deque instance containing the concatenated contents of this
-   * deque and the given input deque.
-   */
-  operator fun plus(rhs: ByteDeque): ByteDeque {
-    val buf = ByteArray(size + rhs.size)
-
-    copyInto(buf)
-    rhs.copyInto(buf, size)
-
-    return ByteDeque(buf)
-  }
-
-  override fun clear() {
-    realHead = 0
-    size = 0
-  }
-
-  override fun copy(): ByteDeque {
-    val nb = ByteDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
-
-  override fun ensureCapacity(minCapacity: Int) {
-    when {
-      // If they gave us an invalid capacity
-      minCapacity < 0          -> throw IllegalArgumentException()
-      // If we already have the desired capacity
-      minCapacity <= data.size -> {}
-      // If we previously had a capacity of 0
-      data.isEmpty()           -> data = ByteArray(minCapacity)
-      // If we need to resize
-      else                     -> copyElements(newCap(data.size, minCapacity))
-    }
-  }
-
-  override fun iterator(): Iterator<Byte> {
-    return object : Iterator<Byte> {
-      var pos = 0
-
-      override fun hasNext(): Boolean {
-        return pos < lastIndex
-      }
-
-      override fun next(): Byte {
-        return get(pos++)
-      }
-    }
-  }
-
-  override fun toArray(): ByteArray {
-    val realTail = internalIndex(lastIndex)
-
-    // If the contents of the deque are in a straight line, we can just copy
-    // them out
-    if (realHead <= realTail) {
-      return data.copyOfRange(realHead, realTail + 1)
-    }
-
-    val out = ByteArray(size)
-
-    // Copy the front of the output array out of the back portion of our data
-    data.copyInto(out, 0, realHead, data.size)
-
-    // Copy the back of the output array out of the front portion of our data
-    data.copyInto(out, data.size - realHead, 0, realTail + 1)
-
-    return out
-  }
-
-  override fun toList(): List<Byte> {
-    return toArray().asList()
-  }
-
-  /**
-   * Copies data from this deque into the given array.
-   *
-   * If either this deque, or the given array are empty, nothing is copied.
-   *
-   * If this deque's size is greater than the length of the given array, only
-   * those values that can fit into the given array will be copied.
-   *
-   * If the given array's size is greater than the size of this deque, at most
-   * [size] values will be copied into the given array.
-   *
-   * @param array Array into which values should be copied from this deque.
-   *
-   * @param offset Offset in the input array at which values should start to be
-   * copied.
-   */
-  fun copyInto(array: ByteArray, offset: Int = 0) {
-    // If the input array is empty, return because we can't put anything into
-    // an empty array.
-    //
-    // If this deque is empty, return because we have nothing to put into the
-    // given array.
-    //
-    // If the offset is greater than or equal to the given array size, then
-    // there is no room into which we can copy anything.
-    if (array.isEmpty() || this.isEmpty || offset >= array.size)
-      return
-
-    // How much room we actually have to work with in the input array.
-    val rem = array.size - offset
-
-    // Figure out the actual position of the last desired element.
-    //
-    // If the amount of room we have to fill in the given array is larger than
-    // the number of values we actually have, then the last value will be
-    // tail of this deque.
-    //
-    // If the amount of room we have to fill in the given array is smaller than
-    // the number of values we actually have, then the last value will be the
-    // value at position `rem - 1`.
-    val realTail = if (rem > size)
-      internalIndex(lastIndex)
-    else
-      internalIndex(rem - 1)
-
-    // If the desired data is in a straight line (unbroken)
-    if (realHead <= realTail) {
-      // then we can straight copy and be done
-      data.copyInto(array, offset, realHead, realTail + 1)
-      return
-    }
-
-    // Number of values we have starting from the head of the deque that are on
-    // the back end of the data array.
-    val leaders = data.size - realHead
-
-    // Number of values we have starting from the 'middle' of the deque that are
-    // on the front end of the data array.
-    val trailers = realTail + 1
-
-    // Copy the front of the deque from the back of our array to the front of
-    // theirs.
-    data.copyInto(array, offset, realHead, realHead + leaders)
-
-    // Copy at most [trailers] values into their array.  If their array is not
-    // long enough to hold [trailers] values, then [remainder] values will be
-    // copied in instead.
-    data.copyInto(array, offset + leaders, 0, trailers)
-  }
-
-  override fun slice(start: Int, end: Int): ByteDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
-
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return ByteDeque()
-      1    -> {
-        val out = ByteDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = ByteDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
-
-  override fun sliceToArray(start: Int, end: Int): ByteArray {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
-
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return ByteArray(0)
-      1    -> return ByteArray(1) { data[internalIndex(start)] }
-      size -> return toArray()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = ByteArray(realSize)
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out, 0, realStart, data.size)
-      data.copyInto(out, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last+1)
-
-  override fun compact() = copyElements(cap)
-
-  override fun trimToSize() = copyElements(size)
-
-  override fun toString() = "ByteDeque($size:$cap)"
-
-  override fun equals(other: Any?) = if (other is ByteDeque) data.contentEquals(other.data) else false
-
-  override fun hashCode() = data.contentHashCode()
+  private inline val isInline: Boolean
+    get() = realHead + size <= data.size
 
   // endregion Positionless
 
@@ -1391,18 +1357,5 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     data.copyInto(new, data.size - realHead, 0, realHead)
     realHead = 0
     data = new
-  }
-
-  companion object {
-
-    /**
-     * Creates a new [ByteDeque] instance wrapping the given values.
-     *
-     * @param values Values to wrap.
-     *
-     * @return A new deque wrapping the given values.
-     */
-    @JvmStatic
-    fun of(vararg values: Byte) = ByteDeque(values)
   }
 }

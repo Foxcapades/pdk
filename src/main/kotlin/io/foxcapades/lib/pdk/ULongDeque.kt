@@ -51,6 +51,19 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [ULongDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: ULongArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
+
   // endregion Constructors
 
   // region Front
@@ -623,9 +636,7 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: ULong) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: ULong) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -666,7 +677,7 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     copyInto(buf)
     rhs.copyInto(buf, size)
 
-    return ULongDeque(buf)
+    return ULongDeque(buf, 0)
   }
 
   override fun clear() {
@@ -674,11 +685,7 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     size = 0
   }
 
-  override fun copy(): ULongDeque {
-    val nb = ULongDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = ULongDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -727,9 +734,7 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     return out
   }
 
-  override fun toList(): List<ULong> {
-    return toArray().asList()
-  }
+  override fun toList() = toArray().asList()
 
   /**
    * Copies data from this deque into the given array.
@@ -801,46 +806,9 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): ULongDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
+  override fun slice(start: Int, end: Int) = ULongDeque(sliceToArray(start, end), 0)
 
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return ULongDeque()
-      1    -> {
-        val out = ULongDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = ULongDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = ULongDeque(sliceToArray(range.first, range.last+1), 0)
 
   override fun sliceToArray(start: Int, end: Int): ULongArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -926,6 +894,6 @@ class ULongDeque : PrimitiveDeque<ULong, ULongArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: ULong) = ULongDeque(values)
+    fun of(vararg values: ULong) = ULongDeque(values, 0)
   }
 }

@@ -50,6 +50,19 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [LongDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: LongArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
+
   // endregion Constructors
 
   // region Front
@@ -622,9 +635,7 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: Long) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: Long) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -665,7 +676,7 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
     copyInto(buf)
     rhs.copyInto(buf, size)
 
-    return LongDeque(buf)
+    return LongDeque(buf, 0)
   }
 
   override fun clear() {
@@ -673,11 +684,7 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
     size = 0
   }
 
-  override fun copy(): LongDeque {
-    val nb = LongDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = LongDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -726,9 +733,7 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
     return out
   }
 
-  override fun toList(): List<Long> {
-    return toArray().asList()
-  }
+  override fun toList() = toArray().asList()
 
   /**
    * Copies data from this deque into the given array.
@@ -800,46 +805,9 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): LongDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
+  override fun slice(start: Int, end: Int) = LongDeque(sliceToArray(start, end), 0)
 
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return LongDeque()
-      1    -> {
-        val out = LongDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = LongDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = LongDeque(sliceToArray(range.first, range.last+1), 0)
 
   override fun sliceToArray(start: Int, end: Int): LongArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -925,6 +893,6 @@ class LongDeque : PrimitiveDeque<Long, LongArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: Long) = LongDeque(values)
+    fun of(vararg values: Long) = LongDeque(values, 0)
   }
 }

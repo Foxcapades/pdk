@@ -50,6 +50,19 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [DoubleDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: DoubleArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
+
   // endregion Constructors
 
   // region Front
@@ -622,9 +635,7 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: Double) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: Double) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -665,7 +676,7 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     copyInto(buf)
     rhs.copyInto(buf, size)
 
-    return DoubleDeque(buf)
+    return DoubleDeque(buf, 0)
   }
 
   override fun clear() {
@@ -673,11 +684,7 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     size = 0
   }
 
-  override fun copy(): DoubleDeque {
-    val nb = DoubleDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = DoubleDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -726,9 +733,7 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     return out
   }
 
-  override fun toList(): List<Double> {
-    return toArray().asList()
-  }
+  override fun toList() = toArray().asList()
 
   /**
    * Copies data from this deque into the given array.
@@ -800,46 +805,9 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): DoubleDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
+  override fun slice(start: Int, end: Int) = DoubleDeque(sliceToArray(start, end), 0)
 
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return DoubleDeque()
-      1    -> {
-        val out = DoubleDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = DoubleDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = DoubleDeque(sliceToArray(range.first, range.last+1), 0)
 
   override fun sliceToArray(start: Int, end: Int): DoubleArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -925,6 +893,6 @@ class DoubleDeque : PrimitiveDeque<Double, DoubleArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: Double) = DoubleDeque(values)
+    fun of(vararg values: Double) = DoubleDeque(values, 0)
   }
 }

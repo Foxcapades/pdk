@@ -57,6 +57,19 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [UShortDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: UShortArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
+
   // endregion Constructors
 
 
@@ -645,9 +658,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: UShort) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: UShort) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -688,7 +699,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     copyInto(buf)
     rhs.copyInto(buf, size)
 
-    return UShortDeque(buf)
+    return UShortDeque(buf, 0)
   }
 
   override fun clear() {
@@ -696,11 +707,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     size = 0
   }
 
-  override fun copy(): UShortDeque {
-    val nb = UShortDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = UShortDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -749,9 +756,7 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     return out
   }
 
-  override fun toList(): List<UShort> {
-    return toArray().asList()
-  }
+  override fun toList() = toArray().asList()
 
   /**
    * Copies data from this deque into the given array.
@@ -823,46 +828,9 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): UShortDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
+  override fun slice(start: Int, end: Int) = UShortDeque(sliceToArray(start, end), 0)
 
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return UShortDeque()
-      1    -> {
-        val out = UShortDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = UShortDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = UShortDeque(sliceToArray(range.first, range.last+1), 0)
 
   override fun sliceToArray(start: Int, end: Int): UShortArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -948,6 +916,6 @@ class UShortDeque : PrimitiveDeque<UShort, UShortArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: UShort) = UShortDeque(values)
+    fun of(vararg values: UShort) = UShortDeque(values, 0)
   }
 }

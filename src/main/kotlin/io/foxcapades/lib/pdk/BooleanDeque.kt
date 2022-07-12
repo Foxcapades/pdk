@@ -52,6 +52,18 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [BooleanDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: BooleanArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
 
 
   // endregion Constructors
@@ -664,9 +676,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: Boolean) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: Boolean) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -701,25 +711,19 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @return A new deque instance containing the concatenated contents of this
    * deque and the given input deque.
    */
-  operator fun plus(rhs: BooleanDeque): BooleanDeque {
-    val buf = BooleanArray(size + rhs.size)
-
-    copyInto(buf)
-    rhs.copyInto(buf, size)
-
-    return BooleanDeque(buf)
-  }
+  operator fun plus(rhs: BooleanDeque) =
+    BooleanArray(size + rhs.size).let {
+      copyInto(it)
+      rhs.copyInto(it, size)
+      BooleanDeque(it, 0)
+    }
 
   override fun clear() {
     realHead = 0
     size = 0
   }
 
-  override fun copy(): BooleanDeque {
-    val nb = BooleanDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = BooleanDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -748,6 +752,8 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     }
   }
 
+
+
   override fun toArray(): BooleanArray {
     val realTail = internalIndex(lastIndex)
 
@@ -768,9 +774,9 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     return out
   }
 
-  override fun toList(): List<Boolean> {
-    return toArray().asList()
-  }
+  override fun toList() = toArray().asList()
+
+
 
   /**
    * Copies data from this deque into the given array.
@@ -842,46 +848,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): BooleanDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
 
-    val realSize = end - start
 
-    // Shortcuts
-    when (realSize) {
-      0    -> return BooleanDeque()
-      1    -> {
-        val out = BooleanDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
+  override fun slice(start: Int, end: Int) = BooleanDeque(sliceToArray(start, end), 0)
 
-    val realStart = internalIndex(start)
-    val realEnd = internalIndex(end)
+  override fun slice(range: IntRange) = BooleanDeque(sliceToArray(range.first, range.last + 1), 0)
 
-    val out = BooleanDeque(realSize)
-    out.size = realSize
 
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last + 1)
 
   override fun sliceToArray(start: Int, end: Int): BooleanArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -918,9 +891,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   override fun sliceToArray(range: IntRange) = sliceToArray(range.first, range.last + 1)
 
+
+
   override fun compact() = copyElements(cap)
 
   override fun trimToSize() = copyElements(size)
+
+
 
   override fun toString() = "BooleanDeque($size:$cap)"
 
@@ -969,6 +946,6 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: Boolean) = BooleanDeque(values)
+    fun of(vararg values: Boolean) = BooleanDeque(values, 0)
   }
 }

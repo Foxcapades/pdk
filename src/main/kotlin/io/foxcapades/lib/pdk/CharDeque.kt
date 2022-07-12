@@ -50,6 +50,19 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     this.size = data.size
   }
 
+  /**
+   * Constructs a new [CharDeque] instance wrapping the given values.
+   *
+   * @param data Raw array that will back the new instance.
+   *
+   * @param head Internal head position for the new instance.
+   */
+  private constructor(data: CharArray, head: Int) {
+    this.data     = data
+    this.size     = data.size
+    this.realHead = head
+  }
+
   // endregion Constructors
 
   // region Front
@@ -752,9 +765,7 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: Char) {
-    data[internalIndex(validExtInd(index))] = value
-  }
+  operator fun set(index: Int, value: Char) = data.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -795,7 +806,7 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     copyInto(buf)
     rhs.copyInto(buf, size)
 
-    return CharDeque(buf)
+    return CharDeque(buf, 0)
   }
 
   override fun clear() {
@@ -803,11 +814,7 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     size = 0
   }
 
-  override fun copy(): CharDeque {
-    val nb = CharDeque(data)
-    nb.realHead = realHead
-    return nb
-  }
+  override fun copy() = CharDeque(data.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
@@ -928,46 +935,9 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
     data.copyInto(array, offset + leaders, 0, trailers)
   }
 
-  override fun slice(start: Int, end: Int): CharDeque {
-    // If they gave us one or more invalid indices, throw an exception
-    if (start !in 0 until size || start > end || end > size)
-      throw IndexOutOfBoundsException()
+  override fun slice(start: Int, end: Int) = CharDeque(sliceToArray(start, end), 0)
 
-    val realSize  = end - start
-
-    // Shortcuts
-    when (realSize) {
-      0    -> return CharDeque()
-      1    -> {
-        val out = CharDeque(1)
-        out.data[0] = data[internalIndex(start)]
-        out.size = 1
-        return out
-      }
-      size -> return copy()
-    }
-
-    val realStart = internalIndex(start)
-    val realEnd   = internalIndex(end)
-
-    val out = CharDeque(realSize)
-    out.size = realSize
-
-    // If the values are inline, we can just arraycopy out
-    if (realStart < realEnd) {
-      data.copyInto(out.data, 0, realStart, realEnd)
-    }
-
-    // The values are out of line, we have to do 2 copies
-    else {
-      data.copyInto(out.data, 0, realStart, data.size)
-      data.copyInto(out.data, data.size - realStart, 0, realEnd)
-    }
-
-    return out
-  }
-
-  override fun slice(range: IntRange) = slice(range.first, range.last+1)
+  override fun slice(range: IntRange) = CharDeque(sliceToArray(range.first, range.last+1), 0)
 
   override fun sliceToArray(start: Int, end: Int): CharArray {
     // If they gave us one or more invalid indices, throw an exception
@@ -1060,6 +1030,6 @@ class CharDeque : PrimitiveDeque<Char, CharArray> {
      * @return A new deque wrapping the given values.
      */
     @JvmStatic
-    fun of(vararg values: Char) = CharDeque(values)
+    fun of(vararg values: Char) = CharDeque(values, 0)
   }
 }
