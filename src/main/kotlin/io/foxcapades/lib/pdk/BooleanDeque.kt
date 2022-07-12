@@ -11,22 +11,22 @@ package io.foxcapades.lib.pdk
 @Suppress("NOTHING_TO_INLINE")
 class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
-  private var data: BooleanArray
+  private var container: BooleanArray
 
   override var size = 0
     private set
 
   override val cap
-    get() = data.size
+    get() = container.size
 
   override val space: Int
-    get() = data.size - size
+    get() = container.size - size
 
   /**
    * Indicates whether the data in this deque is currently inline
    */
   private inline val isInline: Boolean
-    get() = realHead + size <= data.size
+    get() = realHead + size <= container.size
 
 
   // region Constructors
@@ -39,7 +39,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @param capacity Initial capacity to create this deque with.
    */
   constructor(capacity: Int = 0) {
-    this.data = BooleanArray(capacity)
+    this.container = BooleanArray(capacity)
   }
 
   /**
@@ -48,7 +48,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @param data Array of values to copy into the new deque.
    */
   constructor(data: BooleanArray) {
-    this.data = data.copyOf()
+    this.container = data.copyOf()
     this.size = data.size
   }
 
@@ -60,7 +60,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @param head Internal head position for the new instance.
    */
   private constructor(data: BooleanArray, head: Int) {
-    this.data     = data
+    this.container     = data
     this.size     = data.size
     this.realHead = head
   }
@@ -85,7 +85,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    *
    * @throws NoSuchElementException If this deque is empty.
    */
-  val head get() = if (isEmpty) throw NoSuchElementException() else data[realHead]
+  val head get() = if (isEmpty) throw NoSuchElementException() else container[realHead]
 
   /**
    * The first element in this deque.
@@ -171,7 +171,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     if (isEmpty)
       throw NoSuchElementException()
 
-    val c = data[realHead]
+    val c = container[realHead]
 
     realHead = incremented(realHead)
     size--
@@ -253,7 +253,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
   fun push(value: Boolean) {
     ensureCapacity(size + 1)
     realHead = decremented(realHead)
-    data[realHead] = value
+    container[realHead] = value
     size++
   }
 
@@ -317,7 +317,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    *
    * @throws NoSuchElementException if this deque is empty.
    */
-  val tail get() = if (isEmpty) throw NoSuchElementException() else data[internalIndex(lastIndex)]
+  val tail get() = if (isEmpty) throw NoSuchElementException() else container[internalIndex(lastIndex)]
 
   /**
    * The last element in this deque.
@@ -383,7 +383,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     if (isEmpty)
       throw NoSuchElementException()
 
-    val c = data[internalIndex(lastIndex)]
+    val c = container[internalIndex(lastIndex)]
     size--
     return c
   }
@@ -451,7 +451,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   fun pushTail(value: Boolean) {
     ensureCapacity(size + 1)
-    data[internalIndex(size)] = value
+    container[internalIndex(size)] = value
     size++
   }
 
@@ -509,8 +509,8 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
     // If this deque is empty, we can just copy the input array as our new
     // backing buffer.
-    if (data.isEmpty()) {
-      data = values.copyOf()
+    if (container.isEmpty()) {
+      container = values.copyOf()
       size = values.size
       return
     }
@@ -526,7 +526,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     // If the new tail is still after the old tail, then we can copy the data in
     // a single array copy
     if (oldTail <= newTail) {
-      values.copyInto(data, oldTail)
+      values.copyInto(container, oldTail)
     } else {
 
       // So the new tail is before the old tail in the buffer array, we need to do
@@ -535,9 +535,9 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
       // position
 
       // Copy from the old tail until the end of the data buffer
-      values.copyInto(data, oldTail, 0, data.size - oldTail)
+      values.copyInto(container, oldTail, 0, container.size - oldTail)
       // Copy from the start of the data buffer
-      values.copyInto(data, 0, data.size - oldTail)
+      values.copyInto(container, 0, container.size - oldTail)
     }
 
     size += values.size
@@ -564,8 +564,8 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
       return
 
     // If our backing buffer is empty, then we can just clone the given deque
-    if (data.isEmpty()) {
-      data = values.data.copyOf()
+    if (container.isEmpty()) {
+      container = values.container.copyOf()
       size = values.size
       realHead = values.realHead
       return
@@ -590,16 +590,16 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
       // If we are currently inline, then we can just do a single array copy.
       if (oldTail <= newTail) {
-        values.data.copyInto(data, oldTail, values.realHead, values.realHead + values.size)
+        values.container.copyInto(container, oldTail, values.realHead, values.realHead + values.size)
       }
 
       // If we aren't currently inline, then we have to do 2 array copies, one
       // to the 'front' segment at the back of our data array, and one to the
       // 'back' segment at the front of our data array.
       else {
-        val chunk1Size = data.size - oldTail
-        values.data.copyInto(data, oldTail, 0, chunk1Size)
-        values.data.copyInto(data, 0, values.size - chunk1Size, values.size)
+        val chunk1Size = container.size - oldTail
+        values.container.copyInto(container, oldTail, 0, chunk1Size)
+        values.container.copyInto(container, 0, values.size - chunk1Size, values.size)
       }
 
       size += values.size
@@ -676,7 +676,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun set(index: Int, value: Boolean) = data.set(internalIndex(validExtInd(index)), value)
+  operator fun set(index: Int, value: Boolean) = container.set(internalIndex(validExtInd(index)), value)
 
   /**
    * Gets the value at the given index from this deque.
@@ -686,13 +686,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    * @throws IndexOutOfBoundsException If the given index is less than zero or
    * is greater than [lastIndex].
    */
-  operator fun get(index: Int) = data[internalIndex(validExtInd(index))]
+  operator fun get(index: Int) = container[internalIndex(validExtInd(index))]
 
   /**
    * Tests whether this deque contains the given value.
    */
   operator fun contains(value: Boolean): Boolean {
-    for (v in data)
+    for (v in container)
       if (v == value)
         return true
 
@@ -723,18 +723,18 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     size = 0
   }
 
-  override fun copy() = BooleanDeque(data.copyOf(), realHead)
+  override fun copy() = BooleanDeque(container.copyOf(), realHead)
 
   override fun ensureCapacity(minCapacity: Int) {
     when {
       // If they gave us an invalid capacity
       minCapacity < 0          -> throw IllegalArgumentException()
       // If we already have the desired capacity
-      minCapacity <= data.size -> {}
+      minCapacity <= container.size -> {}
       // If we previously had a capacity of 0
-      data.isEmpty()           -> data = BooleanArray(minCapacity)
+      container.isEmpty()           -> container = BooleanArray(minCapacity)
       // If we need to resize
-      else                     -> copyElements(newCap(data.size, minCapacity))
+      else                          -> copyElements(newCap(container.size, minCapacity))
     }
   }
 
@@ -760,16 +760,16 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     // If the contents of the deque are in a straight line, we can just copy
     // them out
     if (realHead <= realTail) {
-      return data.copyOfRange(realHead, realTail + 1)
+      return container.copyOfRange(realHead, realTail + 1)
     }
 
     val out = BooleanArray(size)
 
     // Copy the front of the output array out of the back portion of our data
-    data.copyInto(out, 0, realHead, data.size)
+    container.copyInto(out, 0, realHead, container.size)
 
     // Copy the back of the output array out of the front portion of our data
-    data.copyInto(out, data.size - realHead, 0, realTail + 1)
+    container.copyInto(out, container.size - realHead, 0, realTail + 1)
 
     return out
   }
@@ -826,13 +826,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     // If the desired data is in a straight line (unbroken)
     if (realHead <= realTail) {
       // then we can straight copy and be done
-      data.copyInto(array, offset, realHead, realTail + 1)
+      container.copyInto(array, offset, realHead, realTail + 1)
       return
     }
 
     // Number of values we have starting from the head of the deque that are on
     // the back end of the data array.
-    val leaders = data.size - realHead
+    val leaders = container.size - realHead
 
     // Number of values we have starting from the 'middle' of the deque that are
     // on the front end of the data array.
@@ -840,12 +840,12 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
     // Copy the front of the deque from the back of our array to the front of
     // theirs.
-    data.copyInto(array, offset, realHead, realHead + leaders)
+    container.copyInto(array, offset, realHead, realHead + leaders)
 
     // Copy at most [trailers] values into their array.  If their array is not
     // long enough to hold [trailers] values, then [remainder] values will be
     // copied in instead.
-    data.copyInto(array, offset + leaders, 0, trailers)
+    container.copyInto(array, offset + leaders, 0, trailers)
   }
 
 
@@ -866,7 +866,7 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
     // Shortcuts
     when (realSize) {
       0    -> return BooleanArray(0)
-      1    -> return BooleanArray(1) { data[internalIndex(start)] }
+      1    -> return BooleanArray(1) { container[internalIndex(start)] }
       size -> return toArray()
     }
 
@@ -877,13 +877,13 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
     // If the values are inline, we can just arraycopy out
     if (realStart < realEnd) {
-      data.copyInto(out, 0, realStart, realEnd)
+      container.copyInto(out, 0, realStart, realEnd)
     }
 
     // The values are out of line, we have to do 2 copies
     else {
-      data.copyInto(out, 0, realStart, data.size)
-      data.copyInto(out, data.size - realStart, 0, realEnd)
+      container.copyInto(out, 0, realStart, container.size)
+      container.copyInto(out, container.size - realStart, 0, realEnd)
     }
 
     return out
@@ -901,9 +901,9 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
 
   override fun toString() = "BooleanDeque($size:$cap)"
 
-  override fun equals(other: Any?) = if (other is BooleanDeque) data.contentEquals(other.data) else false
+  override fun equals(other: Any?) = if (other is BooleanDeque) container.contentEquals(other.container) else false
 
-  override fun hashCode() = data.contentHashCode()
+  override fun hashCode() = container.contentHashCode()
 
 
 
@@ -930,10 +930,10 @@ class BooleanDeque : PrimitiveDeque<Boolean, BooleanArray> {
    */
   private fun copyElements(newCap: Int) {
     val new = BooleanArray(newCap)
-    data.copyInto(new, 0, realHead, data.size)
-    data.copyInto(new, data.size - realHead, 0, realHead)
+    container.copyInto(new, 0, realHead, container.size)
+    container.copyInto(new, container.size - realHead, 0, realHead)
     realHead = 0
-    data = new
+    container = new
   }
 
   companion object {
