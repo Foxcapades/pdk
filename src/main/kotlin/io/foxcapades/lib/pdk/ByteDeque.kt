@@ -1288,30 +1288,102 @@ class ByteDeque : PrimitiveDeque<Byte, ByteArray> {
     if (space == 0)
       return 0
 
-    val oldTail = internalIndex(size)
-    val newTail = internalIndex(lastIndex)
+    // If we only have room for one more byte
+    if (space == 1) {
+      // Read one byte from the stream
+      val red = stream.read()
 
-    val red = stream.read(container, oldTail, container.size - oldTail)
+      // If the end of the stream was reached
+      if (red == -1)
+      // Indicate as such without appending anything to the deque.
+        return -1
 
-    if (red == -1)
-      return -1
+      // Add the byte to the deque
+      this.pushTail(red.toByte())
 
-    size += red
+      // Indicate that we read 1 byte.
+      return 1
+    }
 
-    // If we are going to stay inline
-    if (oldTail < newTail) {
+    // Figure out the actual position of the last value in the backing array.
+    val curOffset = internalIndex(size)
+
+    // If the current last index is before the head of the deque, then we are
+    // wonky like: [3, 4, _, _, 1, 2].  We can fill the middle until the head
+    // and bail.
+    if (curOffset < realHead) {
+      // Read the bytes
+      val red = stream.read(container, curOffset, realHead - curOffset)
+
+      // If we hit the end of the stream already
+      if (red == -1)
+      // Indicate as such and do nothing else
+        return -1
+
+      // add the number of bytes we read to the size of the deque
+      size += red
+
+      // Return the number of bytes we read.
       return red
     }
 
-    // We are going out of line... they should've compacted :(
-    val r2 = stream.read(container, 0, realHead)
+    // So the current first open slot is after the head of the deque, this could
+    // go one of 2 ways:
+    //
+    // 1. The head is actually 0, and we can just fill the back of the array
+    // 2. the head is not 0, we need to fill at least 1 byte at the back end of
+    //    the array, and then we can fill the front end of the array.
 
-    if (r2 == -1)
+    // If the head of the deque is in the 0 position, we can just fill the back
+    // half of the array and be done.
+    if (realHead == 0) {
+      // Read them dang bytes
+      val red = stream.read(container, curOffset, container.size - curOffset)
+
+      // If the stream was over already
+      if (red == -1)
+      // Indicate it and do nothing more
+        return -1
+
+      // Add the number of bytes we read to the size of the deque
+      size += red
+
+      // Return the number of bytes we red
       return red
+    }
 
-    size += r2
+    // Dang, we gotta do 2 reads.  One to fill out 1 or more bytes at the end of
+    // the backing array, another to read 1 or more bytes at the beginning of
+    // the backing array.
 
-    return red + r2
+    // Fill the back end of the backing array.
+    val red1 = stream.read(container, curOffset, container.size - curOffset)
+
+    // If the stream was doa
+    if (red1 == -1)
+    // Indicate it and end here
+      return -1
+
+    // So, we read some bytes
+
+    // Add the number of bytes we read to the size of the deque
+    size += red1
+
+    // Fill the front end of the backing array
+    val red2 = stream.read(container, 0, realHead)
+
+    // If the stream was done
+    if (red2 == -1)
+    // return the number of bytes we read the first time
+      return red1
+
+    // So the stream had more bytes in it
+
+    // Add the number of bytes we read to the deque's size
+    size += red2
+
+    // Return the total number of bytes we read.
+    return red1 + red2
   }
 
   // endregion Push
