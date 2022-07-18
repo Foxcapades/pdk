@@ -15,6 +15,11 @@ image:https://img.shields.io/badge/jdk-1.8-blue[]
 image:https://img.shields.io/badge/docs-dokka-darkgreen[link="https://foxcapades.github.io/pdk/"]
 image:https://img.shields.io/maven-central/v/io.foxcapades.lib/pdk[Maven Central, link="https://search.maven.org/search?q=g:io.foxcapades.lib%20AND%20a:pdk"]
 
+
+WARNING: This library has been deprecated in favor of
+link:https://github.com/Foxcapades/kps/tree/main/kpd[KPD]
+
+
 Simple library that provides Deque implementations for all Kotlin's primitive
 types that deal in unboxed values.
 
